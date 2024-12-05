@@ -163,6 +163,8 @@
 <li>建議使用 <a href="http://code.visualstudio.com"><strong>VSCode</strong>(Visual Studio Code)</a> 安裝官方 <a href="http://github.com/PowerShell/vscode-powershell">PowerShell Extension</a> + C# 相關開發擴充套件 作為 PowerShell 開發環境:
 <ul>
 <li>官方安裝設定教學：<a href="https://code.visualstudio.com/docs/languages/powershell" class="uri">https://code.visualstudio.com/docs/languages/powershell</a></li>
+<li>提供 PowerShell 的 Syntax Highlighting、Outline View、Go to Definition、IntelliSense、Code Lens、Run &amp; Debug Pester test code 等功能。</li>
+<li>可 debug PowerShell + C# binary cmdlet 的混合專案。</li>
 </ul></li>
 <li>為了有一個乾淨＆快速的TDD開發環境，建議使用<a href="http://code.visualstudio.com/docs/editor/portable">Portable 版本的 VSCode</a>，以免同時安裝太多擴充套件消耗資源。</li>
 </ul>
@@ -177,6 +179,18 @@
 <li><a href="">[TBD]Linux (x64)</a></li>
 </ul>
 </section>
+<section id="example-vscode-environment---windows-10-11-x64" class="slide level2">
+<h2>Example VSCode Environment - Windows 10 &amp; 11 (x64)</h2>
+<p>除了要手動開啟Windows『開發者模式』設定以及將同捆的 .NET SDK 的執行檔路徑到環境變數之外，其他的都是使用 Portable 版本的開發環境：</p>
+<ul>
+<li>Windows 環境的 relative symbolic link 需要啟用開發者模式才能讓 PowerShell 以不需管理員權限的方式設定。 <img data-src="./pics/win10_developer_mode.png"></li>
+</ul>
+</section>
+<section id="example-vscode-environment---windows-10-11-x64-1" class="slide level2">
+<h2>Example VSCode Environment - Windows 10 &amp; 11 (x64)</h2>
+<p>.NET SDK 的執行路徑建議以 <strong>DOTNET_ROOT</strong> 環境變數設定，以便於切換不同版本的 dotnet 指令（使用系統安裝的 .NET SDK 8.0 也👌🆗）。</p>
+
+<img data-src="./pics/.png" class="r-stretch"></section>
 <section id="pester---powershell-test-framework" class="slide level2">
 <h2>Pester - PowerShell Test Framework</h2>
 
