@@ -1,7 +1,0 @@
-project:
-  title: "PowerShell TDD 起步走"
-  render: 
-    - slides/index.qmd
-
-
-
