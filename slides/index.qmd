@@ -1,0 +1,51 @@
+---
+title: PowerShell TDD 起步走
+
+author: 老鮑伯
+format:
+    revealjs:
+        width: 1200
+        height: 900
+        slide-tone: false
+        theme: simple
+        menu:
+            side: right
+        include-in-header: 
+            text: |
+                <style>
+                .center-xy {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translateY(-50%), translateX(-50%);
+                transform: translateY(-50%), translateX(-50%);
+                }
+                </style>
+from: markdown+emoji
+---
+
+# Agenda
+
+* 如何用 Visual Studio Code 建置 PowerShell TDD開發環境
+* PowerShell 測試工具框架 Pester介紹、為既有 PowerShell script加上可執行的測試案例
+* PowerShell + C# binary cmdlet~~、ASP.NET Core 整合 PowerShell Hosting Script 的 TDD~~範例
+
+## VSCode as PowerShell TDD IDE
+
+* 建議使用 [**VSCode**(Visual Studio Code)](http://code.visualstudio.com) 安裝官方 [PowerShell Extension](http://github.com/PowerShell/vscode-powershell) + C# 相關開發擴充套件 作為 PowerShell 開發環境:
+  * 官方安裝設定教學：<https://code.visualstudio.com/docs/languages/powershell>
+
+* 為了有一個乾淨＆快速的TDD開發環境，建議使用[ Portable 版本的 VSCode](http://code.visualstudio.com/docs/editor/portable)，以免同時安裝太多擴充套件消耗資源。
+
+## Example VSCode Environment
+
+由於 .NET SDK 會根據作業系統＆CPU架構不同而有不同的安裝方式，提供以下版本的 Portable VSCode + PowerShell Extension + C# 相關開發擴充套件 的範例開發環境：
+
+* [Windows 10 & 11 (x64)](https://github.com/windperson/vscode_win32x64_pwsh)
+* [Windows 11 (ARM64)](https://github.com/windperson/vscode_win32x64_pwsh)
+* [[TBD]macOS (ARM 64)]()
+* [[TBD]Linux (x64)]()
+
+
+## Pester - PowerShell Test Framework
