@@ -34,7 +34,9 @@ from: markdown+emoji
 ## VSCode as PowerShell TDD IDE
 
 * 建議使用 [**VSCode**(Visual Studio Code)](http://code.visualstudio.com) 安裝官方 [PowerShell Extension](http://github.com/PowerShell/vscode-powershell) + C# 相關開發擴充套件 作為 PowerShell 開發環境:
-  * 官方安裝設定教學：<https://code.visualstudio.com/docs/languages/powershell>
+  * 官方安裝設定教學： <br/>
+    * <https://code.visualstudio.com/docs/languages/powershell>
+    * <https://learn.microsoft.com/powershell/scripting/dev-cross-plat/vscode/using-vscode>
   * 提供 PowerShell 的 Syntax Highlighting、Outline View、Go to Definition、IntelliSense、Code Lens、Run & Debug Pester test code 等功能。
   * 可 debug PowerShell + C# binary cmdlet 的混合專案。
 
@@ -71,8 +73,30 @@ from: markdown+emoji
 
 開發環境的檔案目錄架構:
 
-![](./pics/portable_vscode_ide_files.png){fig-align="center"}
+![](./pics/portable_vscode_ide_files.png){width=80% height=80% fig-align="center"}
 
 * 使用獨立的 PowerShell Module 目錄避免因為不同專案需要的各種版本 PowerShell Module 互衝，或是和系統層級的 Module 混淆。
+
+* 因此要在 PowerShell Module 目錄內下載並安裝 ["ModuleFast"](https://github.com/JustinGrote/ModuleFast) 這個工具型 PowerShell Module，用此命令列工具安裝 PowerShell Module 時可下指令指定安裝來源、安裝位置、模組版本。 
+
+例如以下範例，從 nuget.org 安裝 Pester v5.6.1 版本到 D:\vscode_portable\pwsh_modules 目錄：
+```powershell
+ @{ModuleName='Pester';ModuleVersion='5.6.1'} | Install-ModuleFast -Source api.nuget.org/v3 -Destination D:\vscode_portable\pwsh_modules
+```
+
+<br/>
+另外還有一個好用的開發用 PowerShell 指令列工具模組 [PowerShell.dumPS](http://github.com/deadlydog/PowerShell.dumPS)，可以用來在 VSCode 中斷點除錯時，使用 Debug Console 快速查看 PowerShell 物件的類別、屬性值資訊。
+```powershell
+$AnyObject | Out-Dump
+```
+![](./pics/demo_PowerShell.dumPS.png){fig-align="center"}
+
+## Example VSCode Environment - Windows(x64) {.scrollable}
+
+在 pwsh-scripts 目錄的開發環境設定用 script 檔案：
+
+* **PSScriptAnalyzerSettings.psd1**<br/>用來控制 VSCode 官方 PowerShell Extension 內建的 [PSScriptAnalyzer(PowerShell Syntax Linter)](https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyze) 設定檔。 
+* **Set-PwshTools.ps1**<br/>替代 PowerShell Profile 的設定檔，用來設定 VSCode 整合終端機中 PowerShell 命令列的自動完成功能相關設定以及添加一些類似 Unix 環境的檔案命令。
+* **Update-SymLinks.ps1**<br/>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br/>(Windows 10 的 symbolic link 會因搬移到不同磁碟機/電腦上而失效)
 
 ## Pester - PowerShell Test Framework
