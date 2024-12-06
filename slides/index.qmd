@@ -38,7 +38,14 @@ from: markdown+emoji
   * 提供 PowerShell 的 Syntax Highlighting、Outline View、Go to Definition、IntelliSense、Code Lens、Run & Debug Pester test code 等功能。
   * 可 debug PowerShell + C# binary cmdlet 的混合專案。
 
+## VSCode as PowerShell TDD IDE
+
 * 為了有一個乾淨＆快速的TDD開發環境，建議使用[ Portable 版本的 VSCode](http://code.visualstudio.com/docs/editor/portable)，以免同時安裝太多擴充套件消耗資源。
+
+* 一定要安裝的套件其實只有三個(去掉 Vim 😆)：<br/>
+([C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)套件非免費且無法在封閉內網環境使用)
+
+![](./pics/minimal_powershell_dev_extensions.png){fig-align="center"}
 
 ## Example VSCode Environment
 
@@ -49,21 +56,16 @@ from: markdown+emoji
 * [[TBD]macOS (ARM 64)]()
 * [[TBD]Linux (x64)]()
 
-## Example VSCode Environment - Windows 10 & 11 (x64)
+## Example VSCode Environment - Windows(x64) {.scrollable}
+
+
 
 除了要手動開啟Windows『開發者模式』設定以及將同捆的 .NET SDK 的執行檔路徑到環境變數之外，其他的都是使用 Portable 版本的開發環境：
 
 * Windows 環境的 relative symbolic link 需要啟用開發者模式才能讓 PowerShell 以不需管理員權限的方式設定。
-![](./pics/win10_developer_mode.png)
-
-## Example VSCode Environment - Windows 10 & 11 (x64)
-
-.NET SDK 的執行路徑建議以 **DOTNET_ROOT** 環境變數設定，以便於切換不同版本的 dotnet 指令（使用系統安裝的 .NET SDK 8.0 也👌🆗）。
-
-![](./pics/)
-
-
-
+   ![](./pics/win10_developer_mode.png)
+* .NET SDK 的執行路徑建議以 **DOTNET_ROOT** 環境變數設定，以便於切換不同版本的 dotnet 指令（使用系統安裝的 .NET SDK 8.0 也👌🆗）。
+   ![](./pics/)
 
 
 ## Pester - PowerShell Test Framework
