@@ -23,6 +23,7 @@ format:
                 }
                 </style>
 from: markdown+emoji
+code-annotations: below
 ---
 
 # Agenda
@@ -97,6 +98,106 @@ $AnyObject | Out-Dump
 
 * **PSScriptAnalyzerSettings.psd1**<br/>用來控制 VSCode 官方 PowerShell Extension 內建的 [PSScriptAnalyzer(PowerShell Syntax Linter)](https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyze) 設定檔。 
 * **Set-PwshTools.ps1**<br/>替代 PowerShell Profile 的設定檔，用來設定 VSCode 整合終端機中 PowerShell 命令列的自動完成功能相關設定以及添加一些類似 Unix 環境的檔案命令。
+
+```json
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "title": "Bundled pwsh",
+      "path": "D:\\vscode_portable\\PowerShell-x64\\pwsh.exe",
+      "args": [
+        "-nol",
+        "-nop",                                                                         // <1>
+        "-noe",
+        "-ex",
+        "RemoteSigned",
+        "-Command",                                                                     // <2>
+        "Invoke-expression \". D:\\vscode_portable\\pwsh-scripts\\Set-PwshTools.ps1\""  // <2>
+      ]
+    }
+  },
+```
+1. 使用 `-nop` 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔
+2. 執行 `Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"` 來替代。
+
 * **Update-SymLinks.ps1**<br/>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br/>(Windows 10 的 symbolic link 會因搬移到不同磁碟機/電腦上而失效)
 
 ## Pester - PowerShell Test Framework
+
+* [Pester](http://pester.dev) 是一個 PowerShell 的全家桶測試框架，可以用來撰寫測試案例、執行測試案例、產生測試報告。
+* 提供 [Assertion Syntax](http://pester.dev/docs/assertions/) / [Mock](http://pester.dev/docs/usage/mocking) / [Test Runner](http://pester.dev/docs/commands/Invoke-Pester) / [Code Coverage](http://pester.dev/docs/usage/code-coverage) 等進行測試驅動開發時需要的功能。
+* 提供測試用虛擬磁碟 [`TestDrive:`](http://pester.dev/docs/usage/testdrive) / 虛擬 Windows Registry [`TestRegistry:`](http://pester.dev/docs/usage/testregistry) 的執行環境隔離功能，方便進行測試程式碼撰寫。
+* 跟 VSCode PowerShell Extension 整合，可在 [VSCode 的 Code Lens中直接執行/除錯特定的單一 Pester 測試案例](http://pester.dev/docs/usage/vscode)。
+
+## Pester 撰寫測試案例程式碼時的重點 {.scrollable}
+
+* 以 `Describe` 來描述測試案例的主題，以 `Context` 來描述測試案例的子主題，以 `It` 來描述測試案例的斷言。
+* 雖然 Pester 自己預設行為是去搜尋執行目錄下以 `.Tests.ps1` 檔案名結尾的 PowerShell Script 檔案作為測試案例程式碼執行，但是得自行處理待測試的 PowerShell Script 檔案( .ps1/.psm1 )的模組載入問題。
+* 透過 `Mock` 來模擬外部依賴的PowerShell函式呼叫/原生應用程式執行，以達到隔離測試的目的：
+    * `Mock` 會在測試案例執行前將原本的函式/程式替換成 Mock 命令，測試案例執行完畢後再還原。
+      * Pester 的 Mock 功能在 PowerShell v7+ 支援較好，建議測試案例的 script 程式碼儘量用 PowerShell v7+ 的環境來執行。
+      * Pester 底層使用 [PowerShell Alias 功能](http://learn.microsoft.com/powershell/scripting/learn/shell/using-aliases)實現 Mock 命令實作。
+      * 當宣告 Mock 時，**要蓋掉的 PowerShell Cmdlet/函式命令 必須已存在於待測試程式碼的 Module Scope 內，否則 Pester 會無法蓋掉，轉而拋出執行錯誤。**
+      * 宣告的 Mock 在使用命令的程式碼所在的 Module [作用域(Module Scope)](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_scopes) 內有效，而非全域有效。
+    * `Mock` 會記錄 Mock 物件的呼叫次數、參數、回傳值等資訊，方便撰寫測試案例時檢查。
+    * `Mock` 無法蓋掉使用 binary cmdlet 載入的 C# Cmdlet 函式，因為同名模組中的函式呼叫優先順序 ***C# >>> PowerShell***。
+* 透過 `TestDrive:` 來建立虛擬磁碟空間，以達到隔離測試的目的。
+* 透過 `TestRegistry:` 來建立虛擬 Windows Registry 空間，以達到隔離測試的目的。
+* 必要時可建立 Customer Pester Assertion 以便簡化驗證測試結果的程式碼區塊的撰寫。
+
+## Pester 為既有程式撰寫測試案例程式碼範例
+
+### ***Demo***
+
+[範例程式碼 GitHub](http://github.com/windperson/DemoPester)
+
+* 系統性的制式 Data-Driven 測試案例架構來驗證各模組函式的輸入參數名稱、型別、回傳值。
+* 由於 PowerShell 對於 .ps1 & .psm1 模組載入機制的不同，會造成某些待測模組的程式碼寫法，會不好撰寫測試程式碼。
+  * `InModuleScope` 以便在待測模組載入時的環境變數設定自定義邏輯(塞入固定參數/Mock/Assertion程式碼)。
+  * 藉由先宣告一些 Dummy function 來『先佔位』以便順利進行宣告 MOck 語法，然後再載入模組以便進行測試。
+* Pester Custom Assertion 的撰寫及註冊使用。
+
+## PowerShell + C# binary cmdlet
+
+* PowerShell v6+ & Windows PowerShell 5.1+ 都支援使用 C# 來撰寫 binary cmdlet 來擴充 PowerShell 的功能。
+* 透過 C# 的強型別、高效能、多執行緒等特性來撰寫 PowerShell 的 binary cmdlet，可以提高 PowerShell script的執行效能。
+* 一些 PowerShell 原生沒有提供的功能可透過 C# 來撰寫 binary cmdlet 來擴充 PowerShell 的使用範圍。
+
+but... C# binary cmdlet 的測試案例撰寫相對困難😵
+
+## PowerShell C# binary cmdlet 的簡單範例
+
+### ***Demo***
+
+[範例程式碼 GitHub](http://github.com/windperson/BinaryPwshModuleDemo)
+
+* 使用 PowerShell Standard Library Nuget 套件的 binary cmdlet 可在 Windows PowerShell 5.1+ & PowerShell 7+ 環境中執行。
+* 使用 `System.Management.Automation` Nuget 套件的 binary cmdlet 僅能在 PowerShell Core/7+ 環境中執行。
+* 繼承 `Cmdlet` 類別來撰寫 PowerShell Simple function 的 binary cmdlet 實作。
+* 繼承 `PSCmdlet` 類別來撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 實作。
+* 使用 C# xUnit測試框架來撰寫繼承 `Cmdlet` 的測試案例。
+
+## ***(PowerShell + C# binary cmdlet)*** call gRPC API
+
+### ***Demo***
+
+[範例程式碼 GitHub](http://github.com/windperson/BinaryPwshModuleDemo)
+
+* 使用 [gRPC-web](https://devblogs.microsoft.com/dotnet/grpc-web-experiment/) 的 C# Client Nuget 套件以便在不支援 HTTP/2 的 Windows PowerShell 環境中呼叫 gRPC 服務。
+* 繼承 `PSCmdlet` 類別所撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 如何使用 xUnit 測試框架來撰寫測試案例。
+* 使用混合 PowerShell .psd1 設定檔 + C# binary cmdlet 的方式來撰寫混合型 PowerShell Module 專案。
+    * 如何在 PowerShell 7+ 環境中執行。
+    * 如何針對 PowerShell + C# 程式碼的專案撰寫 PowerShell 的 Pester 測試案例。
+
+## [TBD] ASP.NET Core + PowerShell Hosting Script 的 TDD
+
+### ***Demo***
+
+[範例程式碼 GitHub]()
+
+## 參考資料
+
+[TBD]
+
+## Q & A {.center-xy}
+
+Any Questions?🙋‍♂️🙋‍♀️
