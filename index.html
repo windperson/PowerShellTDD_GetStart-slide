@@ -166,9 +166,16 @@
 <li>提供 PowerShell 的 Syntax Highlighting、Outline View、Go to Definition、IntelliSense、Code Lens、Run &amp; Debug Pester test code 等功能。</li>
 <li>可 debug PowerShell + C# binary cmdlet 的混合專案。</li>
 </ul></li>
-<li>為了有一個乾淨＆快速的TDD開發環境，建議使用<a href="http://code.visualstudio.com/docs/editor/portable">Portable 版本的 VSCode</a>，以免同時安裝太多擴充套件消耗資源。</li>
 </ul>
 </section>
+<section id="vscode-as-powershell-tdd-ide-1" class="slide level2">
+<h2>VSCode as PowerShell TDD IDE</h2>
+<ul>
+<li><p>為了有一個乾淨＆快速的TDD開發環境，建議使用<a href="http://code.visualstudio.com/docs/editor/portable">Portable 版本的 VSCode</a>，以免同時安裝太多擴充套件消耗資源。</p></li>
+<li><p>一定要安裝的套件其實只有三個(去掉 Vim 😆)：<br> (<a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit">C# Dev Kit</a>套件非免費且無法在封閉內網環境使用)</p></li>
+</ul>
+
+<img data-src="./pics/minimal_powershell_dev_extensions.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="example-vscode-environment" class="slide level2">
 <h2>Example VSCode Environment</h2>
 <p>由於 .NET SDK 會根據作業系統＆CPU架構不同而有不同的安裝方式，提供以下版本的 Portable VSCode + PowerShell Extension + C# 相關開發擴充套件 的範例開發環境：</p>
@@ -179,18 +186,14 @@
 <li><a href="">[TBD]Linux (x64)</a></li>
 </ul>
 </section>
-<section id="example-vscode-environment---windows-10-11-x64" class="slide level2">
-<h2>Example VSCode Environment - Windows 10 &amp; 11 (x64)</h2>
+<section id="example-vscode-environment---windowsx64" class="slide level2 scrollable">
+<h2>Example VSCode Environment - Windows(x64)</h2>
 <p>除了要手動開啟Windows『開發者模式』設定以及將同捆的 .NET SDK 的執行檔路徑到環境變數之外，其他的都是使用 Portable 版本的開發環境：</p>
 <ul>
 <li>Windows 環境的 relative symbolic link 需要啟用開發者模式才能讓 PowerShell 以不需管理員權限的方式設定。 <img data-src="./pics/win10_developer_mode.png"></li>
+<li>.NET SDK 的執行路徑建議以 <strong>DOTNET_ROOT</strong> 環境變數設定，以便於切換不同版本的 dotnet 指令（使用系統安裝的 .NET SDK 8.0 也👌🆗）。 <img data-src="./pics/.png"></li>
 </ul>
 </section>
-<section id="example-vscode-environment---windows-10-11-x64-1" class="slide level2">
-<h2>Example VSCode Environment - Windows 10 &amp; 11 (x64)</h2>
-<p>.NET SDK 的執行路徑建議以 <strong>DOTNET_ROOT</strong> 環境變數設定，以便於切換不同版本的 dotnet 指令（使用系統安裝的 .NET SDK 8.0 也👌🆗）。</p>
-
-<img data-src="./pics/.png" class="r-stretch"></section>
 <section id="pester---powershell-test-framework" class="slide level2">
 <h2>Pester - PowerShell Test Framework</h2>
 
