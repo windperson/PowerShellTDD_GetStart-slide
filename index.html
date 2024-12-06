@@ -154,7 +154,7 @@
 <ul>
 <li>如何用 Visual Studio Code 建置 PowerShell TDD開發環境</li>
 <li>PowerShell 測試工具框架 Pester介紹、為既有 PowerShell script加上可執行的測試案例</li>
-<li>PowerShell + C# binary cmdlet<del>、ASP.NET Core 整合 PowerShell Hosting Script 的 TDD</del>範例</li>
+<li>PowerShell + C# binary cmdlet<del>、[TBD]ASP.NET Core 整合 PowerShell Hosting Script 的 TDD</del>範例</li>
 </ul>
 </section>
 <section id="vscode-as-powershell-tdd-ide" class="slide level2">
@@ -192,6 +192,14 @@
 <ul>
 <li>Windows 環境的 relative symbolic link 需要啟用開發者模式才能讓 PowerShell 以不需管理員權限的方式設定。 <img data-src="./pics/win10_developer_mode.png" class="quarto-figure quarto-figure-center"></li>
 <li>.NET SDK 的執行路徑建議以 <strong>DOTNET_ROOT</strong> 環境變數設定，以便於切換不同版本的 dotnet 指令<br>（使用系統安裝的 .NET SDK 8.0 也👌🆗）。 <img data-src="./pics/set_dotnet_root_env-Windows_x64.png" class="quarto-figure quarto-figure-center"> <img data-src="./pics/set_path_env_include_dotnet_root-Windows_x64.png" class="quarto-figure quarto-figure-center"></li>
+</ul>
+</section>
+<section id="example-vscode-environment---windowsx64-1" class="slide level2 scrollable">
+<h2>Example VSCode Environment - Windows(x64)</h2>
+<p>開發環境的檔案目錄架構:</p>
+
+<img data-src="./pics/portable_vscode_ide_files.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
+<li>使用獨立的 PowerShell Module 目錄避免因為不同專案需要的各種版本 PowerShell Module 互衝，或是和系統層級的 Module 混淆。</li>
 </ul>
 </section>
 <section id="pester---powershell-test-framework" class="slide level2">
