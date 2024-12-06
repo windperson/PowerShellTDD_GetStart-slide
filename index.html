@@ -291,11 +291,128 @@
 <ul>
 <li><strong>PSScriptAnalyzerSettings.psd1</strong><br>用來控制 VSCode 官方 PowerShell Extension 內建的 <a href="https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyze">PSScriptAnalyzer(PowerShell Syntax Linter)</a> 設定檔。</li>
 <li><strong>Set-PwshTools.ps1</strong><br>替代 PowerShell Profile 的設定檔，用來設定 VSCode 整合終端機中 PowerShell 命令列的自動完成功能相關設定以及添加一些類似 Unix 環境的檔案命令。</li>
+</ul>
+<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode numberSource json code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode json"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1"></a>  <span class="er">"terminal.integrated.profiles.windows":</span> <span class="fu">{</span></span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2"></a>    <span class="dt">"PowerShell"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3"></a>      <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Bundled pwsh"</span><span class="fu">,</span></span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4"></a>      <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">PowerShell-x64</span><span class="ch">\\</span><span class="st">pwsh.exe"</span><span class="fu">,</span></span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6"></a>        <span class="st">"-nol"</span><span class="ot">,</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-3-7" class="code-annotation-target"><a href="#annotated-cell-3-7"></a>        <span class="st">"-nop"</span><span class="ot">,</span></span>
+<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8"></a>        <span class="st">"-noe"</span><span class="ot">,</span></span>
+<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9"></a>        <span class="st">"-ex"</span><span class="ot">,</span></span>
+<span id="annotated-cell-3-10"><a href="#annotated-cell-3-10"></a>        <span class="st">"RemoteSigned"</span><span class="ot">,</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-3-11" class="code-annotation-target"><a href="#annotated-cell-3-11"></a>        <span class="st">"-Command"</span><span class="ot">,</span></span>
+<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12"></a>        <span class="st">"Invoke-expression </span><span class="ch">\"</span><span class="st">. D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">pwsh-scripts</span><span class="ch">\\</span><span class="st">Set-PwshTools.ps1</span><span class="ch">\"</span><span class="st">"</span></span>
+<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13"></a>      <span class="ot">]</span></span>
+<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14"></a>    <span class="fu">}</span></span>
+<span id="annotated-cell-3-15"><a href="#annotated-cell-3-15"></a>  <span class="fu">}</span><span class="er">,</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="7" data-code-annotation="1">使用 <code>-nop</code> 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="11,12" data-code-annotation="2">執行 <code>Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"</code> 來替代。</span>
+</dd>
+</dl>
+<ul>
 <li><strong>Update-SymLinks.ps1</strong><br>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br>(Windows 10 的 symbolic link 會因搬移到不同磁碟機/電腦上而失效)</li>
 </ul>
 </section>
 <section id="pester---powershell-test-framework" class="slide level2">
 <h2>Pester - PowerShell Test Framework</h2>
+<ul>
+<li><a href="http://pester.dev">Pester</a> 是一個 PowerShell 的全家桶測試框架，可以用來撰寫測試案例、執行測試案例、產生測試報告。</li>
+<li>提供 <a href="http://pester.dev/docs/assertions/">Assertion Syntax</a> / <a href="http://pester.dev/docs/usage/mocking">Mock</a> / <a href="http://pester.dev/docs/commands/Invoke-Pester">Test Runner</a> / <a href="http://pester.dev/docs/usage/code-coverage">Code Coverage</a> 等進行測試驅動開發時需要的功能。</li>
+<li>提供測試用虛擬磁碟 <a href="http://pester.dev/docs/usage/testdrive"><code>TestDrive:</code></a> / 虛擬 Windows Registry <a href="http://pester.dev/docs/usage/testregistry"><code>TestRegistry:</code></a> 的執行環境隔離功能，方便進行測試程式碼撰寫。</li>
+<li>跟 VSCode PowerShell Extension 整合，可在 <a href="http://pester.dev/docs/usage/vscode">VSCode 的 Code Lens中直接執行/除錯特定的單一 Pester 測試案例</a>。</li>
+</ul>
+</section>
+<section id="pester-撰寫測試案例程式碼時的重點" class="slide level2 scrollable">
+<h2>Pester 撰寫測試案例程式碼時的重點</h2>
+<ul>
+<li>以 <code>Describe</code> 來描述測試案例的主題，以 <code>Context</code> 來描述測試案例的子主題，以 <code>It</code> 來描述測試案例的斷言。</li>
+<li>雖然 Pester 自己預設行為是去搜尋執行目錄下以 <code>.Tests.ps1</code> 檔案名結尾的 PowerShell Script 檔案作為測試案例程式碼執行，但是得自行處理待測試的 PowerShell Script 檔案( .ps1/.psm1 )的模組載入問題。</li>
+<li>透過 <code>Mock</code> 來模擬外部依賴的PowerShell函式呼叫/原生應用程式執行，以達到隔離測試的目的：
+<ul>
+<li><code>Mock</code> 會在測試案例執行前將原本的函式/程式替換成 Mock 命令，測試案例執行完畢後再還原。
+<ul>
+<li>Pester 的 Mock 功能在 PowerShell v7+ 支援較好，建議測試案例的 script 程式碼儘量用 PowerShell v7+ 的環境來執行。</li>
+<li>Pester 底層使用 <a href="http://learn.microsoft.com/powershell/scripting/learn/shell/using-aliases">PowerShell Alias 功能</a>實現 Mock 命令實作。</li>
+<li>當宣告 Mock 時，<strong>要蓋掉的 PowerShell Cmdlet/函式命令 必須已存在於待測試程式碼的 Module Scope 內，否則 Pester 會無法蓋掉，轉而拋出執行錯誤。</strong></li>
+<li>宣告的 Mock 在使用命令的程式碼所在的 Module <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_scopes">作用域(Module Scope)</a> 內有效，而非全域有效。</li>
+</ul></li>
+<li><code>Mock</code> 會記錄 Mock 物件的呼叫次數、參數、回傳值等資訊，方便撰寫測試案例時檢查。</li>
+<li><code>Mock</code> 無法蓋掉使用 binary cmdlet 載入的 C# Cmdlet 函式，因為同名模組中的函式呼叫優先順序 <strong><em>C# &gt;&gt;&gt; PowerShell</em></strong>。</li>
+</ul></li>
+<li>透過 <code>TestDrive:</code> 來建立虛擬磁碟空間，以達到隔離測試的目的。</li>
+<li>透過 <code>TestRegistry:</code> 來建立虛擬 Windows Registry 空間，以達到隔離測試的目的。</li>
+<li>必要時可建立 Customer Pester Assertion 以便簡化驗證測試結果的程式碼區塊的撰寫。</li>
+</ul>
+</section>
+<section id="pester-為既有程式撰寫測試案例程式碼範例" class="slide level2">
+<h2>Pester 為既有程式撰寫測試案例程式碼範例</h2>
+<h3 id="demo"><strong><em>Demo</em></strong></h3>
+<p><a href="http://github.com/windperson/DemoPester">範例程式碼 GitHub</a></p>
+<ul>
+<li>系統性的制式 Data-Driven 測試案例架構來驗證各模組函式的輸入參數名稱、型別、回傳值。</li>
+<li>由於 PowerShell 對於 .ps1 &amp; .psm1 模組載入機制的不同，會造成某些待測模組的程式碼寫法，會不好撰寫測試程式碼。
+<ul>
+<li><code>InModuleScope</code> 以便在待測模組載入時的環境變數設定自定義邏輯(塞入固定參數/Mock/Assertion程式碼)。</li>
+<li>藉由先宣告一些 Dummy function 來『先佔位』以便順利進行宣告 MOck 語法，然後再載入模組以便進行測試。</li>
+</ul></li>
+<li>Pester Custom Assertion 的撰寫及註冊使用。</li>
+</ul>
+</section>
+<section id="powershell-c-binary-cmdlet" class="slide level2">
+<h2>PowerShell + C# binary cmdlet</h2>
+<ul>
+<li>PowerShell v6+ &amp; Windows PowerShell 5.1+ 都支援使用 C# 來撰寫 binary cmdlet 來擴充 PowerShell 的功能。</li>
+<li>透過 C# 的強型別、高效能、多執行緒等特性來撰寫 PowerShell 的 binary cmdlet，可以提高 PowerShell script的執行效能。</li>
+<li>一些 PowerShell 原生沒有提供的功能可透過 C# 來撰寫 binary cmdlet 來擴充 PowerShell 的使用範圍。</li>
+</ul>
+<p>but… C# binary cmdlet 的測試案例撰寫相對困難😵</p>
+</section>
+<section id="powershell-c-binary-cmdlet-的簡單範例" class="slide level2">
+<h2>PowerShell C# binary cmdlet 的簡單範例</h2>
+<h3 id="demo-1"><strong><em>Demo</em></strong></h3>
+<p><a href="http://github.com/windperson/BinaryPwshModuleDemo">範例程式碼 GitHub</a></p>
+<ul>
+<li>使用 PowerShell Standard Library Nuget 套件的 binary cmdlet 可在 Windows PowerShell 5.1+ &amp; PowerShell 7+ 環境中執行。</li>
+<li>使用 <code>System.Management.Automation</code> Nuget 套件的 binary cmdlet 僅能在 PowerShell Core/7+ 環境中執行。</li>
+<li>繼承 <code>Cmdlet</code> 類別來撰寫 PowerShell Simple function 的 binary cmdlet 實作。</li>
+<li>繼承 <code>PSCmdlet</code> 類別來撰寫 <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced">PowerShell Advanced function</a> 的 binary cmdlet 實作。</li>
+<li>使用 C# xUnit測試框架來撰寫繼承 <code>Cmdlet</code> 的測試案例。</li>
+</ul>
+</section>
+<section id="powershell-c-binary-cmdlet-call-grpc-api" class="slide level2">
+<h2><strong><em>(PowerShell + C# binary cmdlet)</em></strong> call gRPC API</h2>
+<h3 id="demo-2"><strong><em>Demo</em></strong></h3>
+<p><a href="http://github.com/windperson/BinaryPwshModuleDemo">範例程式碼 GitHub</a></p>
+<ul>
+<li>使用 <a href="https://devblogs.microsoft.com/dotnet/grpc-web-experiment/">gRPC-web</a> 的 C# Client Nuget 套件以便在不支援 HTTP/2 的 Windows PowerShell 環境中呼叫 gRPC 服務。</li>
+<li>繼承 <code>PSCmdlet</code> 類別所撰寫 <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced">PowerShell Advanced function</a> 的 binary cmdlet 如何使用 xUnit 測試框架來撰寫測試案例。</li>
+<li>使用混合 PowerShell .psd1 設定檔 + C# binary cmdlet 的方式來撰寫混合型 PowerShell Module 專案。
+<ul>
+<li>如何在 PowerShell 7+ 環境中執行。</li>
+<li>如何針對 PowerShell + C# 程式碼的專案撰寫 PowerShell 的 Pester 測試案例。</li>
+</ul></li>
+</ul>
+</section>
+<section id="tbd-asp.net-core-powershell-hosting-script-的-tdd" class="slide level2">
+<h2>[TBD] ASP.NET Core + PowerShell Hosting Script 的 TDD</h2>
+<h3 id="demo-3"><strong><em>Demo</em></strong></h3>
+<p><a href="">範例程式碼 GitHub</a></p>
+</section>
+<section id="參考資料" class="slide level2">
+<h2>參考資料</h2>
+<p>[TBD]</p>
+</section>
+<section id="q-a" class="slide level2 center-xy">
+<h2>Q &amp; A</h2>
+<p>Any Questions?🙋‍♂️🙋‍♀️</p>
 
 </section></section>
     </div>
@@ -659,6 +776,119 @@
           }
         });
       }
+          let selectedAnnoteEl;
+          const selectorForAnnotation = ( cell, annotation) => {
+            let cellAttr = 'data-code-cell="' + cell + '"';
+            let lineAttr = 'data-code-annotation="' +  annotation + '"';
+            const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+            return selector;
+          }
+          const selectCodeLines = (annoteEl) => {
+            const doc = window.document;
+            const targetCell = annoteEl.getAttribute("data-target-cell");
+            const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+            const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+            const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+            const lineIds = lines.map((line) => {
+              return targetCell + "-" + line;
+            })
+            let top = null;
+            let height = null;
+            let parent = null;
+            if (lineIds.length > 0) {
+                //compute the position of the single el (top and bottom and make a div)
+                const el = window.document.getElementById(lineIds[0]);
+                top = el.offsetTop;
+                height = el.offsetHeight;
+                parent = el.parentElement.parentElement;
+              if (lineIds.length > 1) {
+                const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                height = bottom - top;
+              }
+              if (top !== null && height !== null && parent !== null) {
+                // cook up a div (if necessary) and position it 
+                let div = window.document.getElementById("code-annotation-line-highlight");
+                if (div === null) {
+                  div = window.document.createElement("div");
+                  div.setAttribute("id", "code-annotation-line-highlight");
+                  div.style.position = 'absolute';
+                  parent.appendChild(div);
+                }
+                div.style.top = top - 2 + "px";
+                div.style.height = height + 4 + "px";
+                div.style.left = 0;
+                let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                if (gutterDiv === null) {
+                  gutterDiv = window.document.createElement("div");
+                  gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                  gutterDiv.style.position = 'absolute';
+                  const codeCell = window.document.getElementById(targetCell);
+                  const gutter = codeCell.querySelector('.code-annotation-gutter');
+                  gutter.appendChild(gutterDiv);
+                }
+                gutterDiv.style.top = top - 2 + "px";
+                gutterDiv.style.height = height + 4 + "px";
+              }
+              selectedAnnoteEl = annoteEl;
+            }
+          };
+          const unselectCodeLines = () => {
+            const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+            elementsIds.forEach((elId) => {
+              const div = window.document.getElementById(elId);
+              if (div) {
+                div.remove();
+              }
+            });
+            selectedAnnoteEl = undefined;
+          };
+            // Handle positioning of the toggle
+        window.addEventListener(
+          "resize",
+          throttle(() => {
+            elRect = undefined;
+            if (selectedAnnoteEl) {
+              selectCodeLines(selectedAnnoteEl);
+            }
+          }, 10)
+        );
+        function throttle(fn, ms) {
+        let throttle = false;
+        let timer;
+          return (...args) => {
+            if(!throttle) { // first call gets through
+                fn.apply(this, args);
+                throttle = true;
+            } else { // all the others get throttled
+                if(timer) clearTimeout(timer); // cancel #2
+                timer = setTimeout(() => {
+                  fn.apply(this, args);
+                  timer = throttle = false;
+                }, ms);
+            }
+          };
+        }
+          // Attach click handler to the DT
+          const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+          for (const annoteDlNode of annoteDls) {
+            annoteDlNode.addEventListener('click', (event) => {
+              const clickedEl = event.target;
+              if (clickedEl !== selectedAnnoteEl) {
+                unselectCodeLines();
+                const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+                if (activeEl) {
+                  activeEl.classList.remove('code-annotation-active');
+                }
+                selectCodeLines(clickedEl);
+                clickedEl.classList.add('code-annotation-active');
+              } else {
+                // Unselect the line
+                unselectCodeLines();
+                clickedEl.classList.remove('code-annotation-active');
+              }
+            });
+          }
       const findCites = (el) => {
         const parentEl = el.parentElement;
         if (parentEl) {
