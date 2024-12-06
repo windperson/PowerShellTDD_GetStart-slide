@@ -59,13 +59,13 @@ from: markdown+emoji
 ## Example VSCode Environment - Windows(x64) {.scrollable}
 
 
-
 除了要手動開啟Windows『開發者模式』設定以及將同捆的 .NET SDK 的執行檔路徑到環境變數之外，其他的都是使用 Portable 版本的開發環境：
 
 * Windows 環境的 relative symbolic link 需要啟用開發者模式才能讓 PowerShell 以不需管理員權限的方式設定。
-   ![](./pics/win10_developer_mode.png)
-* .NET SDK 的執行路徑建議以 **DOTNET_ROOT** 環境變數設定，以便於切換不同版本的 dotnet 指令（使用系統安裝的 .NET SDK 8.0 也👌🆗）。
-   ![](./pics/)
+   ![](./pics/win10_developer_mode.png){fig-align="center"}
+* .NET SDK 的執行路徑建議以 **DOTNET_ROOT** 環境變數設定，以便於切換不同版本的 dotnet 指令<br/>（使用系統安裝的 .NET SDK 8.0 也👌🆗）。
+   ![](./pics/set_dotnet_root_env-Windows_x64.png){fig-align="center"}
+   ![](./pics/set_path_env_include_dotnet_root-Windows_x64.png){fig-align="center"}
 
 
 ## Pester - PowerShell Test Framework
