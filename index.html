@@ -6,7 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.39">
 
   <meta name="author" content="老鮑伯">
@@ -216,11 +217,28 @@
 <section>
 <section id="agenda" class="title-slide slide level1 center">
 <h1>Agenda</h1>
+<div class="columns">
+<div class="column" style="width:80%;">
 <ul>
 <li>如何用 Visual Studio Code 建置 PowerShell TDD開發環境</li>
 <li>PowerShell 測試工具框架 Pester介紹、為既有 PowerShell script加上可執行的測試案例</li>
 <li>PowerShell + C# binary cmdlet<del>、[TBD]ASP.NET Core 整合 PowerShell Hosting Script 的 TDD</del>範例</li>
 </ul>
+</div><div class="column" style="width:20%;">
+<div style="text-align: center">
+<div id="" class="qrcode"></div>
+<script type="text/javascript">
+(function() {
+  var script = document.currentScript;
+  var qrcode = script.previousElementSibling;
+  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#000000","colorLight":"#ffffff","height":"250","text":"https://windperson.github.io/PowerShellTDD_GetStart-slide/#/title-slide","width":"250"});
+  script.remove();
+})();
+</script>
+    
+<p>Slide URL</p>
+</div>
+</div></div>
 </section>
 <section id="vscode-as-powershell-tdd-ide" class="slide level2">
 <h2>VSCode as PowerShell TDD IDE</h2>
@@ -319,7 +337,7 @@
 </dd>
 </dl>
 <ul>
-<li><strong>Update-SymLinks.ps1</strong><br>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br>(Windows 10 的 symbolic link 會因搬移到不同磁碟機/電腦而失效)</li>
+<li><strong>Update-SymLinks.ps1</strong><br>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br>(Windows 10 symbolic link 會因搬移到不同磁碟機/電腦而失效)</li>
 </ul>
 </section>
 <section id="pester---powershell-test-framework" class="slide level2">
