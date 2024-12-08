@@ -28,9 +28,25 @@ code-annotations: below
 
 # Agenda
 
+:::: {.columns}
+::: {.column width="80%"}
+
 * 如何用 Visual Studio Code 建置 PowerShell TDD開發環境
 * PowerShell 測試工具框架 Pester介紹、為既有 PowerShell script加上可執行的測試案例
 * PowerShell + C# binary cmdlet~~、[TBD]ASP.NET Core 整合 PowerShell Hosting Script 的 TDD~~範例
+
+:::
+::: {.column width="20%"}
+
+<div style="text-align: center">
+
+{{< qrcode https://windperson.github.io/PowerShellTDD_GetStart-slide/#/title-slide width=250 height=250 >}}
+
+Slide URL
+</div>
+
+:::
+::::
 
 {{< include 01_IDE_Setup/_IDE_Setup.qmd >}}
 

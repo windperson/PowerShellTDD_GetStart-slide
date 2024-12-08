@@ -90,4 +90,4 @@ $AnyObject | Out-Dump
 1. 使用 `-nop` 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔
 2. 執行 `Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"` 來替代。
 
-* **Update-SymLinks.ps1**<br/>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br/>(Windows 10 的 symbolic link 會因搬移到不同磁碟機/電腦而失效)
+* **Update-SymLinks.ps1**<br/>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br/>(Windows 10 symbolic link 會因搬移到不同磁碟機/電腦而失效)
