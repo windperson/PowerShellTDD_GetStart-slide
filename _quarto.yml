@@ -3,5 +3,8 @@ project:
   render: 
     - slides/index.qmd
 
-
-
+# picture url prefix
+part1_img_prefix: "./01_IDE_Setup/"
+part2_img_prefix: "./02_PesterAndTest_Intro/"
+part3_img_prefix: "./03_Binary_Cmdlet/"
+part4_img_prefix: "./03_AspNetCore_Host/"

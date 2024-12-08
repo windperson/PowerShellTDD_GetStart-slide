@@ -1,0 +1,93 @@
+
+## VSCode as PowerShell TDD IDE
+
+* 建議使用 [**VSCode**(Visual Studio Code)](http://code.visualstudio.com) 安裝官方 [PowerShell Extension](http://github.com/PowerShell/vscode-powershell) + C# 相關開發擴充套件 作為 PowerShell 開發環境:
+  * 官方安裝設定教學： <br/>
+    * <https://code.visualstudio.com/docs/languages/powershell>
+    * <https://learn.microsoft.com/powershell/scripting/dev-cross-plat/vscode/using-vscode>
+  * 提供 PowerShell 的 Syntax Highlighting、Outline View、Go to Definition、IntelliSense、Code Lens、Run & Debug Pester test code 等功能。
+  * 可 debug PowerShell + C# binary cmdlet 的混合專案。
+
+## VSCode as PowerShell TDD IDE
+
+* 為了有一個乾淨＆快速的TDD開發環境，建議使用[ Portable 版本的 VSCode](http://code.visualstudio.com/docs/editor/portable)，以免同時安裝太多擴充套件消耗資源。
+
+* 一定要安裝的套件其實只有三個(去掉 Vim 😆)：<br/>
+([C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)套件非免費且無法在封閉內網環境使用)
+
+![]({{< meta part1_img_prefix >}}pics/minimal_powershell_dev_extensions.png){fig-align="center"}
+
+## Example VSCode Environment
+
+由於 .NET SDK 會根據作業系統＆CPU架構不同而有不同的安裝方式，提供以下版本的 Portable VSCode + PowerShell Extension + C# 相關開發擴充套件 的範例開發環境：
+
+* [Windows 10 & 11 (x64)](https://github.com/windperson/vscode_win32x64_pwsh)
+* [Windows 11 (ARM64)](https://github.com/windperson/vscode_win32Arm64_pwsh)
+* [[TBD]macOS (ARM 64)]()
+* [[TBD]Linux (x64)]()
+
+## Example VSCode Environment - Windows(x64) {.scrollable}
+
+
+除了要手動開啟Windows『開發者模式』設定以及將同捆的 .NET SDK 的執行檔路徑到環境變數之外，其他的都是使用 Portable 版本的開發環境：
+
+* Windows 環境的 relative symbolic link 需要啟用開發者模式才能讓 PowerShell 以不需管理員權限的方式設定。
+   ![]({{< meta part1_img_prefix >}}pics/win10_developer_mode.png){fig-align="center"}  
+   否則甚至連Windows內建的解壓縮功能都會被拒絕存取。
+   ![]({{< meta part1_img_prefix >}}pics/symbolic_link_no_permission.png){fig-align="center"}
+* .NET SDK 的執行路徑建議以 **DOTNET_ROOT** 環境變數設定，以便於切換不同版本的 dotnet 指令<br/>（使用系統安裝的 .NET SDK 8.0 也👌🆗）。
+   ![]({{< meta part1_img_prefix >}}pics/set_dotnet_root_env-Windows_x64.png){fig-align="center"}
+   ![]({{< meta part1_img_prefix >}}pics/set_path_env_include_dotnet_root-Windows_x64.png){fig-align="center"}
+
+## Example VSCode Environment - Windows(x64) {.scrollable}
+
+開發環境的檔案目錄架構:
+
+![]({{< meta part1_img_prefix >}}pics/portable_vscode_ide_files.png){width=80% height=80% fig-align="center"}
+
+* 使用獨立的 PowerShell Module 目錄避免因為不同專案需要的各種版本 PowerShell Module 互衝，或是和系統層級的 Module 混淆。
+
+* 因此要在 PowerShell Module 目錄內下載並安裝 ["ModuleFast"](https://github.com/JustinGrote/ModuleFast) 這個工具型 PowerShell Module，用此命令列工具安裝 PowerShell Module 時可下指令指定安裝來源、安裝位置、模組版本。 
+
+例如以下範例，從 nuget.org 安裝 Pester v5.6.1 版本到 D:\vscode_portable\pwsh_modules 目錄：
+```powershell
+ @{ModuleName='Pester';ModuleVersion='5.6.1'} | Install-ModuleFast -Source api.nuget.org/v3 -Destination D:\vscode_portable\pwsh_modules
+```
+
+<br/>
+另外還有一個好用的開發用 PowerShell 指令列工具模組 [PowerShell.dumPS](http://github.com/deadlydog/PowerShell.dumPS)，可以用來在 VSCode 中斷點除錯時，使用 Debug Console 快速查看 PowerShell 物件的類別、屬性值資訊。
+
+```powershell
+$AnyObject | Out-Dump
+```
+
+![]({{< meta part1_img_prefix >}}pics/demo_PowerShell.dumPS.png){fig-align="center"}
+
+## Example VSCode Environment - Windows(x64) {.scrollable}
+
+在 pwsh-scripts 目錄的開發環境設定用 script 檔案：
+
+* **PSScriptAnalyzerSettings.psd1**<br/>用來控制 VSCode 官方 PowerShell Extension 內建的 [PSScriptAnalyzer(PowerShell Syntax Linter)](https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyze) 設定檔。 
+* **Set-PwshTools.ps1**<br/>替代 PowerShell Profile 的設定檔，用來設定 VSCode 整合終端機中 PowerShell 命令列的自動完成功能相關設定以及添加一些類似 Unix 環境的檔案命令。
+
+```json
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "title": "Bundled pwsh",
+      "path": "D:\\vscode_portable\\PowerShell-x64\\pwsh.exe",
+      "args": [
+        "-nol",
+        "-nop",                                                                         // <1>
+        "-noe",
+        "-ex",
+        "RemoteSigned",
+        "-Command",                                                                     // <2>
+        "Invoke-expression \". D:\\vscode_portable\\pwsh-scripts\\Set-PwshTools.ps1\""  // <2>
+      ]
+    }
+  },
+```
+1. 使用 `-nop` 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔
+2. 執行 `Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"` 來替代。
+
+* **Update-SymLinks.ps1**<br/>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br/>(Windows 10 的 symbolic link 會因搬移到不同磁碟機/電腦而失效)
