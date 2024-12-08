@@ -244,13 +244,13 @@
 <li><p>一定要安裝的套件其實只有三個(去掉 Vim 😆)：<br> (<a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit">C# Dev Kit</a>套件非免費且無法在封閉內網環境使用)</p></li>
 </ul>
 
-<img data-src="./pics/minimal_powershell_dev_extensions.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="./01_IDE_Setup/pics/minimal_powershell_dev_extensions.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="example-vscode-environment" class="slide level2">
 <h2>Example VSCode Environment</h2>
 <p>由於 .NET SDK 會根據作業系統＆CPU架構不同而有不同的安裝方式，提供以下版本的 Portable VSCode + PowerShell Extension + C# 相關開發擴充套件 的範例開發環境：</p>
 <ul>
 <li><a href="https://github.com/windperson/vscode_win32x64_pwsh">Windows 10 &amp; 11 (x64)</a></li>
-<li><a href="https://github.com/windperson/vscode_win32x64_pwsh">Windows 11 (ARM64)</a></li>
+<li><a href="https://github.com/windperson/vscode_win32Arm64_pwsh">Windows 11 (ARM64)</a></li>
 <li><a href="">[TBD]macOS (ARM 64)</a></li>
 <li><a href="">[TBD]Linux (x64)</a></li>
 </ul>
@@ -259,8 +259,9 @@
 <h2>Example VSCode Environment - Windows(x64)</h2>
 <p>除了要手動開啟Windows『開發者模式』設定以及將同捆的 .NET SDK 的執行檔路徑到環境變數之外，其他的都是使用 Portable 版本的開發環境：</p>
 <ul>
-<li>Windows 環境的 relative symbolic link 需要啟用開發者模式才能讓 PowerShell 以不需管理員權限的方式設定。 <img data-src="./pics/win10_developer_mode.png" class="quarto-figure quarto-figure-center"></li>
-<li>.NET SDK 的執行路徑建議以 <strong>DOTNET_ROOT</strong> 環境變數設定，以便於切換不同版本的 dotnet 指令<br>（使用系統安裝的 .NET SDK 8.0 也👌🆗）。 <img data-src="./pics/set_dotnet_root_env-Windows_x64.png" class="quarto-figure quarto-figure-center"> <img data-src="./pics/set_path_env_include_dotnet_root-Windows_x64.png" class="quarto-figure quarto-figure-center"></li>
+<li>Windows 環境的 relative symbolic link 需要啟用開發者模式才能讓 PowerShell 以不需管理員權限的方式設定。 <img data-src="./01_IDE_Setup/pics/win10_developer_mode.png" class="quarto-figure quarto-figure-center"><br>
+否則甚至連Windows內建的解壓縮功能都會被拒絕存取。 <img data-src="./01_IDE_Setup/pics/symbolic_link_no_permission.png" class="quarto-figure quarto-figure-center"></li>
+<li>.NET SDK 的執行路徑建議以 <strong>DOTNET_ROOT</strong> 環境變數設定，以便於切換不同版本的 dotnet 指令<br>（使用系統安裝的 .NET SDK 8.0 也👌🆗）。 <img data-src="./01_IDE_Setup/pics/set_dotnet_root_env-Windows_x64.png" class="quarto-figure quarto-figure-center"> <img data-src="./01_IDE_Setup/pics/set_path_env_include_dotnet_root-Windows_x64.png" class="quarto-figure quarto-figure-center"></li>
 </ul>
 </section>
 <section id="example-vscode-environment---windowsx64-1" class="slide level2 scrollable">
@@ -268,7 +269,7 @@
 <p>開發環境的檔案目錄架構:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./pics/portable_vscode_ide_files.png" class="quarto-figure quarto-figure-center" style="width:80.0%;height:80.0%"></p>
+<p><img data-src="./01_IDE_Setup/pics/portable_vscode_ide_files.png" class="quarto-figure quarto-figure-center" style="width:80.0%;height:80.0%"></p>
 </figure>
 </div>
 <ul>
@@ -281,7 +282,7 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href=""></a><span class="va">$AnyObject</span> <span class="op">|</span> Out-Dump</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./pics/demo_PowerShell.dumPS.png" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="./01_IDE_Setup/pics/demo_PowerShell.dumPS.png" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 </section>
@@ -318,7 +319,7 @@
 </dd>
 </dl>
 <ul>
-<li><strong>Update-SymLinks.ps1</strong><br>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br>(Windows 10 的 symbolic link 會因搬移到不同磁碟機/電腦上而失效)</li>
+<li><strong>Update-SymLinks.ps1</strong><br>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br>(Windows 10 的 symbolic link 會因搬移到不同磁碟機/電腦而失效)</li>
 </ul>
 </section>
 <section id="pester---powershell-test-framework" class="slide level2">
@@ -328,6 +329,7 @@
 <li>提供 <a href="http://pester.dev/docs/assertions/">Assertion Syntax</a> / <a href="http://pester.dev/docs/usage/mocking">Mock</a> / <a href="http://pester.dev/docs/commands/Invoke-Pester">Test Runner</a> / <a href="http://pester.dev/docs/usage/code-coverage">Code Coverage</a> 等進行測試驅動開發時需要的功能。</li>
 <li>提供測試用虛擬磁碟 <a href="http://pester.dev/docs/usage/testdrive"><code>TestDrive:</code></a> / 虛擬 Windows Registry <a href="http://pester.dev/docs/usage/testregistry"><code>TestRegistry:</code></a> 的執行環境隔離功能，方便進行測試程式碼撰寫。</li>
 <li>跟 VSCode PowerShell Extension 整合，可在 <a href="http://pester.dev/docs/usage/vscode">VSCode 的 Code Lens中直接執行/除錯特定的單一 Pester 測試案例</a>。</li>
+<li>PowerShell 官方也使用此測試框架來寫測試案例。<br><a href="https://github.com/PowerShell/PowerShell/blob/master/docs/testing-guidelines/WritingPesterTests.md" class="uri">https://github.com/PowerShell/PowerShell/blob/master/docs/testing-guidelines/WritingPesterTests.md</a></li>
 </ul>
 </section>
 <section id="pester-撰寫測試案例程式碼時的重點" class="slide level2 scrollable">
