@@ -308,36 +308,34 @@
 <h2>Example VSCode Environment - Windows(x64)</h2>
 <p>在 pwsh-scripts 目錄的開發環境設定用 script 檔案：</p>
 <ul>
-<li><strong>PSScriptAnalyzerSettings.psd1</strong><br>用來控制 VSCode 官方 PowerShell Extension 內建的 <a href="https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyze">PSScriptAnalyzer(PowerShell Syntax Linter)</a> 設定檔。</li>
-<li><strong>Set-PwshTools.ps1</strong><br>替代 PowerShell Profile 的設定檔，用來設定 VSCode 整合終端機中 PowerShell 命令列的自動完成功能相關設定以及添加一些類似 Unix 環境的檔案命令。</li>
-</ul>
-<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode numberSource json code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode json"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1"></a>  <span class="er">"terminal.integrated.profiles.windows":</span> <span class="fu">{</span></span>
-<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2"></a>    <span class="dt">"PowerShell"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3"></a>      <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Bundled pwsh"</span><span class="fu">,</span></span>
-<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4"></a>      <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">PowerShell-x64</span><span class="ch">\\</span><span class="st">pwsh.exe"</span><span class="fu">,</span></span>
-<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6"></a>        <span class="st">"-nol"</span><span class="ot">,</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-3-7" class="code-annotation-target"><a href="#annotated-cell-3-7"></a>        <span class="st">"-nop"</span><span class="ot">,</span></span>
-<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8"></a>        <span class="st">"-noe"</span><span class="ot">,</span></span>
-<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9"></a>        <span class="st">"-ex"</span><span class="ot">,</span></span>
-<span id="annotated-cell-3-10"><a href="#annotated-cell-3-10"></a>        <span class="st">"RemoteSigned"</span><span class="ot">,</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-3-11" class="code-annotation-target"><a href="#annotated-cell-3-11"></a>        <span class="st">"-Command"</span><span class="ot">,</span></span>
-<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12"></a>        <span class="st">"Invoke-expression </span><span class="ch">\"</span><span class="st">. D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">pwsh-scripts</span><span class="ch">\\</span><span class="st">Set-PwshTools.ps1</span><span class="ch">\"</span><span class="st">"</span></span>
-<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13"></a>      <span class="ot">]</span></span>
-<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14"></a>    <span class="fu">}</span></span>
-<span id="annotated-cell-3-15"><a href="#annotated-cell-3-15"></a>  <span class="fu">}</span><span class="er">,</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<li><p><strong>PSScriptAnalyzerSettings.psd1</strong><br>用來控制 VSCode 官方 PowerShell Extension 內建的 <a href="https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyze">PSScriptAnalyzer(PowerShell Syntax Linter)</a> 設定檔。</p></li>
+<li><p><strong>Set-PwshTools.ps1</strong><br>替代 PowerShell Profile 的設定檔，用來設定 VSCode 整合終端機中 PowerShell 命令列的自動完成功能相關設定以及添加一些類似 Unix 環境的檔案命令。</p>
+<div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode numberSource json code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode json"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1"></a>  <span class="er">"terminal.integrated.profiles.windows":</span> <span class="fu">{</span></span>
+<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2"></a>    <span class="dt">"PowerShell"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3"></a>      <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Bundled pwsh"</span><span class="fu">,</span></span>
+<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4"></a>      <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">PowerShell-x64</span><span class="ch">\\</span><span class="st">pwsh.exe"</span><span class="fu">,</span></span>
+<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6"></a>        <span class="st">"-nol"</span><span class="ot">,</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-4-7" class="code-annotation-target"><a href="#annotated-cell-4-7"></a>        <span class="st">"-nop"</span><span class="ot">,</span></span>
+<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8"></a>        <span class="st">"-noe"</span><span class="ot">,</span></span>
+<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9"></a>        <span class="st">"-ex"</span><span class="ot">,</span></span>
+<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10"></a>        <span class="st">"RemoteSigned"</span><span class="ot">,</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-4-11" class="code-annotation-target"><a href="#annotated-cell-4-11"></a>        <span class="st">"-Command"</span><span class="ot">,</span></span>
+<span id="annotated-cell-4-12"><a href="#annotated-cell-4-12"></a>        <span class="st">"Invoke-expression </span><span class="ch">\"</span><span class="st">. D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">pwsh-scripts</span><span class="ch">\\</span><span class="st">Set-PwshTools.ps1</span><span class="ch">\"</span><span class="st">"</span></span>
+<span id="annotated-cell-4-13"><a href="#annotated-cell-4-13"></a>      <span class="ot">]</span></span>
+<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14"></a>    <span class="fu">}</span></span>
+<span id="annotated-cell-4-15"><a href="#annotated-cell-4-15"></a>  <span class="fu">}</span><span class="er">,</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="7" data-code-annotation="1">使用 <code>-nop</code> 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="7" data-code-annotation="1">使用 <code>-nop</code> 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="11,12" data-code-annotation="2">執行 <code>Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"</code> 來替代。</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="11,12" data-code-annotation="2">執行 <code>Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"</code> 來替代。</span>
 </dd>
-</dl>
-<ul>
-<li><strong>Update-SymLinks.ps1</strong><br>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br>(Windows 10 symbolic link 會因搬移到不同磁碟機/電腦而失效)</li>
+</dl></li>
+<li><p><strong>Update-SymLinks.ps1</strong><br>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br>(Windows 10 symbolic link 會因搬移到不同磁碟機/電腦而失效) <img data-src="./01_IDE_Setup/pics/update_symbolic_link-Windows_x64.png" class="quarto-figure quarto-figure-center"></p></li>
 </ul>
 </section>
 <section id="pester---powershell-test-framework" class="slide level2">
@@ -353,11 +351,11 @@
 <section id="pester-撰寫測試案例程式碼時的重點" class="slide level2 scrollable">
 <h2>Pester 撰寫測試案例程式碼時的重點</h2>
 <ul>
-<li>以 <code>Describe</code> 來描述測試案例的主題，以 <code>Context</code> 來描述測試案例的子主題，以 <code>It</code> 來描述測試案例的斷言。</li>
-<li>雖然 Pester 自己預設行為是去搜尋執行目錄下以 <code>.Tests.ps1</code> 檔案名結尾的 PowerShell Script 檔案作為測試案例程式碼執行，但是得自行處理待測試的 PowerShell Script 檔案( .ps1/.psm1 )的模組載入問題。</li>
-<li>透過 <code>Mock</code> 來模擬外部依賴的PowerShell函式呼叫/原生應用程式執行，以達到隔離測試的目的：
+<li>以 <code>Describe</code> 來描述測試案例的主題，以 <code>Context</code> 來描述測試案例的子主題，以 <code>It</code> 來描述測試案例的斷言(Test Case)。</li>
+<li>雖然 Pester 自己預設行為是去搜尋執行目錄下以 <code>.Tests.ps1</code> 檔案名結尾的 PowerShell Script 檔案作為測試案例程式碼執行，但是得自行處理待測試 PowerShell Script 檔案( .ps1/.psm1 )的模組載入問題。</li>
+<li>透過 <a href="http://pester.dev/docs/usage/mocking"><code>Mock</code></a> 來模擬外部依賴的PowerShell函式呼叫/原生應用程式執行，以達到隔離測試的目的：
 <ul>
-<li><code>Mock</code> 會在測試案例執行前將原本的函式/程式替換成 Mock 命令，測試案例執行完畢後再還原。
+<li><code>Mock</code> 會在測試案例執行前將原本的函式/程式替換成 Mock 所定義的行為，測試案例執行完畢後再還原。
 <ul>
 <li>Pester 的 Mock 功能在 PowerShell v7+ 支援較好，建議測試案例的 script 程式碼儘量用 PowerShell v7+ 的環境來執行。</li>
 <li>Pester 底層使用 <a href="http://learn.microsoft.com/powershell/scripting/learn/shell/using-aliases">PowerShell Alias 功能</a>實現 Mock 命令實作。</li>
@@ -426,65 +424,65 @@
 </section>
 <section id="powershell-c-binary-cmdlet-call-grpc-api-1" class="slide level2 scrollable">
 <h2><strong><em>(PowerShell + C# binary cmdlet)</em></strong> call gRPC API</h2>
-<div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode numberSource csharp code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1"></a><span class="kw">#if</span> NETSTANDARD2_0</span>
-<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Management</span><span class="op">.</span><span class="fu">Automation</span><span class="op">;</span></span>
-<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Reflection</span><span class="op">;</span></span>
-<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4"></a></span>
-<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5"></a><span class="kw">namespace</span> GreeterCmdlet<span class="op">;</span></span>
-<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-4-7" class="code-annotation-target"><a href="#annotated-cell-4-7"></a><span class="kw">public</span> <span class="kw">class</span> WindowsPowerShellModuleInitializer <span class="op">:</span> IModuleAssemblyInitializer</span>
-<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8"></a><span class="op">{</span></span>
-<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnImport</span><span class="op">()</span></span>
-<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10"></a>    <span class="op">{</span></span>
-<span id="annotated-cell-4-11"><a href="#annotated-cell-4-11"></a>        AppDomain<span class="op">.</span><span class="fu">CurrentDomain</span><span class="op">.</span><span class="fu">AssemblyResolve</span> <span class="op">+=</span> DependencyResolution<span class="op">.</span><span class="fu">ResoleAssembly</span><span class="op">;</span></span>
-<span id="annotated-cell-4-12"><a href="#annotated-cell-4-12"></a>    <span class="op">}</span></span>
-<span id="annotated-cell-4-13"><a href="#annotated-cell-4-13"></a><span class="op">}</span></span>
-<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-4-15" class="code-annotation-target"><a href="#annotated-cell-4-15"></a><span class="kw">public</span> <span class="kw">class</span> WindowsPowerShellModuleCleanup <span class="op">:</span> IModuleAssemblyCleanup</span>
-<span id="annotated-cell-4-16"><a href="#annotated-cell-4-16"></a><span class="op">{</span></span>
-<span id="annotated-cell-4-17"><a href="#annotated-cell-4-17"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnRemove</span><span class="op">(</span>PSModuleInfo psModuleInfo<span class="op">)</span></span>
-<span id="annotated-cell-4-18"><a href="#annotated-cell-4-18"></a>    <span class="op">{</span></span>
-<span id="annotated-cell-4-19"><a href="#annotated-cell-4-19"></a>        AppDomain<span class="op">.</span><span class="fu">CurrentDomain</span><span class="op">.</span><span class="fu">AssemblyResolve</span> <span class="op">-=</span> DependencyResolution<span class="op">.</span><span class="fu">ResoleAssembly</span><span class="op">;</span></span>
-<span id="annotated-cell-4-20"><a href="#annotated-cell-4-20"></a>    <span class="op">}</span></span>
-<span id="annotated-cell-4-21"><a href="#annotated-cell-4-21"></a><span class="op">}</span></span>
-<span id="annotated-cell-4-22"><a href="#annotated-cell-4-22"></a></span>
-<span id="annotated-cell-4-23"><a href="#annotated-cell-4-23"></a><span class="kw">internal</span> <span class="kw">static</span> <span class="kw">class</span> DependencyResolution</span>
-<span id="annotated-cell-4-24"><a href="#annotated-cell-4-24"></a><span class="op">{</span></span>
-<span id="annotated-cell-4-25"><a href="#annotated-cell-4-25"></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="kw">readonly</span> <span class="dt">string</span> ModulePath <span class="op">=</span> Path<span class="op">.</span><span class="fu">GetDirectoryName</span><span class="op">(</span>Assembly<span class="op">.</span><span class="fu">GetExecutingAssembly</span><span class="op">().</span><span class="fu">Location</span><span class="op">)!;</span></span>
-<span id="annotated-cell-4-26"><a href="#annotated-cell-4-26"></a></span>
-<span id="annotated-cell-4-27"><a href="#annotated-cell-4-27"></a>    <span class="kw">public</span> <span class="kw">static</span> Assembly <span class="fu">ResoleAssembly</span><span class="op">(</span><span class="dt">object</span><span class="op">?</span> sender<span class="op">,</span> ResolveEventArgs args<span class="op">)</span></span>
-<span id="annotated-cell-4-28"><a href="#annotated-cell-4-28"></a>    <span class="op">{</span></span>
-<span id="annotated-cell-4-29"><a href="#annotated-cell-4-29"></a>        <span class="dt">var</span> assemblyName <span class="op">=</span> <span class="kw">new</span> <span class="fu">AssemblyName</span><span class="op">(</span>args<span class="op">.</span><span class="fu">Name</span><span class="op">);</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-4-30" class="code-annotation-target"><a href="#annotated-cell-4-30"></a>        <span class="kw">if</span> <span class="op">(</span>assemblyName<span class="op">.</span><span class="fu">Name</span> <span class="op">==</span> <span class="st">"System.Buffers"</span><span class="op">)</span></span>
-<span id="annotated-cell-4-31"><a href="#annotated-cell-4-31"></a>        <span class="op">{</span></span>
-<span id="annotated-cell-4-32"><a href="#annotated-cell-4-32"></a>            <span class="kw">return</span> Assembly<span class="op">.</span><span class="fu">LoadFrom</span><span class="op">(</span> Path<span class="op">.</span><span class="fu">Combine</span><span class="op">(</span>ModulePath<span class="op">,</span> <span class="st">"System.Buffers.dll"</span><span class="op">));</span></span>
-<span id="annotated-cell-4-33"><a href="#annotated-cell-4-33"></a>        <span class="op">}</span></span>
-<span id="annotated-cell-4-34"><a href="#annotated-cell-4-34"></a>        </span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-4-35" class="code-annotation-target"><a href="#annotated-cell-4-35"></a>        <span class="kw">if</span> <span class="op">(</span>assemblyName<span class="op">.</span><span class="fu">Name</span> <span class="op">==</span> <span class="st">"System.Runtime.CompilerServices.Unsafe"</span><span class="op">)</span></span>
-<span id="annotated-cell-4-36"><a href="#annotated-cell-4-36"></a>        <span class="op">{</span></span>
-<span id="annotated-cell-4-37"><a href="#annotated-cell-4-37"></a>            <span class="kw">return</span> Assembly<span class="op">.</span><span class="fu">LoadFrom</span><span class="op">(</span> Path<span class="op">.</span><span class="fu">Combine</span><span class="op">(</span>ModulePath<span class="op">,</span> <span class="st">"System.Runtime.CompilerServices.Unsafe.dll"</span><span class="op">));</span></span>
-<span id="annotated-cell-4-38"><a href="#annotated-cell-4-38"></a>        <span class="op">}</span></span>
-<span id="annotated-cell-4-39"><a href="#annotated-cell-4-39"></a></span>
-<span id="annotated-cell-4-40"><a href="#annotated-cell-4-40"></a>        <span class="kw">return</span> <span class="kw">null</span><span class="op">!;</span></span>
-<span id="annotated-cell-4-41"><a href="#annotated-cell-4-41"></a>    <span class="op">}</span></span>
-<span id="annotated-cell-4-42"><a href="#annotated-cell-4-42"></a><span class="op">}</span></span>
-<span id="annotated-cell-4-43"><a href="#annotated-cell-4-43"></a><span class="kw">#endif</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode numberSource csharp code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1"></a><span class="kw">#if</span> NETSTANDARD2_0</span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Management</span><span class="op">.</span><span class="fu">Automation</span><span class="op">;</span></span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Reflection</span><span class="op">;</span></span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4"></a></span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5"></a><span class="kw">namespace</span> GreeterCmdlet<span class="op">;</span></span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-3-7" class="code-annotation-target"><a href="#annotated-cell-3-7"></a><span class="kw">public</span> <span class="kw">class</span> WindowsPowerShellModuleInitializer <span class="op">:</span> IModuleAssemblyInitializer</span>
+<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8"></a><span class="op">{</span></span>
+<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnImport</span><span class="op">()</span></span>
+<span id="annotated-cell-3-10"><a href="#annotated-cell-3-10"></a>    <span class="op">{</span></span>
+<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11"></a>        AppDomain<span class="op">.</span><span class="fu">CurrentDomain</span><span class="op">.</span><span class="fu">AssemblyResolve</span> <span class="op">+=</span> DependencyResolution<span class="op">.</span><span class="fu">ResoleAssembly</span><span class="op">;</span></span>
+<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12"></a>    <span class="op">}</span></span>
+<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13"></a><span class="op">}</span></span>
+<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-3-15" class="code-annotation-target"><a href="#annotated-cell-3-15"></a><span class="kw">public</span> <span class="kw">class</span> WindowsPowerShellModuleCleanup <span class="op">:</span> IModuleAssemblyCleanup</span>
+<span id="annotated-cell-3-16"><a href="#annotated-cell-3-16"></a><span class="op">{</span></span>
+<span id="annotated-cell-3-17"><a href="#annotated-cell-3-17"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnRemove</span><span class="op">(</span>PSModuleInfo psModuleInfo<span class="op">)</span></span>
+<span id="annotated-cell-3-18"><a href="#annotated-cell-3-18"></a>    <span class="op">{</span></span>
+<span id="annotated-cell-3-19"><a href="#annotated-cell-3-19"></a>        AppDomain<span class="op">.</span><span class="fu">CurrentDomain</span><span class="op">.</span><span class="fu">AssemblyResolve</span> <span class="op">-=</span> DependencyResolution<span class="op">.</span><span class="fu">ResoleAssembly</span><span class="op">;</span></span>
+<span id="annotated-cell-3-20"><a href="#annotated-cell-3-20"></a>    <span class="op">}</span></span>
+<span id="annotated-cell-3-21"><a href="#annotated-cell-3-21"></a><span class="op">}</span></span>
+<span id="annotated-cell-3-22"><a href="#annotated-cell-3-22"></a></span>
+<span id="annotated-cell-3-23"><a href="#annotated-cell-3-23"></a><span class="kw">internal</span> <span class="kw">static</span> <span class="kw">class</span> DependencyResolution</span>
+<span id="annotated-cell-3-24"><a href="#annotated-cell-3-24"></a><span class="op">{</span></span>
+<span id="annotated-cell-3-25"><a href="#annotated-cell-3-25"></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="kw">readonly</span> <span class="dt">string</span> ModulePath <span class="op">=</span> Path<span class="op">.</span><span class="fu">GetDirectoryName</span><span class="op">(</span>Assembly<span class="op">.</span><span class="fu">GetExecutingAssembly</span><span class="op">().</span><span class="fu">Location</span><span class="op">)!;</span></span>
+<span id="annotated-cell-3-26"><a href="#annotated-cell-3-26"></a></span>
+<span id="annotated-cell-3-27"><a href="#annotated-cell-3-27"></a>    <span class="kw">public</span> <span class="kw">static</span> Assembly <span class="fu">ResoleAssembly</span><span class="op">(</span><span class="dt">object</span><span class="op">?</span> sender<span class="op">,</span> ResolveEventArgs args<span class="op">)</span></span>
+<span id="annotated-cell-3-28"><a href="#annotated-cell-3-28"></a>    <span class="op">{</span></span>
+<span id="annotated-cell-3-29"><a href="#annotated-cell-3-29"></a>        <span class="dt">var</span> assemblyName <span class="op">=</span> <span class="kw">new</span> <span class="fu">AssemblyName</span><span class="op">(</span>args<span class="op">.</span><span class="fu">Name</span><span class="op">);</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-3-30" class="code-annotation-target"><a href="#annotated-cell-3-30"></a>        <span class="kw">if</span> <span class="op">(</span>assemblyName<span class="op">.</span><span class="fu">Name</span> <span class="op">==</span> <span class="st">"System.Buffers"</span><span class="op">)</span></span>
+<span id="annotated-cell-3-31"><a href="#annotated-cell-3-31"></a>        <span class="op">{</span></span>
+<span id="annotated-cell-3-32"><a href="#annotated-cell-3-32"></a>            <span class="kw">return</span> Assembly<span class="op">.</span><span class="fu">LoadFrom</span><span class="op">(</span> Path<span class="op">.</span><span class="fu">Combine</span><span class="op">(</span>ModulePath<span class="op">,</span> <span class="st">"System.Buffers.dll"</span><span class="op">));</span></span>
+<span id="annotated-cell-3-33"><a href="#annotated-cell-3-33"></a>        <span class="op">}</span></span>
+<span id="annotated-cell-3-34"><a href="#annotated-cell-3-34"></a>        </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-3-35" class="code-annotation-target"><a href="#annotated-cell-3-35"></a>        <span class="kw">if</span> <span class="op">(</span>assemblyName<span class="op">.</span><span class="fu">Name</span> <span class="op">==</span> <span class="st">"System.Runtime.CompilerServices.Unsafe"</span><span class="op">)</span></span>
+<span id="annotated-cell-3-36"><a href="#annotated-cell-3-36"></a>        <span class="op">{</span></span>
+<span id="annotated-cell-3-37"><a href="#annotated-cell-3-37"></a>            <span class="kw">return</span> Assembly<span class="op">.</span><span class="fu">LoadFrom</span><span class="op">(</span> Path<span class="op">.</span><span class="fu">Combine</span><span class="op">(</span>ModulePath<span class="op">,</span> <span class="st">"System.Runtime.CompilerServices.Unsafe.dll"</span><span class="op">));</span></span>
+<span id="annotated-cell-3-38"><a href="#annotated-cell-3-38"></a>        <span class="op">}</span></span>
+<span id="annotated-cell-3-39"><a href="#annotated-cell-3-39"></a></span>
+<span id="annotated-cell-3-40"><a href="#annotated-cell-3-40"></a>        <span class="kw">return</span> <span class="kw">null</span><span class="op">!;</span></span>
+<span id="annotated-cell-3-41"><a href="#annotated-cell-3-41"></a>    <span class="op">}</span></span>
+<span id="annotated-cell-3-42"><a href="#annotated-cell-3-42"></a><span class="op">}</span></span>
+<span id="annotated-cell-3-43"><a href="#annotated-cell-3-43"></a><span class="kw">#endif</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="7,8,9,10,11,12,13" data-code-annotation="1">實作 <code>IModuleAssemblyInitializer</code> 介面註冊 Assembly Resolver 事件處理函式。</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="7,8,9,10,11,12,13" data-code-annotation="1">實作 <code>IModuleAssemblyInitializer</code> 介面註冊 Assembly Resolver 事件處理函式。</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="15,16,17,18,19,20,21" data-code-annotation="2">實作 <code>IModuleAssemblyCleanup</code> 介面移除 Assembly Resolver 事件處理函式。</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="15,16,17,18,19,20,21" data-code-annotation="2">實作 <code>IModuleAssemblyCleanup</code> 介面移除 Assembly Resolver 事件處理函式。</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="30,31,32,33" data-code-annotation="3">針對 gRPC-Web client nuget 相依的 <code>Systems.Buffers</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="30,31,32,33" data-code-annotation="3">針對 gRPC-Web client nuget 相依的 <code>Systems.Buffers</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="35,36,37,38" data-code-annotation="4">針對 <code>Systems.Buffers</code> 相依的 <code>System.Runtime.CompilerServices.Unsafe.dll</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="35,36,37,38" data-code-annotation="4">針對 <code>Systems.Buffers</code> 相依的 <code>System.Runtime.CompilerServices.Unsafe.dll</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
 </dd>
 </dl>
 </section>
