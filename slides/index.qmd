@@ -50,41 +50,8 @@ Slide URL
 
 {{< include 01_IDE_Setup/_IDE_Setup.qmd >}}
 
-## Pester - PowerShell Test Framework
+{{< include 02_Pester_Intro/_Pester_Intro.qmd >}}
 
-* [Pester](http://pester.dev) 是一個 PowerShell 的全家桶測試框架，可以用來撰寫測試案例、執行測試案例、產生測試報告。
-* 提供 [Assertion Syntax](http://pester.dev/docs/assertions/) / [Mock](http://pester.dev/docs/usage/mocking) / [Test Runner](http://pester.dev/docs/commands/Invoke-Pester) / [Code Coverage](http://pester.dev/docs/usage/code-coverage) 等進行測試驅動開發時需要的功能。
-* 提供測試用虛擬磁碟 [`TestDrive:`](http://pester.dev/docs/usage/testdrive) / 虛擬 Windows Registry [`TestRegistry:`](http://pester.dev/docs/usage/testregistry) 的執行環境隔離功能，方便進行測試程式碼撰寫。
-* 跟 VSCode PowerShell Extension 整合，可在 [VSCode 的 Code Lens中直接執行/除錯特定的單一 Pester 測試案例](http://pester.dev/docs/usage/vscode)。
-* PowerShell 官方也使用此測試框架來寫測試案例。<br/><https://github.com/PowerShell/PowerShell/blob/master/docs/testing-guidelines/WritingPesterTests.md>
-
-## Pester 撰寫測試案例程式碼時的重點 {.scrollable}
-
-* 以 `Describe` 來描述測試案例的主題，以 `Context` 來描述測試案例的子主題，以 `It` 來描述測試案例的斷言。
-* 雖然 Pester 自己預設行為是去搜尋執行目錄下以 `.Tests.ps1` 檔案名結尾的 PowerShell Script 檔案作為測試案例程式碼執行，但是得自行處理待測試的 PowerShell Script 檔案( .ps1/.psm1 )的模組載入問題。
-* 透過 `Mock` 來模擬外部依賴的PowerShell函式呼叫/原生應用程式執行，以達到隔離測試的目的：
-    * `Mock` 會在測試案例執行前將原本的函式/程式替換成 Mock 命令，測試案例執行完畢後再還原。
-      * Pester 的 Mock 功能在 PowerShell v7+ 支援較好，建議測試案例的 script 程式碼儘量用 PowerShell v7+ 的環境來執行。
-      * Pester 底層使用 [PowerShell Alias 功能](http://learn.microsoft.com/powershell/scripting/learn/shell/using-aliases)實現 Mock 命令實作。
-      * 當宣告 Mock 時，**要蓋掉的 PowerShell Cmdlet/函式命令 必須已存在於待測試程式碼的 Module Scope 內，否則 Pester 會無法蓋掉，轉而拋出執行錯誤。**
-      * 宣告的 Mock 在使用命令的程式碼所在的 Module [作用域(Module Scope)](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_scopes) 內有效，而非全域有效。
-    * `Mock` 會記錄 Mock 物件的呼叫次數、參數、回傳值等資訊，方便撰寫測試案例時檢查。
-    * `Mock` 無法蓋掉使用 binary cmdlet 載入的 C# Cmdlet 函式，因為同名模組中的函式呼叫優先順序 ***C# >>> PowerShell***。
-* 透過 `TestDrive:` 來建立虛擬磁碟空間，以達到隔離測試的目的。
-* 透過 `TestRegistry:` 來建立虛擬 Windows Registry 空間，以達到隔離測試的目的。
-* 必要時可建立 Customer Pester Assertion 以便簡化驗證測試結果的程式碼區塊的撰寫。
-
-## Pester 為既有程式撰寫測試案例程式碼範例
-
-### ***Demo***
-
-[範例程式碼 GitHub](http://github.com/windperson/DemoPester)
-
-* 系統性的制式 Data-Driven 測試案例架構來驗證各模組函式的輸入參數名稱、型別、回傳值。
-* 由於 PowerShell 對於 .ps1 & .psm1 模組載入機制的不同，會造成某些待測模組的程式碼寫法，會不好撰寫測試程式碼。
-  * `InModuleScope` 以便在待測模組載入時的環境變數設定自定義邏輯(塞入固定參數/Mock/Assertion程式碼)。
-  * 藉由先宣告一些 Dummy function 來『先佔位』以便順利進行宣告 MOck 語法，然後再載入模組以便進行測試。
-* Pester Custom Assertion 的撰寫及註冊使用。
 
 ## PowerShell + C# binary cmdlet
 

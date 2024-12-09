@@ -1,4 +1,3 @@
-
 ## VSCode as PowerShell TDD IDE
 
 * 建議使用 [**VSCode**(Visual Studio Code)](http://code.visualstudio.com) 安裝官方 [PowerShell Extension](http://github.com/PowerShell/vscode-powershell) + C# 相關開發擴充套件 作為 PowerShell 開發環境:
@@ -69,25 +68,26 @@ $AnyObject | Out-Dump
 
 * **PSScriptAnalyzerSettings.psd1**<br/>用來控制 VSCode 官方 PowerShell Extension 內建的 [PSScriptAnalyzer(PowerShell Syntax Linter)](https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyze) 設定檔。 
 * **Set-PwshTools.ps1**<br/>替代 PowerShell Profile 的設定檔，用來設定 VSCode 整合終端機中 PowerShell 命令列的自動完成功能相關設定以及添加一些類似 Unix 環境的檔案命令。
-
-```json
-  "terminal.integrated.profiles.windows": {
-    "PowerShell": {
-      "title": "Bundled pwsh",
-      "path": "D:\\vscode_portable\\PowerShell-x64\\pwsh.exe",
-      "args": [
-        "-nol",
-        "-nop",                                                                         // <1>
-        "-noe",
-        "-ex",
-        "RemoteSigned",
-        "-Command",                                                                     // <2>
-        "Invoke-expression \". D:\\vscode_portable\\pwsh-scripts\\Set-PwshTools.ps1\""  // <2>
-      ]
-    }
-  },
-```
-1. 使用 `-nop` 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔
-2. 執行 `Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"` 來替代。
+    
+    ```json
+      "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+          "title": "Bundled pwsh",
+          "path": "D:\\vscode_portable\\PowerShell-x64\\pwsh.exe",
+          "args": [
+            "-nol",
+            "-nop",                                                                         // <1>
+            "-noe",
+            "-ex",
+            "RemoteSigned",
+            "-Command",                                                                     // <2>
+            "Invoke-expression \". D:\\vscode_portable\\pwsh-scripts\\Set-PwshTools.ps1\""  // <2>
+          ]
+        }
+      },
+    ```
+    1. 使用 `-nop` 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔
+    2. 執行 `Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"` 來替代。
 
 * **Update-SymLinks.ps1**<br/>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br/>(Windows 10 symbolic link 會因搬移到不同磁碟機/電腦而失效)
+![]({{< meta part1_img_prefix >}}pics/update_symbolic_link-Windows_x64.png){fig-align="center"}
