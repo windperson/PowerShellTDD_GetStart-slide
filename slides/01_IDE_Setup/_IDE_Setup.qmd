@@ -7,14 +7,14 @@
   * 提供 PowerShell 的 Syntax Highlighting、Outline View、Go to Definition、IntelliSense、Code Lens、Run & Debug Pester test code 等功能。
   * 可 debug PowerShell + C# binary cmdlet 的混合專案。
 
-## VSCode as PowerShell TDD IDE
+## VSCode as PowerShell TDD IDE{.scrollable}
 
 * 為了有一個乾淨＆快速的TDD開發環境，建議使用[ Portable 版本的 VSCode](http://code.visualstudio.com/docs/editor/portable)，以免同時安裝太多擴充套件消耗資源。
+  ![]({{< meta part1_img_prefix >}}pics/vscode_zip_version.png){fig-align="center"}
 
 * 一定要安裝的套件其實只有三個(去掉 Vim 😆)：<br/>
 ([C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)套件非免費且無法在封閉內網環境使用)
-
-![]({{< meta part1_img_prefix >}}pics/minimal_powershell_dev_extensions.png){fig-align="center"}
+  ![]({{< meta part1_img_prefix >}}pics/minimal_powershell_dev_extensions.png){fig-align="center"}
 
 ## Example VSCode Environment
 
@@ -22,10 +22,9 @@
 
 * [Windows 10 & 11 (x64)](https://github.com/windperson/vscode_win32x64_pwsh)
 * [Windows 11 (ARM64)](https://github.com/windperson/vscode_win32Arm64_pwsh)
-* [[TBD]macOS (ARM 64)]()
-* [[TBD]Linux (x64)]()
+* [macOS (ARM 64)]()
 
-## Example VSCode Environment - Windows(x64) {.scrollable}
+## Example VSCode Environment - Windows(x64){.scrollable}
 
 
 除了要手動開啟Windows『開發者模式』設定以及將同捆的 .NET SDK 的執行檔路徑到環境變數之外，其他的都是使用 Portable 版本的開發環境：
