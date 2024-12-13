@@ -46,27 +46,28 @@ function Get-FileContentHash {
 
 原本在 PowrShell script 裡使用的是 PowerShell 定義的自訂 Class 類別，因此在執行完畢回傳 PowerShell 物件直接使用 [**`dynamic`** keyword](https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic) 寫法簡化取得 FilePath1 & FilePath2 屬性值程式碼。
 
-```csharp{.cs filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs"}
+```csharp{.cs filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs" code-line-numbers="false"}
 var result =
     ps.Invoke(input: null, settings: psInvocationSettings)
-        .FirstOrDefault()?.BaseObject as object[];
+        .FirstOrDefault()?.BaseObject as object[];                        // <1>
 
 var duplicateFileResults = new List<DuplicateFileResult>(result.Length);
 // use dynamic to make simpler coding style to avoid reflection
-foreach (dynamic duplicateFileInfo in result)                             // <1>
+foreach (dynamic duplicateFileInfo in result)                             // <2>
 {
     var duplicateFileResult = new DuplicateFileResult
     {
-        SourceFilePath = duplicateFileInfo.FilePath1.ToString(),          // <2>
-        CompareFilePath = duplicateFileInfo.FilePath2.ToString()          // <2>
+        SourceFilePath = duplicateFileInfo.FilePath1.ToString(),          // <3>
+        CompareFilePath = duplicateFileInfo.FilePath2.ToString()          // <3>
     };
     duplicateFileResults.Add(duplicateFileResult);
 }
 
 return duplicateFileResults;
 ```
-1. 使用 `dynamic` 關鍵字來簡化原本 PowerShell 程式碼中定義的自訂 class 型別。
-2. 就可以直接使用物件的屬性值（C#編譯器不檢查，如果寫錯就會有 runtime exception）。
+1. 由於原本 PowerShell script function 定義的回傳值是單個物件陣列，所以取得回傳值順便先轉型成 `object[]` 陣列。
+2. 使用 `dynamic` 關鍵字來簡化原本 PowerShell 程式碼中定義的自訂 class 型別。
+3. 就可以直接使用物件的屬性值（C#編譯器不檢查，如果寫錯就會有 runtime exception）。
 
 
 ![]({{< meta part4_img_prefix >}}pics/pwsh_defined_class_return_object.png){height=100% fig-align="center"}

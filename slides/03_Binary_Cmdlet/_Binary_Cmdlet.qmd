@@ -31,9 +31,9 @@ but... C# binary cmdlet 的測試案例撰寫相對較困難😵
     * 如何在 PowerShell 7+ 環境中執行。
     * 如何針對 PowerShell + C# 程式碼的專案撰寫 PowerShell 的 Pester 測試案例。
 
-## ***(PowerShell + C# binary cmdlet)*** call gRPC API {.scrollable}
+## {.small .scrollable}
 
-```csharp
+```csharp{.cs filename="Pwsh\GreeterCmdlet\WindowsPowerShellModuleInitializer.cs" code-line-numbers="false"}
 #if NETSTANDARD2_0
 using System.Management.Automation;
 using System.Reflection;
@@ -58,7 +58,8 @@ public class WindowsPowerShellModuleCleanup : IModuleAssemblyCleanup            
 
 internal static class DependencyResolution
 {
-    private static readonly string ModulePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+    private static readonly string ModulePath = 
+                                        Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
 
     public static Assembly ResoleAssembly(object? sender, ResolveEventArgs args)
     {
