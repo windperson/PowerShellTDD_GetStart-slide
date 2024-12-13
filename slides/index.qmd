@@ -10,6 +10,8 @@ format:
         theme: simple
         menu:
             side: right
+        slide-number: true
+        show-slide-number: print
         include-in-header: 
             text: |
                 <style>

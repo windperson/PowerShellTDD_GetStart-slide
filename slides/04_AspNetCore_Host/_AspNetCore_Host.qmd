@@ -3,7 +3,7 @@
 * ASP.NET Core 3.1+ 的專案透過 [`Microsoft.PowerShell.SDK` nuget 套件](http://www.nuget.org/packages/Microsoft.PowerShell.SDK)整合 [PowerShell Hosting runtime環境](http://learn.microsoft.com/powershell/scripting/dev-cross-plat/choosing-the-right-nuget-package#microsoftpowershellsdk)，使 C# 應用以 [ PowerShell C# API 執行 PowerShell script 或 PowerShell Cmdlet 指令](https://learn.microsoft.com/powershell/scripting/developer/hosting/adding-and-invoking-commands)。
 
 
-## ASP.NET Core Minimal API 整合執行 PowerShell Script 範例 {.scrollable}
+## ASP.NET Core Minimal API 整合執行 PowerShell Script 範例{.scrollable}
 
 ### ***Demo***
 
@@ -13,4 +13,57 @@
 
 此 PowerShell script 在先前的 [Pester test case 範例專案中提供](https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production/ProductFeatures/SysAdminUtil/DuplicateFilesFinder.psm1)並且已有[驗證行為的測試案例](https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production_test/ProductFeatures/SysAdminUtil/DuplicateFilesFinder.Tests.ps1)。
 
-![]({{< meta part4_img_prefix >}}pics/cli_run_Duplicate_File_Finder.png){fig-align="center"}
+![]({{< meta part4_img_prefix >}}pics/cli_run_Duplicate_File_Finder.png){height=100% fig-align="center"}
+
+使用 PowerShell 來撰寫取得所有有特定副檔名的檔案邏輯，比單純使用 C# 簡單:
+
+```PowerShell{.ps1 code-line-numbers="7"}
+function Get-Files {
+    [SuppressMessage('PSUseSingularNouns', '')]
+    param (
+        [string]$Path,
+        [string]$Extension
+    )
+    return Get-ChildItem -Path $Path -Recurse -File -Filter "*.$Extension"
+}
+```
+
+也可以使用PowerShell 己提供的 [`Get-FileHash` Cmdlet](http://learn.microsoft.com/powershell/module/microsoft.powershell.utility/get-filehash) 取得檔案的 Hash 值來快速判斷檔案是否相同:
+
+```PowerShell{.ps1 code-line-numbers="8"}
+function Get-FileContentHash {
+    [SuppressMessage('PSAvoidUsingBrokenHashAlgorithms', '', 
+        Justification = 'MD5 is just used for file hash comparison')]
+    param (
+        [Parameter(Mandatory = $true)]
+        [System.IO.FileInfo]$FilePath
+    )
+    return Get-FileHash -Algorithm MD5 -Path $FilePath # -SilentlyContinue
+}
+```
+
+## {.scrollable}
+
+由於原本在 PowrShell script 裡使用的是 PowerShell 定義的自訂 Class 類別，因此在執行完之後的 PowerShell 物件直接使用 [**`dynamic`** keyword](https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic) 寫法簡化取得 FilePath1 & FilePath2 屬性值的 C# 程式碼。
+
+```csharp{.cs code-line-numbers="6,10-11"}
+var result =
+    ps.Invoke(input: null, settings: psInvocationSettings).FirstOrDefault()?.BaseObject as object[];
+
+var duplicateFileResults = new List<DuplicateFileResult>(result.Length);
+// use dynamic to make simpler coding style to avoid reflection
+foreach (dynamic duplicateFileInfo in result)
+{
+    var duplicateFileResult = new DuplicateFileResult
+    {
+        SourceFilePath = duplicateFileInfo.FilePath1.ToString(),
+        CompareFilePath = duplicateFileInfo.FilePath2.ToString()
+    };
+    duplicateFileResults.Add(duplicateFileResult);
+}
+
+return duplicateFileResults;
+```
+
+![]({{< meta part4_img_prefix >}}pics/pwsh_defined_class_return_object.png){height=100% fig-align="center"}
+
