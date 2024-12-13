@@ -3,7 +3,7 @@
 * ASP.NET Core 3.1+ 的專案透過 [`Microsoft.PowerShell.SDK` nuget 套件](http://www.nuget.org/packages/Microsoft.PowerShell.SDK)整合 [PowerShell Hosting runtime環境](http://learn.microsoft.com/powershell/scripting/dev-cross-plat/choosing-the-right-nuget-package#microsoftpowershellsdk)，使 C# 應用以 [ PowerShell C# API 執行 PowerShell script 或 PowerShell Cmdlet 指令](https://learn.microsoft.com/powershell/scripting/developer/hosting/adding-and-invoking-commands)。
 
 
-## ASP.NET Core Minimal API 整合執行 PowerShell Script 範例{.scrollable}
+## ASP.NET Core Minimal API 整合執行 PowerShell Script 範例{.small .scrollable}
 
 ### ***Demo***
 
@@ -17,7 +17,7 @@
 
 使用 PowerShell 來撰寫取得所有有特定副檔名的檔案邏輯，比單純使用 C# 簡單:
 
-```PowerShell{.ps1 code-line-numbers="7"}
+```PowerShell{.ps1 filename="src\DemoWebApi\PwshScripts\DuplicateFilesFinder.psm1" code-line-numbers="7"}
 function Get-Files {
     [SuppressMessage('PSUseSingularNouns', '')]
     param (
@@ -30,7 +30,7 @@ function Get-Files {
 
 也可以使用PowerShell 己提供的 [`Get-FileHash` Cmdlet](http://learn.microsoft.com/powershell/module/microsoft.powershell.utility/get-filehash) 取得檔案的 Hash 值來快速判斷檔案是否相同:
 
-```PowerShell{.ps1 code-line-numbers="8"}
+```PowerShell{.ps1 filename="src\DemoWebApi\PwshScripts\DuplicateFilesFinder.psm1" code-line-numbers="8"}
 function Get-FileContentHash {
     [SuppressMessage('PSAvoidUsingBrokenHashAlgorithms', '', 
         Justification = 'MD5 is just used for file hash comparison')]
@@ -42,28 +42,32 @@ function Get-FileContentHash {
 }
 ```
 
-## {.scrollable}
+## {.small .scrollable}
 
-由於原本在 PowrShell script 裡使用的是 PowerShell 定義的自訂 Class 類別，因此在執行完之後的 PowerShell 物件直接使用 [**`dynamic`** keyword](https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic) 寫法簡化取得 FilePath1 & FilePath2 屬性值的 C# 程式碼。
+原本在 PowrShell script 裡使用的是 PowerShell 定義的自訂 Class 類別，因此在執行完畢回傳 PowerShell 物件直接使用 [**`dynamic`** keyword](https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic) 寫法簡化取得 FilePath1 & FilePath2 屬性值程式碼。
 
-```csharp{.cs code-line-numbers="6,10-11"}
+```csharp{.cs filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs"}
 var result =
-    ps.Invoke(input: null, settings: psInvocationSettings).FirstOrDefault()?.BaseObject as object[];
+    ps.Invoke(input: null, settings: psInvocationSettings)
+        .FirstOrDefault()?.BaseObject as object[];
 
 var duplicateFileResults = new List<DuplicateFileResult>(result.Length);
 // use dynamic to make simpler coding style to avoid reflection
-foreach (dynamic duplicateFileInfo in result)
+foreach (dynamic duplicateFileInfo in result)                             // <1>
 {
     var duplicateFileResult = new DuplicateFileResult
     {
-        SourceFilePath = duplicateFileInfo.FilePath1.ToString(),
-        CompareFilePath = duplicateFileInfo.FilePath2.ToString()
+        SourceFilePath = duplicateFileInfo.FilePath1.ToString(),          // <2>
+        CompareFilePath = duplicateFileInfo.FilePath2.ToString()          // <2>
     };
     duplicateFileResults.Add(duplicateFileResult);
 }
 
 return duplicateFileResults;
 ```
+1. 使用 `dynamic` 關鍵字來簡化原本 PowerShell 程式碼中定義的自訂 class 型別。
+2. 就可以直接使用物件的屬性值（C#編譯器不檢查，如果寫錯就會有 runtime exception）。
+
 
 ![]({{< meta part4_img_prefix >}}pics/pwsh_defined_class_return_object.png){height=100% fig-align="center"}
 
