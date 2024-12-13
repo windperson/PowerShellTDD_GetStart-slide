@@ -1,9 +1,9 @@
 ## ASP.NET Core 整合 PowerShell Hosting Environment
 
-* ASP.NET Core 3.1+ 的專案透過 [`Microsoft.PowerShell.SDK` nuget 套件](http://www.nuget.org/packages/Microsoft.PowerShell.SDK)整合 [PowerShell Hosting runtime環境](http://learn.microsoft.com/powershell/scripting/dev-cross-plat/choosing-the-right-nuget-package#microsoftpowershellsdk)，使 C# 應用以 [ PowerShell C# API 執行 PowerShell script 或 PowerShell Cmdlet 指令](https://learn.microsoft.com/powershell/scripting/developer/hosting/adding-and-invoking-commands)。
+* ASP.NET Core v3.1+ 的專案透過 [`Microsoft.PowerShell.SDK` nuget 套件](http://www.nuget.org/packages/Microsoft.PowerShell.SDK)整合 [PowerShell Hosting runtime環境](http://learn.microsoft.com/powershell/scripting/dev-cross-plat/choosing-the-right-nuget-package#microsoftpowershellsdk)，使 C# 應用以 [ PowerShell C# API 執行 PowerShell script 或 PowerShell Cmdlet 指令](https://learn.microsoft.com/powershell/scripting/developer/hosting/adding-and-invoking-commands)。
 
 
-## ASP.NET Core Minimal API 整合執行 PowerShell Script 範例{.small .scrollable}
+## ASP.NET Core Minimal API 整合執行 PowerShell Script 範例{.smaller .scrollable}
 
 ### ***Demo***
 
@@ -28,7 +28,7 @@ function Get-Files {
 }
 ```
 
-也可以使用PowerShell 己提供的 [`Get-FileHash` Cmdlet](http://learn.microsoft.com/powershell/module/microsoft.powershell.utility/get-filehash) 取得檔案的 Hash 值來快速判斷檔案是否相同:
+也可用PowerShell 的 [`Get-FileHash` Cmdlet](http://learn.microsoft.com/powershell/module/microsoft.powershell.utility/get-filehash) 取得檔案的 Hash 值來快速判斷檔案內容是否相同:
 
 ```PowerShell{.ps1 filename="src\DemoWebApi\PwshScripts\DuplicateFilesFinder.psm1" code-line-numbers="8"}
 function Get-FileContentHash {
@@ -42,9 +42,60 @@ function Get-FileContentHash {
 }
 ```
 
-## {.small .scrollable}
+## {.smaller .scrollable}
 
-原本在 PowrShell script 裡使用的是 PowerShell 定義的自訂 Class 類別，因此在執行完畢回傳 PowerShell 物件直接使用 [**`dynamic`** keyword](https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic) 寫法簡化取得 FilePath1 & FilePath2 屬性值程式碼。
+在 ASP.NET Core Minimal API 中使用 PowerShell Hosting Environment 來執行 PowerShell script/指令，需要先建立相關的 [PowerShell](http://learn.microsoft.com/dotnet/api/system.management.automation.powershell), [Runspace](http://learn.microsoft.com/dotnet/api/system.management.automation.runspaces.runspace) 等 API 物件，以及使用 `.AddScript()`/`.AddCommand()`/`.AddParameter()` 等 chainable fluent API 的方式來設定 PowerShell script 的執行環境:
+
+```csharp{.cs filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs" code-line-numbers="false"}
+public DuplicateFileFinderInvokeService(ILogger<DuplicateFileFinderInvokeService> logger)
+{
+    _runspacePool = RunspaceFactory.CreateRunspacePool();                                 // <1>
+    _runspacePool.Open();                                                                 // <1>
+    _logger = logger;
+}
+
+public async Task<IList<DuplicateFileResult>> RunScriptAsync(ApiInputDto funcInput,
+    CancellationToken cancellationToken)
+{
+    using var ps = PowerShell.Create();
+    ps.RunspacePool = _runspacePool;
+    cancellationToken.Register(() =>
+    {
+        if (ps.InvocationStateInfo.State == PSInvocationState.Running)                   // <2>
+        {                                                                                // <2> 
+            ps.Stop();                                                                   // <2> 
+        }                                                                                // <2>
+    });
+
+    /* ... */
+
+    try
+    {
+        ps.AddScript("Import-Module ./PwshScripts/DuplicateFilesFinder.psm1 -Verbose")   // <3>
+            .AddStatement();                                                             // <3>
+        ps.AddCommand("Get-DuplicateFile")                                               // <3>
+            .AddParameter("SourcePath", funcInput.SourceFolder)                          // <3>
+            .AddParameter("ComparePath", funcInput.CompareFolder);                       // <3>
+        if (!string.IsNullOrEmpty(funcInput.CompareType))                                // <3>
+        {                                                                                // <3>    
+            ps.AddParameter("CompareType", funcInput.CompareType);                       // <3>
+        }                                                                                // <3>
+        /* run above arranged commands via ps.Invoke(...) or ps.InvokeAsync(...) */
+    }
+    catch (Exception ex)
+    {
+        // handle exception
+    }
+}
+```
+1. 使用 [`RunspacePool`](http://learn.microsoft.com/dotnet/api/system.management.automation.runspaces.runspacepool) 來管理 [PowerShell 的 Runspace 執行環境](http://learn.microsoft.com/powershell/scripting/developer/hosting/creating-runspaces)，記得要呼叫 [`.Open()`](https://learn.microsoft.com/en-us/dotnet/api/system.management.automation.runspaces.runspace.open?view=powershellsdk-7.4.0) 後才能後續在 PowerShell 物件上執行 [`.Invoke()`](http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.invoke)/[`.InvokeAsync()`](http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.invokeasync) 實際跑 PowerShell 程式。
+2. 設定當 CancellationToken 觸發時，停止目前 PowerShell runtime 的執行。
+3. [`.AddScript()`](http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addscript) 用來載入 PowerShell script 檔案，[`.AddStatement()`](http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addstatement)同等於在 PowerShell script 檔案換行，[`.AddCommand()`](http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addcommand) 用來表示執行 PowerShell function/Cmdlet，[`.AddParameter()`](http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addcommand)/[`.AddParameters()`](http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addparameters) 用來設定 PowerShell script function 的參數值。
+
+
+## {.smaller .scrollable}
+
+原本在 PowrShell script 裡用的是 [PowerShell 定義自訂 Class 類別](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_classes)，因此在執行完畢回傳的結果值物件直接使用 [**`dynamic`** keyword](https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic) 寫法簡化取得 FilePath1 & FilePath2 屬性值程式碼。
 
 ```csharp{.cs filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs" code-line-numbers="false"}
 var result =
@@ -65,10 +116,9 @@ foreach (dynamic duplicateFileInfo in result)                             // <2>
 
 return duplicateFileResults;
 ```
-1. 由於原本 PowerShell script function 定義的回傳值是單個物件陣列，所以取得回傳值順便先轉型成 `object[]` 陣列。
+1. 由於原本 PowerShell script function 的回傳值是單個物件陣列，所以取得回傳值順便先轉型成 `object[]` 陣列。
 2. 使用 `dynamic` 關鍵字來簡化原本 PowerShell 程式碼中定義的自訂 class 型別。
 3. 就可以直接使用物件的屬性值（C#編譯器不檢查，如果寫錯就會有 runtime exception）。
-
 
 ![]({{< meta part4_img_prefix >}}pics/pwsh_defined_class_return_object.png){height=100% fig-align="center"}
 
