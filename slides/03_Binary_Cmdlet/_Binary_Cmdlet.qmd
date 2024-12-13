@@ -12,8 +12,8 @@ but... C# binary cmdlet 的測試案例撰寫相對較困難😵
 
 [範例程式碼 GitHub](http://github.com/windperson/BinaryPwshModuleDemo)
 
-* 使用 [`PowerShell.Standard.Library` Nuget 套件](http://www.nuget.org/packages/PowerShellStandard.Library/)的 binary cmdlet 可在 Windows PowerShell 5.1+ & PowerShell 7+ 環境中執行。
-* 使用 [`System.Management.Automation` Nuget 套件](http://www.nuget.org/packages/System.Management.Automation/)的 binary cmdlet 僅能在 PowerShell Core/7+ 環境中執行。
+* 使用 [`PowerShell.Standard.Library` Nuget 套件](http://www.nuget.org/packages/PowerShellStandard.Library/)的 binary cmdlet 可在 Windows PowerShell v5.1+ & PowerShell v7+ 環境中執行。
+* 使用 [`System.Management.Automation` Nuget 套件](http://www.nuget.org/packages/System.Management.Automation/)的 binary cmdlet 僅能在 PowerShell Core/v7+ 環境中執行。
 * 繼承 `Cmdlet` 類別來撰寫 PowerShell Simple function 的 binary cmdlet 實作。
 * 繼承 `PSCmdlet` 類別來撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 實作。
 * 使用 C# xUnit測試框架來撰寫繼承 `Cmdlet` 的測試案例。
