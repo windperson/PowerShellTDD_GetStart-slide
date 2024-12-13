@@ -313,29 +313,29 @@
 <ul>
 <li><p><strong>PSScriptAnalyzerSettings.psd1</strong><br>用來控制 VSCode 官方 PowerShell Extension 內建的 <a href="https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyze">PSScriptAnalyzer(PowerShell Syntax Linter)</a> 設定檔。</p></li>
 <li><p><strong>Set-PwshTools.ps1</strong><br>替代 PowerShell Profile 的設定檔，用來設定 VSCode 整合終端機中 PowerShell 命令列的自動完成功能相關設定以及添加一些類似 Unix 環境的檔案命令。</p>
-<div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode numberSource json code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode json"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1"></a>  <span class="er">"terminal.integrated.profiles.windows":</span> <span class="fu">{</span></span>
-<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2"></a>    <span class="dt">"PowerShell"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="annotated-cell-7-3"><a href="#annotated-cell-7-3"></a>      <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Bundled pwsh"</span><span class="fu">,</span></span>
-<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4"></a>      <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">PowerShell-x64</span><span class="ch">\\</span><span class="st">pwsh.exe"</span><span class="fu">,</span></span>
-<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6"></a>        <span class="st">"-nol"</span><span class="ot">,</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-7-7" class="code-annotation-target"><a href="#annotated-cell-7-7"></a>        <span class="st">"-nop"</span><span class="ot">,</span></span>
-<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8"></a>        <span class="st">"-noe"</span><span class="ot">,</span></span>
-<span id="annotated-cell-7-9"><a href="#annotated-cell-7-9"></a>        <span class="st">"-ex"</span><span class="ot">,</span></span>
-<span id="annotated-cell-7-10"><a href="#annotated-cell-7-10"></a>        <span class="st">"RemoteSigned"</span><span class="ot">,</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-7-11" class="code-annotation-target"><a href="#annotated-cell-7-11"></a>        <span class="st">"-Command"</span><span class="ot">,</span></span>
-<span id="annotated-cell-7-12"><a href="#annotated-cell-7-12"></a>        <span class="st">"Invoke-expression </span><span class="ch">\"</span><span class="st">. D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">pwsh-scripts</span><span class="ch">\\</span><span class="st">Set-PwshTools.ps1</span><span class="ch">\"</span><span class="st">"</span></span>
-<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13"></a>      <span class="ot">]</span></span>
-<span id="annotated-cell-7-14"><a href="#annotated-cell-7-14"></a>    <span class="fu">}</span></span>
-<span id="annotated-cell-7-15"><a href="#annotated-cell-7-15"></a>  <span class="fu">}</span><span class="er">,</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode numberSource json code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode json"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1"></a>  <span class="er">"terminal.integrated.profiles.windows":</span> <span class="fu">{</span></span>
+<span id="annotated-cell-8-2"><a href="#annotated-cell-8-2"></a>    <span class="dt">"PowerShell"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="annotated-cell-8-3"><a href="#annotated-cell-8-3"></a>      <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Bundled pwsh"</span><span class="fu">,</span></span>
+<span id="annotated-cell-8-4"><a href="#annotated-cell-8-4"></a>      <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">PowerShell-x64</span><span class="ch">\\</span><span class="st">pwsh.exe"</span><span class="fu">,</span></span>
+<span id="annotated-cell-8-5"><a href="#annotated-cell-8-5"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="annotated-cell-8-6"><a href="#annotated-cell-8-6"></a>        <span class="st">"-nol"</span><span class="ot">,</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-8-7" class="code-annotation-target"><a href="#annotated-cell-8-7"></a>        <span class="st">"-nop"</span><span class="ot">,</span></span>
+<span id="annotated-cell-8-8"><a href="#annotated-cell-8-8"></a>        <span class="st">"-noe"</span><span class="ot">,</span></span>
+<span id="annotated-cell-8-9"><a href="#annotated-cell-8-9"></a>        <span class="st">"-ex"</span><span class="ot">,</span></span>
+<span id="annotated-cell-8-10"><a href="#annotated-cell-8-10"></a>        <span class="st">"RemoteSigned"</span><span class="ot">,</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-8-11" class="code-annotation-target"><a href="#annotated-cell-8-11"></a>        <span class="st">"-Command"</span><span class="ot">,</span></span>
+<span id="annotated-cell-8-12"><a href="#annotated-cell-8-12"></a>        <span class="st">"Invoke-expression </span><span class="ch">\"</span><span class="st">. D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">pwsh-scripts</span><span class="ch">\\</span><span class="st">Set-PwshTools.ps1</span><span class="ch">\"</span><span class="st">"</span></span>
+<span id="annotated-cell-8-13"><a href="#annotated-cell-8-13"></a>      <span class="ot">]</span></span>
+<span id="annotated-cell-8-14"><a href="#annotated-cell-8-14"></a>    <span class="fu">}</span></span>
+<span id="annotated-cell-8-15"><a href="#annotated-cell-8-15"></a>  <span class="fu">}</span><span class="er">,</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="7" data-code-annotation="1">使用 <code>-nop</code> 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="7" data-code-annotation="1">使用 <code>-nop</code> 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="11,12" data-code-annotation="2">執行 <code>Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"</code> 來替代。</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="11,12" data-code-annotation="2">執行 <code>Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"</code> 來替代。</span>
 </dd>
 </dl></li>
 <li><p><strong>Update-SymLinks.ps1</strong><br>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br>(Windows 10 symbolic link 會因搬移到不同磁碟機/電腦而失效) <img data-src="./01_IDE_Setup/pics/update_symbolic_link-Windows_x64.png" class="quarto-figure quarto-figure-center"></p></li>
@@ -514,10 +514,10 @@
 <section id="asp.net-core-整合-powershell-hosting-environment-1" class="slide level2">
 <h2>ASP.NET Core 整合 PowerShell Hosting Environment</h2>
 <ul>
-<li>ASP.NET Core 3.1+ 的專案透過 <a href="http://www.nuget.org/packages/Microsoft.PowerShell.SDK"><code>Microsoft.PowerShell.SDK</code> nuget 套件</a>整合 <a href="http://learn.microsoft.com/powershell/scripting/dev-cross-plat/choosing-the-right-nuget-package#microsoftpowershellsdk">PowerShell Hosting runtime環境</a>，使 C# 應用以 <a href="https://learn.microsoft.com/powershell/scripting/developer/hosting/adding-and-invoking-commands">PowerShell C# API 執行 PowerShell script 或 PowerShell Cmdlet 指令</a>。</li>
+<li>ASP.NET Core v3.1+ 的專案透過 <a href="http://www.nuget.org/packages/Microsoft.PowerShell.SDK"><code>Microsoft.PowerShell.SDK</code> nuget 套件</a>整合 <a href="http://learn.microsoft.com/powershell/scripting/dev-cross-plat/choosing-the-right-nuget-package#microsoftpowershellsdk">PowerShell Hosting runtime環境</a>，使 C# 應用以 <a href="https://learn.microsoft.com/powershell/scripting/developer/hosting/adding-and-invoking-commands">PowerShell C# API 執行 PowerShell script 或 PowerShell Cmdlet 指令</a>。</li>
 </ul>
 </section>
-<section id="asp.net-core-minimal-api-整合執行-powershell-script-範例" class="slide level2 small scrollable">
+<section id="asp.net-core-minimal-api-整合執行-powershell-script-範例" class="slide level2 smaller scrollable">
 <h2>ASP.NET Core Minimal API 整合執行 PowerShell Script 範例</h2>
 <h3 id="demo-3"><strong><em>Demo</em></strong></h3>
 <p><a href="http://github.com/windperson/BinaryPwshModuleDemo">範例程式碼 GitHub</a></p>
@@ -542,7 +542,7 @@
 <span id="cb3-7"><a href=""></a>    <span class="cf">return</span> <span class="fu">Get-ChildItem</span> <span class="op">-</span>Path <span class="va">$Path</span> <span class="op">-</span>Recurse <span class="op">-</span>File <span class="op">-</span>Filter <span class="st">"*.</span><span class="va">$Extension</span><span class="st">"</span></span>
 <span id="cb3-8"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>也可以使用PowerShell 己提供的 <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.utility/get-filehash"><code>Get-FileHash</code> Cmdlet</a> 取得檔案的 Hash 值來快速判斷檔案是否相同:</p>
+<p>也可用PowerShell 的 <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.utility/get-filehash"><code>Get-FileHash</code> Cmdlet</a> 取得檔案的 Hash 值來快速判斷檔案內容是否相同:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>src\DemoWebApi\PwshScripts\DuplicateFilesFinder.psm1</strong></pre>
@@ -558,43 +558,106 @@
 <span id="cb4-9"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="section-1" class="slide level2 small scrollable">
+<section id="section-1" class="slide level2 smaller scrollable">
 <h2></h2>
-<p>原本在 PowrShell script 裡使用的是 PowerShell 定義的自訂 Class 類別，因此在執行完畢回傳 PowerShell 物件直接使用 <a href="https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic"><strong><code>dynamic</code></strong> keyword</a> 寫法簡化取得 FilePath1 &amp; FilePath2 屬性值程式碼。</p>
+<p>在 ASP.NET Core Minimal API 中使用 PowerShell Hosting Environment 來執行 PowerShell script/指令，需要先建立相關的 <a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell">PowerShell</a>, <a href="http://learn.microsoft.com/dotnet/api/system.management.automation.runspaces.runspace">Runspace</a> 等 API 物件，以及使用 <code>.AddScript()</code>/<code>.AddCommand()</code>/<code>.AddParameter()</code> 等 chainable fluent API 的方式來設定 PowerShell script 的執行環境:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs</strong></pre>
 </div>
-<div class="sourceCode" id="annotated-cell-6" data-filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs"><pre class="sourceCode csharp cs code-annotation-code code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> result <span class="op">=</span></span>
-<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a>    ps<span class="op">.</span><span class="fu">Invoke</span><span class="op">(</span>input<span class="op">:</span> <span class="kw">null</span><span class="op">,</span> settings<span class="op">:</span> psInvocationSettings<span class="op">)</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">FirstOrDefault</span><span class="op">()?.</span><span class="fu">BaseObject</span> <span class="kw">as</span> <span class="dt">object</span><span class="op">[];</span></span>
-<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> duplicateFileResults <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span>DuplicateFileResult<span class="op">&gt;(</span>result<span class="op">.</span><span class="fu">Length</span><span class="op">);</span></span>
-<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a><span class="co">// use dynamic to make simpler coding style to avoid reflection</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-6-7" class="code-annotation-target"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> <span class="op">(</span>dynamic duplicateFileInfo <span class="kw">in</span> result<span class="op">)</span></span>
-<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="annotated-cell-6-9"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> duplicateFileResult <span class="op">=</span> <span class="kw">new</span> DuplicateFileResult</span>
-<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-6-11" class="code-annotation-target"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a>        SourceFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath1</span><span class="op">.</span><span class="fu">ToString</span><span class="op">(),</span></span>
-<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a>        CompareFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath2</span><span class="op">.</span><span class="fu">ToString</span><span class="op">()</span></span>
-<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
-<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a>    duplicateFileResults<span class="op">.</span><span class="fu">Add</span><span class="op">(</span>duplicateFileResult<span class="op">);</span></span>
-<span id="annotated-cell-6-15"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="annotated-cell-6-16"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-6-17"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> duplicateFileResults<span class="op">;</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-6" data-filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs"><pre class="sourceCode csharp cs code-annotation-code code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="fu">DuplicateFileFinderInvokeService</span><span class="op">(</span>ILogger<span class="op">&lt;</span>DuplicateFileFinderInvokeService<span class="op">&gt;</span> logger<span class="op">)</span></span>
+<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>    _runspacePool <span class="op">=</span> RunspaceFactory<span class="op">.</span><span class="fu">CreateRunspacePool</span><span class="op">();</span></span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>    _runspacePool<span class="op">.</span><span class="fu">Open</span><span class="op">();</span></span>
+<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a>    _logger <span class="op">=</span> logger<span class="op">;</span></span>
+<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="annotated-cell-6-7"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> async Task<span class="op">&lt;</span>IList<span class="op">&lt;</span>DuplicateFileResult<span class="op">&gt;&gt;</span> <span class="fu">RunScriptAsync</span><span class="op">(</span>ApiInputDto funcInput<span class="op">,</span></span>
+<span id="annotated-cell-6-9"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a>    CancellationToken cancellationToken<span class="op">)</span></span>
+<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-6-11"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">using</span> <span class="dt">var</span> ps <span class="op">=</span> PowerShell<span class="op">.</span><span class="fu">Create</span><span class="op">();</span></span>
+<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a>    ps<span class="op">.</span><span class="fu">RunspacePool</span> <span class="op">=</span> _runspacePool<span class="op">;</span></span>
+<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a>    cancellationToken<span class="op">.</span><span class="fu">Register</span><span class="op">(()</span> <span class="op">=&gt;</span></span>
+<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-6-15" class="code-annotation-target"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>ps<span class="op">.</span><span class="fu">InvocationStateInfo</span><span class="op">.</span><span class="fu">State</span> <span class="op">==</span> PSInvocationState<span class="op">.</span><span class="fu">Running</span><span class="op">)</span></span>
+<span id="annotated-cell-6-16"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="annotated-cell-6-17"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a>            ps<span class="op">.</span><span class="fu">Stop</span><span class="op">();</span></span>
+<span id="annotated-cell-6-18"><a href="#annotated-cell-6-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="annotated-cell-6-19"><a href="#annotated-cell-6-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">});</span></span>
+<span id="annotated-cell-6-20"><a href="#annotated-cell-6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-6-21"><a href="#annotated-cell-6-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* ... */</span></span>
+<span id="annotated-cell-6-22"><a href="#annotated-cell-6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-6-23"><a href="#annotated-cell-6-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">try</span></span>
+<span id="annotated-cell-6-24"><a href="#annotated-cell-6-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-6-25" class="code-annotation-target"><a href="#annotated-cell-6-25" aria-hidden="true" tabindex="-1"></a>        ps<span class="op">.</span><span class="fu">AddScript</span><span class="op">(</span><span class="st">"Import-Module ./PwshScripts/DuplicateFilesFinder.psm1 -Verbose"</span><span class="op">)</span></span>
+<span id="annotated-cell-6-26"><a href="#annotated-cell-6-26" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">AddStatement</span><span class="op">();</span></span>
+<span id="annotated-cell-6-27"><a href="#annotated-cell-6-27" aria-hidden="true" tabindex="-1"></a>        ps<span class="op">.</span><span class="fu">AddCommand</span><span class="op">(</span><span class="st">"Get-DuplicateFile"</span><span class="op">)</span></span>
+<span id="annotated-cell-6-28"><a href="#annotated-cell-6-28" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">AddParameter</span><span class="op">(</span><span class="st">"SourcePath"</span><span class="op">,</span> funcInput<span class="op">.</span><span class="fu">SourceFolder</span><span class="op">)</span></span>
+<span id="annotated-cell-6-29"><a href="#annotated-cell-6-29" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">AddParameter</span><span class="op">(</span><span class="st">"ComparePath"</span><span class="op">,</span> funcInput<span class="op">.</span><span class="fu">CompareFolder</span><span class="op">);</span></span>
+<span id="annotated-cell-6-30"><a href="#annotated-cell-6-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(!</span><span class="dt">string</span><span class="op">.</span><span class="fu">IsNullOrEmpty</span><span class="op">(</span>funcInput<span class="op">.</span><span class="fu">CompareType</span><span class="op">))</span></span>
+<span id="annotated-cell-6-31"><a href="#annotated-cell-6-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="annotated-cell-6-32"><a href="#annotated-cell-6-32" aria-hidden="true" tabindex="-1"></a>            ps<span class="op">.</span><span class="fu">AddParameter</span><span class="op">(</span><span class="st">"CompareType"</span><span class="op">,</span> funcInput<span class="op">.</span><span class="fu">CompareType</span><span class="op">);</span></span>
+<span id="annotated-cell-6-33"><a href="#annotated-cell-6-33" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="annotated-cell-6-34"><a href="#annotated-cell-6-34" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* run above arranged commands via ps.Invoke(...) or ps.InvokeAsync(...) */</span></span>
+<span id="annotated-cell-6-35"><a href="#annotated-cell-6-35" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="annotated-cell-6-36"><a href="#annotated-cell-6-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">catch</span> <span class="op">(</span>Exception ex<span class="op">)</span></span>
+<span id="annotated-cell-6-37"><a href="#annotated-cell-6-37" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="annotated-cell-6-38"><a href="#annotated-cell-6-38" aria-hidden="true" tabindex="-1"></a>        <span class="co">// handle exception</span></span>
+<span id="annotated-cell-6-39"><a href="#annotated-cell-6-39" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="annotated-cell-6-40"><a href="#annotated-cell-6-40" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="3" data-code-annotation="1">由於原本 PowerShell script function 定義的回傳值是單個物件陣列，所以取得回傳值順便先轉型成 <code>object[]</code> 陣列。</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="3,4" data-code-annotation="1">使用 <a href="http://learn.microsoft.com/dotnet/api/system.management.automation.runspaces.runspacepool"><code>RunspacePool</code></a> 來管理 <a href="http://learn.microsoft.com/powershell/scripting/developer/hosting/creating-runspaces">PowerShell 的 Runspace 執行環境</a>，記得要呼叫 <a href="https://learn.microsoft.com/en-us/dotnet/api/system.management.automation.runspaces.runspace.open?view=powershellsdk-7.4.0"><code>.Open()</code></a> 後才能後續在 PowerShell 物件上執行 <a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.invoke"><code>.Invoke()</code></a>/<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.invokeasync"><code>.InvokeAsync()</code></a> 實際跑 PowerShell 程式。</span>
 </dd>
 <dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="7" data-code-annotation="2">使用 <code>dynamic</code> 關鍵字來簡化原本 PowerShell 程式碼中定義的自訂 class 型別。</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="15,16,17,18" data-code-annotation="2">設定當 CancellationToken 觸發時，停止目前 PowerShell runtime 的執行。</span>
 </dd>
 <dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="11,12" data-code-annotation="3">就可以直接使用物件的屬性值（C#編譯器不檢查，如果寫錯就會有 runtime exception）。</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="25,26,27,28,29,30,31,32,33" data-code-annotation="3"><a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addscript"><code>.AddScript()</code></a> 用來載入 PowerShell script 檔案，<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addstatement"><code>.AddStatement()</code></a>同等於在 PowerShell script 檔案換行，<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addcommand"><code>.AddCommand()</code></a> 用來表示執行 PowerShell function/Cmdlet，<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addcommand"><code>.AddParameter()</code></a>/<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addparameters"><code>.AddParameters()</code></a> 用來設定 PowerShell script function 的參數值。</span>
+</dd>
+</dl>
+</section>
+<section id="section-2" class="slide level2 smaller scrollable">
+<h2></h2>
+<p>原本在 PowrShell script 裡用的是 <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_classes">PowerShell 定義自訂 Class 類別</a>，因此在執行完畢回傳的結果值物件直接使用 <a href="https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic"><strong><code>dynamic</code></strong> keyword</a> 寫法簡化取得 FilePath1 &amp; FilePath2 屬性值程式碼。</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs</strong></pre>
+</div>
+<div class="sourceCode" id="annotated-cell-7" data-filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs"><pre class="sourceCode csharp cs code-annotation-code code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> result <span class="op">=</span></span>
+<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>    ps<span class="op">.</span><span class="fu">Invoke</span><span class="op">(</span>input<span class="op">:</span> <span class="kw">null</span><span class="op">,</span> settings<span class="op">:</span> psInvocationSettings<span class="op">)</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">FirstOrDefault</span><span class="op">()?.</span><span class="fu">BaseObject</span> <span class="kw">as</span> <span class="dt">object</span><span class="op">[];</span></span>
+<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> duplicateFileResults <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span>DuplicateFileResult<span class="op">&gt;(</span>result<span class="op">.</span><span class="fu">Length</span><span class="op">);</span></span>
+<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a><span class="co">// use dynamic to make simpler coding style to avoid reflection</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-7-7" class="code-annotation-target"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> <span class="op">(</span>dynamic duplicateFileInfo <span class="kw">in</span> result<span class="op">)</span></span>
+<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-7-9"><a href="#annotated-cell-7-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> duplicateFileResult <span class="op">=</span> <span class="kw">new</span> DuplicateFileResult</span>
+<span id="annotated-cell-7-10"><a href="#annotated-cell-7-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-7-11" class="code-annotation-target"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a>        SourceFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath1</span><span class="op">.</span><span class="fu">ToString</span><span class="op">(),</span></span>
+<span id="annotated-cell-7-12"><a href="#annotated-cell-7-12" aria-hidden="true" tabindex="-1"></a>        CompareFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath2</span><span class="op">.</span><span class="fu">ToString</span><span class="op">()</span></span>
+<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="annotated-cell-7-14"><a href="#annotated-cell-7-14" aria-hidden="true" tabindex="-1"></a>    duplicateFileResults<span class="op">.</span><span class="fu">Add</span><span class="op">(</span>duplicateFileResult<span class="op">);</span></span>
+<span id="annotated-cell-7-15"><a href="#annotated-cell-7-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="annotated-cell-7-16"><a href="#annotated-cell-7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-17"><a href="#annotated-cell-7-17" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> duplicateFileResults<span class="op">;</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="1">由於原本 PowerShell script function 的回傳值是單個物件陣列，所以取得回傳值順便先轉型成 <code>object[]</code> 陣列。</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="7" data-code-annotation="2">使用 <code>dynamic</code> 關鍵字來簡化原本 PowerShell 程式碼中定義的自訂 class 型別。</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="11,12" data-code-annotation="3">就可以直接使用物件的屬性值（C#編譯器不檢查，如果寫錯就會有 runtime exception）。</span>
 </dd>
 </dl>
 <div class="quarto-figure quarto-figure-center">
