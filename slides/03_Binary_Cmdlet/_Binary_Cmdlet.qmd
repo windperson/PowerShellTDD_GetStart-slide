@@ -6,7 +6,7 @@
 
 but... C# binary cmdlet 的測試案例撰寫相對較困難😵
 
-## PowerShell C# binary cmdlet 的簡單範例
+## PowerShell C# binary cmdlet 的簡單範例 {.scrollable}
 
 ### ***Demo***
 
@@ -14,19 +14,64 @@ but... C# binary cmdlet 的測試案例撰寫相對較困難😵
 
 * 使用 [`PowerShell.Standard.Library` Nuget 套件](http://www.nuget.org/packages/PowerShellStandard.Library/)的 binary cmdlet 可在 Windows PowerShell v5.1+ & PowerShell v7+ 環境中執行。
 * 使用 [`System.Management.Automation` Nuget 套件](http://www.nuget.org/packages/System.Management.Automation/)的 binary cmdlet 僅能在 PowerShell Core/v7+ 環境中執行。
-* 繼承 `Cmdlet` 類別來撰寫 PowerShell Simple function 的 binary cmdlet 實作。
-* 繼承 `PSCmdlet` 類別來撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 實作。
+* 繼承 [`Cmdlet`](http://learn.microsoft.com/dotnet/api/system.management.automation.cmdlet) 類別來撰寫 PowerShell Simple function 的 binary cmdlet 實作。
+* 繼承 [`PSCmdlet`](http://learn.microsoft.com/dotnet/api/system.management.automation.pscmdlet) 類別來撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 實作。
 * 使用 C# xUnit測試框架來撰寫繼承 `Cmdlet` 的測試案例。
 
-## ***(PowerShell + C# binary cmdlet)*** call gRPC API
+::: {.callout-tip}
+使用 VSCode 來跑偵錯 PowerShell binary cmdlet 時，注意 launch.json 的 console 需設定為 "**integratedTerminal**"，否則無法正確停在 debug point。
+:::
+
+```json{.json filename=".vscode/launch.json" code-line-numbers="5,8,17,22,25,34"}
+{
+     "configurations": [
+        {
+            "name": "NetStandard module Pwsh CLI",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build netstandard module",
+            "program": "pwsh",
+            "args": [
+                "-NoExit",
+                "-NoProfile",
+                "-Command",
+                "Import-Module ${workspaceFolder}/src/PwshStandardModule/bin/Debug/netstandard2.0/PwshStandardModule.dll"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        },
+        {
+            // NOTE: this task is Windows only
+            "name": "NetStandard module Windows PowerShell CLI",
+            "type": "clr",
+            "request": "launch",
+            "preLaunchTask": "build netstandard module",
+            "program": "powerShell",
+            "args": [
+                "-NoExit",
+                "-NoProfile",
+                "-Command",
+                "Import-Module ${workspaceFolder}/src/PwshStandardModule/bin/Debug/netstandard2.0/PwshStandardModule.dll"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        }
+    ]
+}
+```
+
+
+## **(PowerShell + C# binary cmdlet)** call gRPC API
 
 ### ***Demo***
 
-[範例程式碼 GitHub](http://github.com/windperson/BinaryPwshModuleDemo)
+[範例程式碼 GitHub](http://github.com/windperson/MultiPlatformPwshCmdletDemo)
 
 * 使用 [gRPC-web](https://devblogs.microsoft.com/dotnet/grpc-web-experiment/) 的 C# Client Nuget 套件以便在不支援 HTTP/2 的 Windows PowerShell 環境中呼叫 gRPC 服務。
    * 如何為 Windows PowerShell 的 C# binary cmdlet 撰寫 Assembly Resolver 以便成功載入 gRPC-Web client Library。
-* 繼承 `PSCmdlet` 類別所撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 如何使用 xUnit 測試框架來撰寫測試案例。
+* 繼承 [`PSCmdlet`](http://learn.microsoft.com/dotnet/api/system.management.automation.pscmdlet) 類別所撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 如何使用 xUnit 測試框架來撰寫測試案例。
 * 使用混合 PowerShell .psd1 設定檔 + C# binary cmdlet 的方式來撰寫混合型 PowerShell Module 專案。
     * 如何在 Windows PowerShell v5.1 & PowerShell v7+ 環境中執行。
     * 如何針對 PowerShell + C# 程式碼的專案撰寫 PowerShell 的 Pester 測試案例。

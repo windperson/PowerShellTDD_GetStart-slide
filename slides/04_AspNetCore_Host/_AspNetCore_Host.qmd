@@ -191,7 +191,7 @@ public void TestDuplicateFileFinderPwshFunction()
 2. 使用 PowerShellGet 的 `Save-Module` 命令將最新版 Pester 從 PowerShell Gallery 下載至暫存目錄，然後用 `Import-Module` 載入該版本的 Pester 模組。(參考[官方手動安裝說明文件](https://pester.dev/docs/introduction/installation#installing-manually))
 3. 取得目前執行測試程式的目錄，並且設定要執行的 Pester 測試案例 script 檔案路徑。
 4. 執行 Pester 測試案例 script 檔案，並將測試結果回傳給 C# 程式碼。
-5. 由於 Pester 測試結果回傳的是 PowerShell [PSCustomObject](http://learn.microsoft.com/powershell/scripting/learn/deep-dives/everything-about-pscustomobject) 型態的 hash table，所以透過 `Properties` 屬性來取得各個測試結果的屬性值。
+5. 由於 Pester 測試結果回傳的是 PowerShell [PSCustomObject](http://learn.microsoft.com/powershell/scripting/learn/deep-dives/everything-about-pscustomobject) 型態物件，所以透過 `Properties` 屬性來取得各個測試結果的屬性值。
 
 ![]({{< meta part4_img_prefix >}}pics/Invoke-Pester_test_result_object.png){height=100% fig-align="center"}
 

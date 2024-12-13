@@ -65,10 +65,33 @@ Slide URL
 
 {{< include 04_AspNetCore_Host/_AspNetCore_Host.qmd >}}
 
-## 參考資料
+# 參考資料 {.smaller .scrollable}
 
-[TBD]
+* [Differences between Windows PowerShell 5.1 and PowerShell 7.x](http://learn.microsoft.com/powershell/scripting/whats-new/differences-from-windows-powershell)
+* Udemy course [PowerShell for Sysadmins: Getting Started (v7+)](https://www.udemy.com/course/powershell-for-sysadmins-getting-started/)
+* **PowerShell Visual Studio code extension** feature introduction:
+    * Editing feature: [&lt;part-1&gt;](https://devblogs.microsoft.com/scripting/visual-studio-code-editing-features-for-powershell-development-part-1/), and [&lt;part-2&gt;](https://devblogs.microsoft.com/scripting/visual-studio-code-editing-features-for-powershell-development-part-2/)
+    * Debugging feature: [&lt;part-1&gt;](https://devblogs.microsoft.com/scripting/debugging-powershell-script-in-visual-studio-code-part-1/), and [&lt;part-2&gt;](https://devblogs.microsoft.com/scripting/debugging-powershell-script-in-visual-studio-code-part-2/)
+    * [ScriptAnalyzer](https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyzer?view=ps-modules#using-custom-rules-in-visual-studio-code)
+* Three kinds of [PowerShell code formatting styles](https://github.com/PoshCode/PowerShellPracticeAndStyle/discussions/177)
+* **PowerShell.org** Video:
+  * [Writing Pester Tests at Scale by Jaap Brasser](https://youtu.be/y1s2FnKrjxw?si=vn3Fl60ebbRH5W6Q)
+  * [Mastering Pester: PowerShell Unit and Infrastructure Testing by Jaap Brasser, Justin Grote](https://youtu.be/q88Aq9suw2w?si=1II3rnDerFS65gcQ)
+* **PowerShell Conference EU** Video:
+  * [Modern PowerShell module Development - Gael Colas - PSConfEU 2024](https://youtu.be/_Hr6CeTKbLc?si=_cUU5ESn6BCxgxYa)
+  * [Creating your first PowerShell module in C# - Emanuel Palm,Justin Grote - PSConfEU 2023](https://youtu.be/6jQqf-LTRGI?si=mea7Y9MBJOu7KGRw)
+  * [Get Started with AI assisted PowerShell coding. - Pierre Roman - PSConfEU 2023](https://youtu.be/3PmJUk7gzpE?si=_Npq_o_nJCe11j9v)
+* [Using Visual Studio Code to debug compiled cmdlets](http://learn.microsoft.com/powershell/scripting/dev-cross-plat/vscode/using-vscode-for-debugging-compiled-cmdlets)
+* [gRPC-Web in .NET](https://devblogs.microsoft.com/dotnet/grpc-web-experiment/)
+* [Execute a PowerShell Script in C#](https://code-maze.com/csharp-run-powershell-script/)
+* **Using the PowerShell API from .NET**
+    * [YouTube影片](https://youtu.be/GI5Y0ldHyac?si=aehQA_AHAqaCytdK)
+    * [教學文件](https://gist.github.com/rjmholt/7c1072a24a51e7b43d1e7df02265fe18)
+* Beginning Use of PowerShell Runspaces: [Part 1](https://devblogs.microsoft.com/scripting/beginning-use-of-powershell-runspaces-part-1/) & [Part 2](https://devblogs.microsoft.com/scripting/beginning-use-of-powershell-runspaces-part-2/) & [Part 3](https://devblogs.microsoft.com/scripting/beginning-use-of-powershell-runspaces-part-3/)
+* [PowerShell TDD: Testing ShouldProcess](https://www.hans-eric.com/2022/07/12/powershell-tdd-testing-shouldprocess/)
+* [Mastering PowerShell ValidateScript for Better Input](https://adamtheautomator.com/powershell-validatescript/)
+* [Simplifying Parameter Validation in PowerShell with Private Functions](https://mikefrobbins.com/2018/04/26/simplifying-parameter-validation-in-powershell-with-private-functions/)
 
-## Q & A {.center-xy}
+# Q & A {.center-xy}
 
 Any Questions?🙋‍♂️🙋‍♀️
