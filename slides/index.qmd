@@ -33,7 +33,7 @@ code-annotations: below
 ::: {.column width="80%"}
 
 * Visual Studio Code 建置 PowerShell TDD 開發環境
-* PowerShell 測試工具框架 Pester介紹、為既有 PowerShell script加上可執行的測試案例
+* PowerShell 測試工具框架 Pester介紹、為既有 PowerShell script加上可執行測試案例
 * PowerShell + C# binary cmdlet、ASP.NET Core 整合 PowerShell Hosting Script 的 TDD 範例
 
 :::

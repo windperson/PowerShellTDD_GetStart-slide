@@ -10,8 +10,7 @@
 ## VSCode as PowerShell TDD IDE{.scrollable}
 
 * 為了有一個乾淨＆快速的TDD開發環境，建議使用[ Portable 版本的 VSCode](http://code.visualstudio.com/docs/editor/portable)，以免同時安裝太多擴充套件消耗資源。
-  ![]({{< meta part1_img_prefix >}}pics/vscode_zip_version.png){fig-align="center"}
-
+  ![]({{< meta part1_img_prefix >}}pics/vscode_zip_version.png){height=100% fig-align="center"}
 * 一定要安裝的套件其實只有三個(去掉 Vim 😆)：<br/>
 ([C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)套件非免費且無法在封閉內網環境使用)
   ![]({{< meta part1_img_prefix >}}pics/minimal_powershell_dev_extensions.png){fig-align="center"}
@@ -24,8 +23,7 @@
 * [Windows 11 (ARM64)](https://github.com/windperson/vscode_win32Arm64_pwsh)
 * [macOS (ARM 64)]()
 
-## Example VSCode Environment - Windows(x64){.scrollable}
-
+## Example VSCode Environment - Windows(x64){.small .scrollable}
 
 除了要手動開啟Windows『開發者模式』設定以及將同捆的 .NET SDK 的執行檔路徑到環境變數之外，其他的都是使用 Portable 版本的開發環境：
 
@@ -37,7 +35,7 @@
    ![]({{< meta part1_img_prefix >}}pics/set_dotnet_root_env-Windows_x64.png){fig-align="center"}
    ![]({{< meta part1_img_prefix >}}pics/set_path_env_include_dotnet_root-Windows_x64.png){fig-align="center"}
 
-## Example VSCode Environment - Windows(x64) {.scrollable}
+## Example VSCode Environment - Windows(x64) {.small .scrollable}
 
 開發環境的檔案目錄架構:
 
@@ -61,7 +59,7 @@ $AnyObject | Out-Dump
 
 ![]({{< meta part1_img_prefix >}}pics/demo_PowerShell.dumPS.png){fig-align="center"}
 
-## Example VSCode Environment - Windows(x64) {.scrollable}
+## Example VSCode Environment - Windows(x64) {.small .scrollable}
 
 在 pwsh-scripts 目錄的開發環境設定用 script 檔案：
 
