@@ -73,7 +73,7 @@ but... C# binary cmdlet 的測試案例撰寫相對較困難😵
    * 如何為 Windows PowerShell 的 C# binary cmdlet 撰寫 Assembly Resolver 以便成功載入 gRPC-Web client Library。
 * 繼承 [`PSCmdlet`](http://learn.microsoft.com/dotnet/api/system.management.automation.pscmdlet) 類別所撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 如何使用 xUnit 測試框架來撰寫測試案例。
 * 使用混合 PowerShell .psd1 設定檔 + C# binary cmdlet 的方式來撰寫混合型 PowerShell Module 專案。
-    * 如何在 Windows PowerShell v5.1 & PowerShell v7+ 環境中執行。
+    * 如何於 Windows PowerShell v5.1 & PowerShell v7+ 跑偵錯。
     * 如何針對 PowerShell + C# 程式碼的專案撰寫 PowerShell 的 Pester 測試案例。
 
 ## {.smaller .scrollable}
@@ -130,3 +130,91 @@ internal static class DependencyResolution
 2. 實作 `IModuleAssemblyCleanup` 介面移除 Assembly Resolver 事件處理函式。
 3. 針對 gRPC-Web client 套件相依 `Systems.Buffers.dll` 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。
 4. 針對 `Systems.Buffers` 相依 `System.Runtime.CompilerServices.Unsafe.dll` 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。
+
+## {.smaller .scrollable}
+
+將實際呼叫 gRPC 服務的 C# 程式與 Binary Cmdlet 專案的分開並定義介面 `IGreetingGrpcClient`，以便於稍後撰寫測試案例。
+
+```csharp{.cs filename="Pwsh\GreeterCmdlet\CallGreetingClientLibCmdlet.cs" code-line-numbers="10,32-40"}
+[Cmdlet(VerbsCommunications.Send, "GreeterGrpcApi")]
+[OutputType(typeof(GreetingResponse))]
+public class CallGreetingClientLibCmdlet : PSCmdlet
+{
+    [Parameter(Mandatory = true, Position = 0)]
+    public string Server { get; set; } = string.Empty;
+
+    [Parameter(Mandatory = true)] public GreetingRequest Request { get; set; } = null!;
+
+    [Parameter(Mandatory = false)] public IGreetingGrpcClient ApiClient { get; set; } = new GreetingClient();
+
+    protected override void BeginProcessing()
+    {
+        if (ApiClient is GreetingClient greetingClient)
+        {
+            greetingClient.ServerUrl = $"https://{Server}";
+        }
+    }
+
+    protected override void ProcessRecord()
+    {
+        try
+        {
+            var reply = ApiClient.GetGreeting(Request);
+            WriteObject(reply);
+        }
+        catch (Exception ex) {
+            /* handle exception */
+        }
+    }
+
+    /// <summary>
+    /// This method is used for testing purposes only.
+    /// </summary>
+    internal void ProcessInternalForTest()
+    {
+        BeginProcessing();
+        ProcessRecord();
+        EndProcessing();
+    }
+}
+```
+
+::: {.callout-note collapse=true}
+35~40行是為了要在測試程式碼中模擬 PSCmdlet 的 PowerShell runtime 執行環境，以便讓測試程式呼叫 PowerShell Cmdlet 提供的 `BeginProcessing()`,  `ProcessRecord()`,  `EndProcessing()` 這三個 API 實作方法依序執行的內藏函式，並在此專案的 .csproj 設定檔中宣告 `<InternalVisible>...</InternalVisible>`讓 xUnit 測試專案有權限可以執行此方法。
+:::
+
+實際寫 xUnit test case 時，可用 [`Moq` nuget 套件](https://www.nuget.org/packages/Moq)提供的功能產生 `Mock<IGreetingGrpcClient>` 物件來模擬呼叫 gRPC 服務的行為。
+
+```csharp{.cs filename="tests\csharp\GreeterCmdletTests\CallGreetingClientLibCmdletTests.cs" code-line-numbers="false"}
+[Fact]
+public void ProcessRecord_ShouldWriteObject_WhenApiClientReturnsResponse()
+{
+    // Arrange
+    var mockApiClient = new Mock<IGreetingGrpcClient>();                     // <1>
+    var request = new GreetingRequest("Test");                               // <1>
+    var response = new GreetingResponse("Hello, Test!");                     // <1>
+    mockApiClient.Setup(client => client.GetGreeting(request))               // <1>
+                    .Returns(response);                                      // <1>
+                    
+    var cmdlet = new CallGreetingClientLibCmdlet
+    {
+        Server = "localhost",
+        Request = request,
+        ApiClient = mockApiClient.Object
+    };
+
+    // Act
+    var pipelineEmulator = new CommandRuntimeEmulator();                     // <2>
+    cmdlet.CommandRuntime = pipelineEmulator;                                // <2>
+    cmdlet.ProcessInternalForTest();                                         // <2>
+
+    // Assert
+    var results = pipelineEmulator.OutputObjects;
+    Assert.Single(results);
+    var actualResponse = results.First() as GreetingResponse;
+    Assert.NotNull(actualResponse);
+    Assert.Equal(response.Message, actualResponse.Message);
+}
+```
+1. 建立 `Mock<IGreetingGrpcClient>` 來模擬呼叫 gRPC 服務的行為，就不需在跑測試時使用實際的 gRPC Server 服務。
+2. 使用 `CommandRuntimeEmulator` 這個自製的實作 [`ICommandRuntime` 介面](http://learn.microsoft.com/dotnet/api/system.management.automation.icommandruntime)類別來模擬 Cmdlet 的 PowerShell runtime 實際執行環境，並呼叫預留的 `ProcessInternalForTest()` 方法來依序執行此Cmdlet 的 `BeginProcessing()`,  `ProcessRecord()`,  `EndProcessing()` 這三個 API 實作。
