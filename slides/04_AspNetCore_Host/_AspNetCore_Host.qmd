@@ -1,0 +1,16 @@
+## ASP.NET Core 整合 PowerShell Hosting Environment
+
+* ASP.NET Core 3.1+ 的專案透過 [`Microsoft.PowerShell.SDK` nuget 套件](http://www.nuget.org/packages/Microsoft.PowerShell.SDK)整合 [PowerShell Hosting runtime環境](http://learn.microsoft.com/powershell/scripting/dev-cross-plat/choosing-the-right-nuget-package#microsoftpowershellsdk)，使 C# 應用以 [ PowerShell C# API 執行 PowerShell script 或 PowerShell Cmdlet 指令](https://learn.microsoft.com/powershell/scripting/developer/hosting/adding-and-invoking-commands)。
+
+
+## ASP.NET Core Minimal API 整合執行 PowerShell Script 範例 {.scrollable}
+
+### ***Demo***
+
+[範例程式碼 GitHub](http://github.com/windperson/BinaryPwshModuleDemo)
+
+此範例程式為一個檢查執行環境中兩個目錄是否有同樣檔案的 Web API，透過一個 PowerShell script 來執行真正檔案比對的工作。
+
+此 PowerShell script 在先前的 [Pester test case 範例專案中提供](https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production/ProductFeatures/SysAdminUtil/DuplicateFilesFinder.psm1)並且已有[驗證行為的測試案例](https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production_test/ProductFeatures/SysAdminUtil/DuplicateFilesFinder.Tests.ps1)。
+
+![]({{< meta part4_img_prefix >}}pics/cli_run_Duplicate_File_Finder.png){fig-align="center"}

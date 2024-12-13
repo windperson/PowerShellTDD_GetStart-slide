@@ -7,4 +7,4 @@ project:
 part1_img_prefix: "./01_IDE_Setup/"
 part2_img_prefix: "./02_Pester_Intro/"
 part3_img_prefix: "./03_Binary_Cmdlet/"
-part4_img_prefix: "./03_AspNetCore_Host/"
+part4_img_prefix: "./04_AspNetCore_Host/"

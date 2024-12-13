@@ -31,9 +31,9 @@ code-annotations: below
 :::: {.columns}
 ::: {.column width="80%"}
 
-* 如何用 Visual Studio Code 建置 PowerShell TDD開發環境
+* Visual Studio Code 建置 PowerShell TDD 開發環境
 * PowerShell 測試工具框架 Pester介紹、為既有 PowerShell script加上可執行的測試案例
-* PowerShell + C# binary cmdlet~~、[TBD]ASP.NET Core 整合 PowerShell Hosting Script 的 TDD~~範例
+* PowerShell + C# binary cmdlet、ASP.NET Core 整合 PowerShell Hosting Script 的 TDD 範例
 
 :::
 ::: {.column width="20%"}
@@ -48,101 +48,21 @@ Slide URL
 :::
 ::::
 
+# Visual Studio Code 建置 PowerShell TDD 開發環境
+
 {{< include 01_IDE_Setup/_IDE_Setup.qmd >}}
+
+# PowerShell 測試工具框架 Pester 介紹
 
 {{< include 02_Pester_Intro/_Pester_Intro.qmd >}}
 
+# PowerShell + C# binary cmdlet
 
-## PowerShell + C# binary cmdlet
+{{< include 03_Binary_Cmdlet/_Binary_Cmdlet.qmd >}}
 
-* PowerShell v6+ & Windows PowerShell 5.1+ 都支援使用 C# 來撰寫 binary cmdlet 來擴充 PowerShell 的功能。
-* 透過 C# 的強型別、高效能、多執行緒等特性來撰寫 PowerShell 的 binary cmdlet，可以提高 PowerShell script的執行效能。
-* 一些 PowerShell 原生沒有提供的功能可透過 C# 來撰寫 binary cmdlet 來擴充 PowerShell 的使用範圍。
+# ASP.NET Core 整合 PowerShell Hosting Environment
 
-but... C# binary cmdlet 的測試案例撰寫相對困難😵
-
-## PowerShell C# binary cmdlet 的簡單範例
-
-### ***Demo***
-
-[範例程式碼 GitHub](http://github.com/windperson/BinaryPwshModuleDemo)
-
-* 使用 PowerShell Standard Library Nuget 套件的 binary cmdlet 可在 Windows PowerShell 5.1+ & PowerShell 7+ 環境中執行。
-* 使用 `System.Management.Automation` Nuget 套件的 binary cmdlet 僅能在 PowerShell Core/7+ 環境中執行。
-* 繼承 `Cmdlet` 類別來撰寫 PowerShell Simple function 的 binary cmdlet 實作。
-* 繼承 `PSCmdlet` 類別來撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 實作。
-* 使用 C# xUnit測試框架來撰寫繼承 `Cmdlet` 的測試案例。
-
-## ***(PowerShell + C# binary cmdlet)*** call gRPC API
-
-### ***Demo***
-
-[範例程式碼 GitHub](http://github.com/windperson/BinaryPwshModuleDemo)
-
-* 使用 [gRPC-web](https://devblogs.microsoft.com/dotnet/grpc-web-experiment/) 的 C# Client Nuget 套件以便在不支援 HTTP/2 的 Windows PowerShell 環境中呼叫 gRPC 服務。
-   * 如何為 Windows PowerShell 的 C# binary cmdlet 撰寫 Assembly Resolver 以便成功載入 gRPC-Web client Library。
-* 繼承 `PSCmdlet` 類別所撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 如何使用 xUnit 測試框架來撰寫測試案例。
-* 使用混合 PowerShell .psd1 設定檔 + C# binary cmdlet 的方式來撰寫混合型 PowerShell Module 專案。
-    * 如何在 PowerShell 7+ 環境中執行。
-    * 如何針對 PowerShell + C# 程式碼的專案撰寫 PowerShell 的 Pester 測試案例。
-
-## ***(PowerShell + C# binary cmdlet)*** call gRPC API {.scrollable}
-
-```csharp
-#if NETSTANDARD2_0
-using System.Management.Automation;
-using System.Reflection;
-
-namespace GreeterCmdlet;
-
-public class WindowsPowerShellModuleInitializer : IModuleAssemblyInitializer                                       // <1>
-{                                                                                                                  // <1>
-    public void OnImport()                                                                                         // <1>
-    {                                                                                                              // <1>
-        AppDomain.CurrentDomain.AssemblyResolve += DependencyResolution.ResoleAssembly;                            // <1>
-    }                                                                                                              // <1>
-}                                                                                                                  // <1>
-
-public class WindowsPowerShellModuleCleanup : IModuleAssemblyCleanup                                               // <2>
-{                                                                                                                  // <2>
-    public void OnRemove(PSModuleInfo psModuleInfo)                                                                // <2>
-    {                                                                                                              // <2>
-        AppDomain.CurrentDomain.AssemblyResolve -= DependencyResolution.ResoleAssembly;                            // <2>
-    }                                                                                                              // <2>
-}                                                                                                                  // <2>
-
-internal static class DependencyResolution
-{
-    private static readonly string ModulePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-
-    public static Assembly ResoleAssembly(object? sender, ResolveEventArgs args)
-    {
-        var assemblyName = new AssemblyName(args.Name);
-        if (assemblyName.Name == "System.Buffers")                                                                  // <3>
-        {                                                                                                           // <3>
-            return Assembly.LoadFrom( Path.Combine(ModulePath, "System.Buffers.dll"));                              // <3>
-        }                                                                                                           // <3>
-        
-        if (assemblyName.Name == "System.Runtime.CompilerServices.Unsafe")                                          // <4>
-        {                                                                                                           // <4>
-            return Assembly.LoadFrom( Path.Combine(ModulePath, "System.Runtime.CompilerServices.Unsafe.dll"));      // <4>
-        }                                                                                                           // <4>
-
-        return null!;
-    }
-}
-#endif
-```
-1. 實作 `IModuleAssemblyInitializer` 介面註冊 Assembly Resolver 事件處理函式。
-2. 實作 `IModuleAssemblyCleanup` 介面移除 Assembly Resolver 事件處理函式。
-3. 針對 gRPC-Web client nuget 相依的 `Systems.Buffers` 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。
-4. 針對 `Systems.Buffers` 相依的 `System.Runtime.CompilerServices.Unsafe.dll` 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。
-
-## [TBD] ASP.NET Core + PowerShell Hosting Script 的 TDD
-
-### ***Demo***
-
-[範例程式碼 GitHub]()
+{{< include 04_AspNetCore_Host/_AspNetCore_Host.qmd >}}
 
 ## 參考資料
 
