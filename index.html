@@ -220,7 +220,7 @@
 <div class="column" style="width:80%;">
 <ul>
 <li>Visual Studio Code 建置 PowerShell TDD 開發環境</li>
-<li>PowerShell 測試工具框架 Pester介紹、為既有 PowerShell script加上可執行的測試案例</li>
+<li>PowerShell 測試工具框架 Pester介紹、為既有 PowerShell script加上可執行測試案例</li>
 <li>PowerShell + C# binary cmdlet、ASP.NET Core 整合 PowerShell Hosting Script 的 TDD 範例</li>
 </ul>
 </div><div class="column" style="width:20%;">
@@ -263,8 +263,8 @@
 <section id="vscode-as-powershell-tdd-ide-1" class="slide level2 scrollable">
 <h2>VSCode as PowerShell TDD IDE</h2>
 <ul>
-<li><p>為了有一個乾淨＆快速的TDD開發環境，建議使用<a href="http://code.visualstudio.com/docs/editor/portable">Portable 版本的 VSCode</a>，以免同時安裝太多擴充套件消耗資源。 <img data-src="./01_IDE_Setup/pics/vscode_zip_version.png" class="quarto-figure quarto-figure-center"></p></li>
-<li><p>一定要安裝的套件其實只有三個(去掉 Vim 😆)：<br> (<a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit">C# Dev Kit</a>套件非免費且無法在封閉內網環境使用) <img data-src="./01_IDE_Setup/pics/minimal_powershell_dev_extensions.png" class="quarto-figure quarto-figure-center"></p></li>
+<li>為了有一個乾淨＆快速的TDD開發環境，建議使用<a href="http://code.visualstudio.com/docs/editor/portable">Portable 版本的 VSCode</a>，以免同時安裝太多擴充套件消耗資源。 <img data-src="./01_IDE_Setup/pics/vscode_zip_version.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></li>
+<li>一定要安裝的套件其實只有三個(去掉 Vim 😆)：<br> (<a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit">C# Dev Kit</a>套件非免費且無法在封閉內網環境使用) <img data-src="./01_IDE_Setup/pics/minimal_powershell_dev_extensions.png" class="quarto-figure quarto-figure-center"></li>
 </ul>
 </section>
 <section id="example-vscode-environment" class="slide level2">
@@ -276,7 +276,7 @@
 <li><a href="">macOS (ARM 64)</a></li>
 </ul>
 </section>
-<section id="example-vscode-environment---windowsx64" class="slide level2 scrollable">
+<section id="example-vscode-environment---windowsx64" class="slide level2 small scrollable">
 <h2>Example VSCode Environment - Windows(x64)</h2>
 <p>除了要手動開啟Windows『開發者模式』設定以及將同捆的 .NET SDK 的執行檔路徑到環境變數之外，其他的都是使用 Portable 版本的開發環境：</p>
 <ul>
@@ -285,7 +285,7 @@
 <li>.NET SDK 的執行路徑建議以 <strong>DOTNET_ROOT</strong> 環境變數設定，以便於切換不同版本的 dotnet 指令<br>（使用系統安裝的 .NET SDK 8.0 也👌🆗）。 <img data-src="./01_IDE_Setup/pics/set_dotnet_root_env-Windows_x64.png" class="quarto-figure quarto-figure-center"> <img data-src="./01_IDE_Setup/pics/set_path_env_include_dotnet_root-Windows_x64.png" class="quarto-figure quarto-figure-center"></li>
 </ul>
 </section>
-<section id="example-vscode-environment---windowsx64-1" class="slide level2 scrollable">
+<section id="example-vscode-environment---windowsx64-1" class="slide level2 small scrollable">
 <h2>Example VSCode Environment - Windows(x64)</h2>
 <p>開發環境的檔案目錄架構:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -307,7 +307,7 @@
 </figure>
 </div>
 </section>
-<section id="example-vscode-environment---windowsx64-2" class="slide level2 scrollable">
+<section id="example-vscode-environment---windowsx64-2" class="slide level2 small scrollable">
 <h2>Example VSCode Environment - Windows(x64)</h2>
 <p>在 pwsh-scripts 目錄的開發環境設定用 script 檔案：</p>
 <ul>
