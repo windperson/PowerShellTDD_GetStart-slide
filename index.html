@@ -214,15 +214,14 @@
 </div>
 
 </section>
-<section>
 <section id="agenda" class="title-slide slide level1 center">
 <h1>Agenda</h1>
 <div class="columns">
 <div class="column" style="width:80%;">
 <ul>
-<li>如何用 Visual Studio Code 建置 PowerShell TDD開發環境</li>
+<li>Visual Studio Code 建置 PowerShell TDD 開發環境</li>
 <li>PowerShell 測試工具框架 Pester介紹、為既有 PowerShell script加上可執行的測試案例</li>
-<li>PowerShell + C# binary cmdlet<del>、[TBD]ASP.NET Core 整合 PowerShell Hosting Script 的 TDD</del>範例</li>
+<li>PowerShell + C# binary cmdlet、ASP.NET Core 整合 PowerShell Hosting Script 的 TDD 範例</li>
 </ul>
 </div><div class="column" style="width:20%;">
 <div style="text-align: center">
@@ -239,6 +238,12 @@
 <p>Slide URL</p>
 </div>
 </div></div>
+</section>
+
+<section>
+<section id="visual-studio-code-建置-powershell-tdd-開發環境" class="title-slide slide level1 center">
+<h1>Visual Studio Code 建置 PowerShell TDD 開發環境</h1>
+
 </section>
 <section id="vscode-as-powershell-tdd-ide" class="slide level2">
 <h2>VSCode as PowerShell TDD IDE</h2>
@@ -335,6 +340,11 @@
 </dl></li>
 <li><p><strong>Update-SymLinks.ps1</strong><br>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br>(Windows 10 symbolic link 會因搬移到不同磁碟機/電腦而失效) <img data-src="./01_IDE_Setup/pics/update_symbolic_link-Windows_x64.png" class="quarto-figure quarto-figure-center"></p></li>
 </ul>
+</section></section>
+<section>
+<section id="powershell-測試工具框架-pester-介紹" class="title-slide slide level1 center">
+<h1>PowerShell 測試工具框架 Pester 介紹</h1>
+
 </section>
 <section id="pester---powershell-test-framework" class="slide level2">
 <h2>Pester - PowerShell Test Framework</h2>
@@ -381,23 +391,28 @@
 </ul></li>
 <li>Pester Custom Assertion 的撰寫及註冊使用。</li>
 </ul>
+</section></section>
+<section>
+<section id="powershell-c-binary-cmdlet" class="title-slide slide level1 center">
+<h1>PowerShell + C# binary cmdlet</h1>
+
 </section>
-<section id="powershell-c-binary-cmdlet" class="slide level2">
+<section id="powershell-c-binary-cmdlet-1" class="slide level2">
 <h2>PowerShell + C# binary cmdlet</h2>
 <ul>
 <li>PowerShell v6+ &amp; Windows PowerShell 5.1+ 都支援使用 C# 來撰寫 binary cmdlet 來擴充 PowerShell 的功能。</li>
 <li>透過 C# 的強型別、高效能、多執行緒等特性來撰寫 PowerShell 的 binary cmdlet，可以提高 PowerShell script的執行效能。</li>
 <li>一些 PowerShell 原生沒有提供的功能可透過 C# 來撰寫 binary cmdlet 來擴充 PowerShell 的使用範圍。</li>
 </ul>
-<p>but… C# binary cmdlet 的測試案例撰寫相對困難😵</p>
+<p>but… C# binary cmdlet 的測試案例撰寫相對較困難😵</p>
 </section>
 <section id="powershell-c-binary-cmdlet-的簡單範例" class="slide level2">
 <h2>PowerShell C# binary cmdlet 的簡單範例</h2>
 <h3 id="demo-1"><strong><em>Demo</em></strong></h3>
 <p><a href="http://github.com/windperson/BinaryPwshModuleDemo">範例程式碼 GitHub</a></p>
 <ul>
-<li>使用 PowerShell Standard Library Nuget 套件的 binary cmdlet 可在 Windows PowerShell 5.1+ &amp; PowerShell 7+ 環境中執行。</li>
-<li>使用 <code>System.Management.Automation</code> Nuget 套件的 binary cmdlet 僅能在 PowerShell Core/7+ 環境中執行。</li>
+<li>使用 <a href="http://www.nuget.org/packages/PowerShellStandard.Library/"><code>PowerShell.Standard.Library</code> Nuget 套件</a>的 binary cmdlet 可在 Windows PowerShell 5.1+ &amp; PowerShell 7+ 環境中執行。</li>
+<li>使用 <a href="http://www.nuget.org/packages/System.Management.Automation/"><code>System.Management.Automation</code> Nuget 套件</a>的 binary cmdlet 僅能在 PowerShell Core/7+ 環境中執行。</li>
 <li>繼承 <code>Cmdlet</code> 類別來撰寫 PowerShell Simple function 的 binary cmdlet 實作。</li>
 <li>繼承 <code>PSCmdlet</code> 類別來撰寫 <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced">PowerShell Advanced function</a> 的 binary cmdlet 實作。</li>
 <li>使用 C# xUnit測試框架來撰寫繼承 <code>Cmdlet</code> 的測試案例。</li>
@@ -483,12 +498,26 @@
 <span data-code-cell="annotated-cell-3" data-code-lines="35,36,37,38" data-code-annotation="4">針對 <code>Systems.Buffers</code> 相依的 <code>System.Runtime.CompilerServices.Unsafe.dll</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
 </dd>
 </dl>
+</section></section>
+<section>
+<section id="asp.net-core-整合-powershell-hosting-environment" class="title-slide slide level1 center">
+<h1>ASP.NET Core 整合 PowerShell Hosting Environment</h1>
+
 </section>
-<section id="tbd-asp.net-core-powershell-hosting-script-的-tdd" class="slide level2">
-<h2>[TBD] ASP.NET Core + PowerShell Hosting Script 的 TDD</h2>
+<section id="asp.net-core-整合-powershell-hosting-environment-1" class="slide level2">
+<h2>ASP.NET Core 整合 PowerShell Hosting Environment</h2>
+<ul>
+<li>ASP.NET Core 3.1+ 的專案透過 <a href="http://www.nuget.org/packages/Microsoft.PowerShell.SDK"><code>Microsoft.PowerShell.SDK</code> nuget 套件</a>整合 <a href="http://learn.microsoft.com/powershell/scripting/dev-cross-plat/choosing-the-right-nuget-package#microsoftpowershellsdk">PowerShell Hosting runtime環境</a>，使 C# 應用以 <a href="https://learn.microsoft.com/powershell/scripting/developer/hosting/adding-and-invoking-commands">PowerShell C# API 執行 PowerShell script 或 PowerShell Cmdlet 指令</a>。</li>
+</ul>
+</section>
+<section id="asp.net-core-minimal-api-整合執行-powershell-script-範例" class="slide level2 scrollable">
+<h2>ASP.NET Core Minimal API 整合執行 PowerShell Script 範例</h2>
 <h3 id="demo-3"><strong><em>Demo</em></strong></h3>
-<p><a href="">範例程式碼 GitHub</a></p>
-</section>
+<p><a href="http://github.com/windperson/BinaryPwshModuleDemo">範例程式碼 GitHub</a></p>
+<p>此範例程式為一個檢查執行環境中兩個目錄是否有同樣檔案的 Web API，透過一個 PowerShell script 來執行真正檔案比對的工作。</p>
+<p>此 PowerShell script 在先前的 <a href="https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production/ProductFeatures/SysAdminUtil/DuplicateFilesFinder.psm1">Pester test case 範例專案中提供</a>並且已有<a href="https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production_test/ProductFeatures/SysAdminUtil/DuplicateFilesFinder.Tests.ps1">驗證行為的測試案例</a>。</p>
+
+<img data-src="./04_AspNetCore_Host/pics/cli_run_Duplicate_File_Finder.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="參考資料" class="slide level2">
 <h2>參考資料</h2>
 <p>[TBD]</p>
