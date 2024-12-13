@@ -313,29 +313,29 @@
 <ul>
 <li><p><strong>PSScriptAnalyzerSettings.psd1</strong><br>用來控制 VSCode 官方 PowerShell Extension 內建的 <a href="https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyze">PSScriptAnalyzer(PowerShell Syntax Linter)</a> 設定檔。</p></li>
 <li><p><strong>Set-PwshTools.ps1</strong><br>替代 PowerShell Profile 的設定檔，用來設定 VSCode 整合終端機中 PowerShell 命令列的自動完成功能相關設定以及添加一些類似 Unix 環境的檔案命令。</p>
-<div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode numberSource json code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode json"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1"></a>  <span class="er">"terminal.integrated.profiles.windows":</span> <span class="fu">{</span></span>
-<span id="annotated-cell-8-2"><a href="#annotated-cell-8-2"></a>    <span class="dt">"PowerShell"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="annotated-cell-8-3"><a href="#annotated-cell-8-3"></a>      <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Bundled pwsh"</span><span class="fu">,</span></span>
-<span id="annotated-cell-8-4"><a href="#annotated-cell-8-4"></a>      <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">PowerShell-x64</span><span class="ch">\\</span><span class="st">pwsh.exe"</span><span class="fu">,</span></span>
-<span id="annotated-cell-8-5"><a href="#annotated-cell-8-5"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="annotated-cell-8-6"><a href="#annotated-cell-8-6"></a>        <span class="st">"-nol"</span><span class="ot">,</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-8-7" class="code-annotation-target"><a href="#annotated-cell-8-7"></a>        <span class="st">"-nop"</span><span class="ot">,</span></span>
-<span id="annotated-cell-8-8"><a href="#annotated-cell-8-8"></a>        <span class="st">"-noe"</span><span class="ot">,</span></span>
-<span id="annotated-cell-8-9"><a href="#annotated-cell-8-9"></a>        <span class="st">"-ex"</span><span class="ot">,</span></span>
-<span id="annotated-cell-8-10"><a href="#annotated-cell-8-10"></a>        <span class="st">"RemoteSigned"</span><span class="ot">,</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-8-11" class="code-annotation-target"><a href="#annotated-cell-8-11"></a>        <span class="st">"-Command"</span><span class="ot">,</span></span>
-<span id="annotated-cell-8-12"><a href="#annotated-cell-8-12"></a>        <span class="st">"Invoke-expression </span><span class="ch">\"</span><span class="st">. D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">pwsh-scripts</span><span class="ch">\\</span><span class="st">Set-PwshTools.ps1</span><span class="ch">\"</span><span class="st">"</span></span>
-<span id="annotated-cell-8-13"><a href="#annotated-cell-8-13"></a>      <span class="ot">]</span></span>
-<span id="annotated-cell-8-14"><a href="#annotated-cell-8-14"></a>    <span class="fu">}</span></span>
-<span id="annotated-cell-8-15"><a href="#annotated-cell-8-15"></a>  <span class="fu">}</span><span class="er">,</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-9"><pre class="sourceCode numberSource json code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode json"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1"></a>  <span class="er">"terminal.integrated.profiles.windows":</span> <span class="fu">{</span></span>
+<span id="annotated-cell-9-2"><a href="#annotated-cell-9-2"></a>    <span class="dt">"PowerShell"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="annotated-cell-9-3"><a href="#annotated-cell-9-3"></a>      <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Bundled pwsh"</span><span class="fu">,</span></span>
+<span id="annotated-cell-9-4"><a href="#annotated-cell-9-4"></a>      <span class="dt">"path"</span><span class="fu">:</span> <span class="st">"D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">PowerShell-x64</span><span class="ch">\\</span><span class="st">pwsh.exe"</span><span class="fu">,</span></span>
+<span id="annotated-cell-9-5"><a href="#annotated-cell-9-5"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="annotated-cell-9-6"><a href="#annotated-cell-9-6"></a>        <span class="st">"-nol"</span><span class="ot">,</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-9-7" class="code-annotation-target"><a href="#annotated-cell-9-7"></a>        <span class="st">"-nop"</span><span class="ot">,</span></span>
+<span id="annotated-cell-9-8"><a href="#annotated-cell-9-8"></a>        <span class="st">"-noe"</span><span class="ot">,</span></span>
+<span id="annotated-cell-9-9"><a href="#annotated-cell-9-9"></a>        <span class="st">"-ex"</span><span class="ot">,</span></span>
+<span id="annotated-cell-9-10"><a href="#annotated-cell-9-10"></a>        <span class="st">"RemoteSigned"</span><span class="ot">,</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-9-11" class="code-annotation-target"><a href="#annotated-cell-9-11"></a>        <span class="st">"-Command"</span><span class="ot">,</span></span>
+<span id="annotated-cell-9-12"><a href="#annotated-cell-9-12"></a>        <span class="st">"Invoke-expression </span><span class="ch">\"</span><span class="st">. D:</span><span class="ch">\\</span><span class="st">vscode_portable</span><span class="ch">\\</span><span class="st">pwsh-scripts</span><span class="ch">\\</span><span class="st">Set-PwshTools.ps1</span><span class="ch">\"</span><span class="st">"</span></span>
+<span id="annotated-cell-9-13"><a href="#annotated-cell-9-13"></a>      <span class="ot">]</span></span>
+<span id="annotated-cell-9-14"><a href="#annotated-cell-9-14"></a>    <span class="fu">}</span></span>
+<span id="annotated-cell-9-15"><a href="#annotated-cell-9-15"></a>  <span class="fu">}</span><span class="er">,</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-8" data-code-lines="7" data-code-annotation="1">使用 <code>-nop</code> 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="7" data-code-annotation="1">使用 <code>-nop</code> 參數避免執行目前系統/使用者等級的 PowerShell Profile 設定檔</span>
 </dd>
-<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-8" data-code-lines="11,12" data-code-annotation="2">執行 <code>Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"</code> 來替代。</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="11,12" data-code-annotation="2">執行 <code>Invoke-Expression ". D:\vscode_portable\pwsh-scripts\Set-PwshTools.ps1"</code> 來替代。</span>
 </dd>
 </dl></li>
 <li><p><strong>Update-SymLinks.ps1</strong><br>用來更新/恢復兩個 symbolic link 檔案－1. 根目錄的 VSCode 主程式啟動連結 2. VSCode 可攜模式設定的使用者資料檔案目錄連結。<br>(Windows 10 symbolic link 會因搬移到不同磁碟機/電腦而失效) <img data-src="./01_IDE_Setup/pics/update_symbolic_link-Windows_x64.png" class="quarto-figure quarto-figure-center"></p></li>
@@ -672,6 +672,98 @@
 <p><img data-src="./04_AspNetCore_Host/pics/pwsh_defined_class_return_object.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
 </figure>
 </div>
+</section>
+<section id="執行-pester-測試的-xunit-程式碼" class="slide level2 smaller scrollable">
+<h2>執行 Pester 測試的 xUnit 程式碼</h2>
+<p>在 xUnit Test method 中呼叫 PowerShell runtime 執行 Pester 測試案例，使用 Pester 框架提供的 <a href="https://pester.dev/docs/commands/Invoke-Pester#-passthru"><code>Invoke-Pester</code> Cmdlet 的 <strong><code>-PassThru</code></strong> 命令列參數</a>，可使 Pester 將執行測試結果傳出，再於 C# 中驗證測試結果是否符合預期:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>tests\DemoWebApi.Tests\PwshModuleTest.cs</strong></pre>
+</div>
+<div class="sourceCode" id="annotated-cell-8" data-filename="tests\DemoWebApi.Tests\PwshModuleTest.cs"><pre class="sourceCode csharp cs code-annotation-code code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
+<span id="annotated-cell-8-2"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">TestDuplicateFileFinderPwshFunction</span><span class="op">()</span></span>
+<span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-8-4"><a href="#annotated-cell-8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Arrange</span></span>
+<span id="annotated-cell-8-5"><a href="#annotated-cell-8-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">using</span> <span class="dt">var</span> runspace <span class="op">=</span> RunspaceFactory<span class="op">.</span><span class="fu">CreateRunspace</span><span class="op">();</span></span>
+<span id="annotated-cell-8-6"><a href="#annotated-cell-8-6" aria-hidden="true" tabindex="-1"></a>    runspace<span class="op">.</span><span class="fu">Open</span><span class="op">();</span></span>
+<span id="annotated-cell-8-7"><a href="#annotated-cell-8-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">using</span> <span class="dt">var</span> ps <span class="op">=</span> PowerShell<span class="op">.</span><span class="fu">Create</span><span class="op">(</span>runspace<span class="op">);</span></span>
+<span id="annotated-cell-8-8"><a href="#annotated-cell-8-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> psInvocationSettings <span class="op">=</span> <span class="kw">new</span> PSInvocationSettings</span>
+<span id="annotated-cell-8-9"><a href="#annotated-cell-8-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="annotated-cell-8-10"><a href="#annotated-cell-8-10" aria-hidden="true" tabindex="-1"></a>        AddToHistory <span class="op">=</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="annotated-cell-8-11"><a href="#annotated-cell-8-11" aria-hidden="true" tabindex="-1"></a>        ErrorActionPreference <span class="op">=</span> ActionPreference<span class="op">.</span><span class="fu">Stop</span><span class="op">,</span></span>
+<span id="annotated-cell-8-12"><a href="#annotated-cell-8-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="annotated-cell-8-13"><a href="#annotated-cell-8-13" aria-hidden="true" tabindex="-1"></a>    <span class="dv">#region TestScript</span></span>
+<span id="annotated-cell-8-14"><a href="#annotated-cell-8-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">const</span> <span class="dt">string</span> testScript <span class="op">=</span> </span>
+<span id="annotated-cell-8-15"><a href="#annotated-cell-8-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"""</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-8-16" class="code-annotation-target"><a href="#annotated-cell-8-16" aria-hidden="true" tabindex="-1"></a>    $tempModulePath <span class="op">=</span> $env<span class="op">:</span>TEMP <span class="op">+</span> <span class="st">"\PwshModule$((Get-Date).Ticks)"</span></span>
+<span id="annotated-cell-8-17"><a href="#annotated-cell-8-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span><span class="op">(-</span><span class="fu">not</span> <span class="op">(</span>Test<span class="op">-</span>Path $tempModulePath<span class="op">))</span> <span class="op">{</span></span>
+<span id="annotated-cell-8-18"><a href="#annotated-cell-8-18" aria-hidden="true" tabindex="-1"></a>        New<span class="op">-</span>Item <span class="op">-</span>Path $tempModulePath <span class="op">-</span>ItemType Directory <span class="op">-</span>ErrorAction Stop <span class="op">|</span> Out<span class="op">-</span>Null</span>
+<span id="annotated-cell-8-19"><a href="#annotated-cell-8-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="annotated-cell-8-20"><a href="#annotated-cell-8-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="op">{</span></span>
+<span id="annotated-cell-8-21"><a href="#annotated-cell-8-21" aria-hidden="true" tabindex="-1"></a>        Remove<span class="op">-</span>Item <span class="op">-</span>Path $tempModulePath <span class="op">-</span>Recurse <span class="op">-</span>Force <span class="op">-</span>ErrorAction Stop <span class="op">|</span> Out<span class="op">-</span>Null</span>
+<span id="annotated-cell-8-22"><a href="#annotated-cell-8-22" aria-hidden="true" tabindex="-1"></a>        New<span class="op">-</span>Item <span class="op">-</span>Path $tempModulePath <span class="op">-</span>ItemType Directory <span class="op">-</span>ErrorAction Stop <span class="op">|</span> Out<span class="op">-</span>Null</span>
+<span id="annotated-cell-8-23"><a href="#annotated-cell-8-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-8-24" class="code-annotation-target"><a href="#annotated-cell-8-24" aria-hidden="true" tabindex="-1"></a>    Save<span class="op">-</span>Module <span class="op">-</span>Name Pester <span class="op">-</span>Path $tempModulePath <span class="op">-</span>ErrorAction Stop</span>
+<span id="annotated-cell-8-25"><a href="#annotated-cell-8-25" aria-hidden="true" tabindex="-1"></a>    Import<span class="op">-</span>Module $tempModulePath\Pester <span class="op">-</span>Force <span class="op">-</span>ErrorAction Stop</span>
+<span id="annotated-cell-8-26"><a href="#annotated-cell-8-26" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-8-27" class="code-annotation-target"><a href="#annotated-cell-8-27" aria-hidden="true" tabindex="-1"></a>    $currentDir <span class="op">=</span> <span class="op">[</span>System<span class="op">.</span><span class="fu">IO</span><span class="op">.</span><span class="fu">Directory</span><span class="op">]::</span><span class="fu">GetCurrentDirectory</span><span class="op">()</span></span>
+<span id="annotated-cell-8-28"><a href="#annotated-cell-8-28" aria-hidden="true" tabindex="-1"></a>    $TestScriptPath <span class="op">=</span> <span class="st">"$currentDir\..\..\..\PwshScripts\DuplicateFilesFinder.Tests.ps1"</span></span>
+<span id="annotated-cell-8-29"><a href="#annotated-cell-8-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span><span class="op">(-</span><span class="fu">not</span> <span class="op">(</span>Test<span class="op">-</span>Path $TestScriptPath<span class="op">))</span> <span class="op">{</span></span>
+<span id="annotated-cell-8-30"><a href="#annotated-cell-8-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">throw</span> <span class="st">"Test script not found at $TestScriptPath"</span></span>
+<span id="annotated-cell-8-31"><a href="#annotated-cell-8-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-8-32" class="code-annotation-target"><a href="#annotated-cell-8-32" aria-hidden="true" tabindex="-1"></a>    $result <span class="op">=</span> Invoke<span class="op">-</span>Pester <span class="op">-</span>Path $TestScriptPath <span class="op">-</span>PassThru</span>
+<span id="annotated-cell-8-33"><a href="#annotated-cell-8-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> $result</span>
+<span id="annotated-cell-8-34"><a href="#annotated-cell-8-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">""";</span></span>
+<span id="annotated-cell-8-35"><a href="#annotated-cell-8-35" aria-hidden="true" tabindex="-1"></a>    <span class="dv">#endregion</span></span>
+<span id="annotated-cell-8-36"><a href="#annotated-cell-8-36" aria-hidden="true" tabindex="-1"></a>    ps<span class="op">.</span><span class="fu">AddScript</span><span class="op">(</span>testScript<span class="op">);</span></span>
+<span id="annotated-cell-8-37"><a href="#annotated-cell-8-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-8-38"><a href="#annotated-cell-8-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Act</span></span>
+<span id="annotated-cell-8-39"><a href="#annotated-cell-8-39" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> psResult <span class="op">=</span> ps<span class="op">.</span><span class="fu">Invoke</span><span class="op">(</span>input<span class="op">:</span> <span class="kw">null</span><span class="op">,</span> settings<span class="op">:</span> psInvocationSettings<span class="op">).</span><span class="fu">FirstOrDefault</span><span class="op">();</span></span>
+<span id="annotated-cell-8-40"><a href="#annotated-cell-8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-8-41"><a href="#annotated-cell-8-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Assert</span></span>
+<span id="annotated-cell-8-42"><a href="#annotated-cell-8-42" aria-hidden="true" tabindex="-1"></a>    Assert<span class="op">.</span><span class="fu">NotNull</span><span class="op">(</span>psResult<span class="op">);</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="5" onclick="event.preventDefault();" href="">5</a><span id="annotated-cell-8-43" class="code-annotation-target"><a href="#annotated-cell-8-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> testResult <span class="op">=</span> psResult<span class="op">.</span><span class="fu">Properties</span><span class="op">[</span><span class="st">"Result"</span><span class="op">].</span><span class="fu">Value</span> <span class="kw">as</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="annotated-cell-8-44"><a href="#annotated-cell-8-44" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> totalCount <span class="op">=</span> psResult<span class="op">.</span><span class="fu">Properties</span><span class="op">[</span><span class="st">"TotalCount"</span><span class="op">].</span><span class="fu">Value</span> <span class="kw">as</span> <span class="dt">int</span><span class="op">?;</span></span>
+<span id="annotated-cell-8-45"><a href="#annotated-cell-8-45" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> passedCount <span class="op">=</span> psResult<span class="op">.</span><span class="fu">Properties</span><span class="op">[</span><span class="st">"PassedCount"</span><span class="op">].</span><span class="fu">Value</span> <span class="kw">as</span> <span class="dt">int</span><span class="op">?;</span></span>
+<span id="annotated-cell-8-46"><a href="#annotated-cell-8-46" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> failedCount <span class="op">=</span> psResult<span class="op">.</span><span class="fu">Properties</span><span class="op">[</span><span class="st">"FailedCount"</span><span class="op">].</span><span class="fu">Value</span> <span class="kw">as</span> <span class="dt">int</span><span class="op">?;</span></span>
+<span id="annotated-cell-8-47"><a href="#annotated-cell-8-47" aria-hidden="true" tabindex="-1"></a>    Assert<span class="op">.</span><span class="fu">NotNull</span><span class="op">(</span>testResult<span class="op">);</span></span>
+<span id="annotated-cell-8-48"><a href="#annotated-cell-8-48" aria-hidden="true" tabindex="-1"></a>    Assert<span class="op">.</span><span class="fu">NotNull</span><span class="op">(</span>totalCount<span class="op">);</span></span>
+<span id="annotated-cell-8-49"><a href="#annotated-cell-8-49" aria-hidden="true" tabindex="-1"></a>    Assert<span class="op">.</span><span class="fu">NotNull</span><span class="op">(</span>passedCount<span class="op">);</span></span>
+<span id="annotated-cell-8-50"><a href="#annotated-cell-8-50" aria-hidden="true" tabindex="-1"></a>    Assert<span class="op">.</span><span class="fu">NotNull</span><span class="op">(</span>failedCount<span class="op">);</span></span>
+<span id="annotated-cell-8-51"><a href="#annotated-cell-8-51" aria-hidden="true" tabindex="-1"></a>    Assert<span class="op">.</span><span class="fu">Equal</span><span class="op">(</span><span class="st">"Passed"</span><span class="op">,</span> testResult<span class="op">);</span></span>
+<span id="annotated-cell-8-52"><a href="#annotated-cell-8-52" aria-hidden="true" tabindex="-1"></a>    Assert<span class="op">.</span><span class="fu">True</span><span class="op">(</span>passedCount <span class="op">&gt;</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="annotated-cell-8-53"><a href="#annotated-cell-8-53" aria-hidden="true" tabindex="-1"></a>    Assert<span class="op">.</span><span class="fu">Equal</span><span class="op">(</span>totalCount<span class="op">,</span> passedCount<span class="op">);</span></span>
+<span id="annotated-cell-8-54"><a href="#annotated-cell-8-54" aria-hidden="true" tabindex="-1"></a>    Assert<span class="op">.</span><span class="fu">Equal</span><span class="op">(</span><span class="dv">0</span><span class="op">,</span> failedCount<span class="op">);</span></span>
+<span id="annotated-cell-8-55"><a href="#annotated-cell-8-55" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="16,17,18,19,20,21,22,23" data-code-annotation="1">建立暫存目錄來在稍後步驟用來放最新版 Pester PowerShell module。</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="24,25" data-code-annotation="2">使用 PowerShellGet 的 <code>Save-Module</code> 命令將最新版 Pester 從 PowerShell Gallery 下載至暫存目錄，然後用 <code>Import-Module</code> 載入該版本的 Pester 模組。(參考<a href="https://pester.dev/docs/introduction/installation#installing-manually">官方手動安裝說明文件</a>)</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="27,28,29,30,31" data-code-annotation="3">取得目前執行測試程式的目錄，並且設定要執行的 Pester 測試案例 script 檔案路徑。</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="32,33" data-code-annotation="4">執行 Pester 測試案例 script 檔案，並將測試結果回傳給 C# 程式碼。</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="43,44,45,46" data-code-annotation="5">由於 Pester 測試結果回傳的是 PowerShell <a href="http://learn.microsoft.com/powershell/scripting/learn/deep-dives/everything-about-pscustomobject">PSCustomObject</a> 型態的 hash table，所以透過 <code>Properties</code> 屬性來取得各個測試結果的屬性值。</span>
+</dd>
+</dl>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./04_AspNetCore_Host/pics/Invoke-Pester_test_result_object.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
+</figure>
+</div>
+<p>如此我們就可以將 PowerShell 的 Pester 單元測試整合至 xUnit 測試專案中，讓 C＃ code &amp; PowerShell script 一起執行測試驗證程式邏輯。👍</p>
 </section>
 <section id="參考資料" class="slide level2">
 <h2>參考資料</h2>
