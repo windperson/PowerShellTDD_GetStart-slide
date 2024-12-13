@@ -276,16 +276,16 @@
 <li><a href="">macOS (ARM 64)</a></li>
 </ul>
 </section>
-<section id="example-vscode-environment---windowsx64" class="slide level2 small scrollable">
+<section id="example-vscode-environment---windowsx64" class="slide level2 smaller scrollable">
 <h2>Example VSCode Environment - Windows(x64)</h2>
 <p>除了要手動開啟Windows『開發者模式』設定以及將同捆的 .NET SDK 的執行檔路徑到環境變數之外，其他的都是使用 Portable 版本的開發環境：</p>
 <ul>
 <li>Windows 環境的 relative symbolic link 需要啟用開發者模式才能讓 PowerShell 以不需管理員權限的方式設定。 <img data-src="./01_IDE_Setup/pics/win10_developer_mode.png" class="quarto-figure quarto-figure-center"><br>
 否則甚至連Windows內建的解壓縮功能都會被拒絕存取。 <img data-src="./01_IDE_Setup/pics/symbolic_link_no_permission.png" class="quarto-figure quarto-figure-center"></li>
-<li>.NET SDK 的執行路徑建議以 <strong>DOTNET_ROOT</strong> 環境變數設定，以便於切換不同版本的 dotnet 指令<br>（使用系統安裝的 .NET SDK 8.0 也👌🆗）。 <img data-src="./01_IDE_Setup/pics/set_dotnet_root_env-Windows_x64.png" class="quarto-figure quarto-figure-center"> <img data-src="./01_IDE_Setup/pics/set_path_env_include_dotnet_root-Windows_x64.png" class="quarto-figure quarto-figure-center"></li>
+<li>.NET SDK 的執行路徑建議以 <strong>DOTNET_ROOT</strong> 環境變數設定，以便於切換不同版本 <strong>dotnet</strong> 指令<br>（使用系統安裝的 .NET SDK 8.0 也👌🆗）。 <img data-src="./01_IDE_Setup/pics/set_dotnet_root_env-Windows_x64.png" class="quarto-figure quarto-figure-center"> <img data-src="./01_IDE_Setup/pics/set_path_env_include_dotnet_root-Windows_x64.png" class="quarto-figure quarto-figure-center"></li>
 </ul>
 </section>
-<section id="example-vscode-environment---windowsx64-1" class="slide level2 small scrollable">
+<section id="example-vscode-environment---windowsx64-1" class="slide level2 smaller scrollable">
 <h2>Example VSCode Environment - Windows(x64)</h2>
 <p>開發環境的檔案目錄架構:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -307,7 +307,7 @@
 </figure>
 </div>
 </section>
-<section id="example-vscode-environment---windowsx64-2" class="slide level2 small scrollable">
+<section id="example-vscode-environment---windowsx64-2" class="slide level2 smaller scrollable">
 <h2>Example VSCode Environment - Windows(x64)</h2>
 <p>在 pwsh-scripts 目錄的開發環境設定用 script 檔案：</p>
 <ul>
