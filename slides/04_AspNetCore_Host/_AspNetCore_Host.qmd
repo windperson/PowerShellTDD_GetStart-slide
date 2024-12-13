@@ -126,3 +126,73 @@ return duplicateFileResults;
 
 ![]({{< meta part4_img_prefix >}}pics/pwsh_defined_class_return_object.png){height=100% fig-align="center"}
 
+## 執行 Pester 測試的 xUnit 程式碼 {.smaller .scrollable}
+
+在 xUnit Test method 中呼叫 PowerShell runtime 執行 Pester 測試案例，使用 Pester 框架提供的 [`Invoke-Pester` Cmdlet 的 **`-PassThru`** 命令列參數](https://pester.dev/docs/commands/Invoke-Pester#-passthru)，可使 Pester 將執行測試結果傳出，再於 C# 中驗證測試結果是否符合預期:
+
+```csharp{.cs filename="tests\DemoWebApi.Tests\PwshModuleTest.cs" code-line-numbers="false"}
+[Fact]
+public void TestDuplicateFileFinderPwshFunction()
+{
+    // Arrange
+    using var runspace = RunspaceFactory.CreateRunspace();
+    runspace.Open();
+    using var ps = PowerShell.Create(runspace);
+    var psInvocationSettings = new PSInvocationSettings
+    {
+        AddToHistory = false,
+        ErrorActionPreference = ActionPreference.Stop,
+    };
+    #region TestScript
+    const string testScript = 
+    """
+    $tempModulePath = $env:TEMP + "\PwshModule$((Get-Date).Ticks)"                            // <1>
+    if(-not (Test-Path $tempModulePath)) {                                                    // <1>
+        New-Item -Path $tempModulePath -ItemType Directory -ErrorAction Stop | Out-Null       // <1>
+    }                                                                                         // <1>
+    else {                                                                                    // <1>
+        Remove-Item -Path $tempModulePath -Recurse -Force -ErrorAction Stop | Out-Null        // <1>
+        New-Item -Path $tempModulePath -ItemType Directory -ErrorAction Stop | Out-Null       // <1>
+    }                                                                                         // <1>
+    Save-Module -Name Pester -Path $tempModulePath -ErrorAction Stop                          // <2>
+    Import-Module $tempModulePath\Pester -Force -ErrorAction Stop                             // <2>
+
+    $currentDir = [System.IO.Directory]::GetCurrentDirectory()                                // <3>
+    $TestScriptPath = "$currentDir\..\..\..\PwshScripts\DuplicateFilesFinder.Tests.ps1"       // <3>
+    if(-not (Test-Path $TestScriptPath)) {                                                    // <3>
+        throw "Test script not found at $TestScriptPath"                                      // <3>
+    }                                                                                         // <3>
+    $result = Invoke-Pester -Path $TestScriptPath -PassThru                                   // <4>
+    return $result                                                                            // <4>
+    """;
+    #endregion
+    ps.AddScript(testScript);
+
+    // Act
+    var psResult = ps.Invoke(input: null, settings: psInvocationSettings).FirstOrDefault();
+
+    // Assert
+    Assert.NotNull(psResult);
+    var testResult = psResult.Properties["Result"].Value as string;                           // <5>
+    var totalCount = psResult.Properties["TotalCount"].Value as int?;                         // <5>
+    var passedCount = psResult.Properties["PassedCount"].Value as int?;                       // <5>
+    var failedCount = psResult.Properties["FailedCount"].Value as int?;                       // <5>
+    Assert.NotNull(testResult);
+    Assert.NotNull(totalCount);
+    Assert.NotNull(passedCount);
+    Assert.NotNull(failedCount);
+    Assert.Equal("Passed", testResult);
+    Assert.True(passedCount > 0);
+    Assert.Equal(totalCount, passedCount);
+    Assert.Equal(0, failedCount);
+}
+```
+1. 建立暫存目錄來在稍後步驟用來放最新版 Pester PowerShell module。
+2. 使用 PowerShellGet 的 `Save-Module` 命令將最新版 Pester 從 PowerShell Gallery 下載至暫存目錄，然後用 `Import-Module` 載入該版本的 Pester 模組。(參考[官方手動安裝說明文件](https://pester.dev/docs/introduction/installation#installing-manually))
+3. 取得目前執行測試程式的目錄，並且設定要執行的 Pester 測試案例 script 檔案路徑。
+4. 執行 Pester 測試案例 script 檔案，並將測試結果回傳給 C# 程式碼。
+5. 由於 Pester 測試結果回傳的是 PowerShell [PSCustomObject](http://learn.microsoft.com/powershell/scripting/learn/deep-dives/everything-about-pscustomobject) 型態的 hash table，所以透過 `Properties` 屬性來取得各個測試結果的屬性值。
+
+![]({{< meta part4_img_prefix >}}pics/Invoke-Pester_test_result_object.png){height=100% fig-align="center"}
+
+如此我們就可以將 PowerShell 的 Pester 單元測試整合至 xUnit 測試專案中，讓 C＃ code & PowerShell script 一起執行測試驗證程式邏輯。👍
