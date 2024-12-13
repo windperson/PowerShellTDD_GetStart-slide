@@ -510,7 +510,7 @@
 <li>ASP.NET Core 3.1+ 的專案透過 <a href="http://www.nuget.org/packages/Microsoft.PowerShell.SDK"><code>Microsoft.PowerShell.SDK</code> nuget 套件</a>整合 <a href="http://learn.microsoft.com/powershell/scripting/dev-cross-plat/choosing-the-right-nuget-package#microsoftpowershellsdk">PowerShell Hosting runtime環境</a>，使 C# 應用以 <a href="https://learn.microsoft.com/powershell/scripting/developer/hosting/adding-and-invoking-commands">PowerShell C# API 執行 PowerShell script 或 PowerShell Cmdlet 指令</a>。</li>
 </ul>
 </section>
-<section id="asp.net-core-minimal-api-整合執行-powershell-script-範例" class="slide level2 scrollable">
+<section id="asp.net-core-minimal-api-整合執行-powershell-script-範例" class="slide level2 small scrollable">
 <h2>ASP.NET Core Minimal API 整合執行 PowerShell Script 範例</h2>
 <h3 id="demo-3"><strong><em>Demo</em></strong></h3>
 <p><a href="http://github.com/windperson/BinaryPwshModuleDemo">範例程式碼 GitHub</a></p>
@@ -522,7 +522,11 @@
 </figure>
 </div>
 <p>使用 PowerShell 來撰寫取得所有有特定副檔名的檔案邏輯，比單純使用 C# 簡單:</p>
-<div class="sourceCode" id="cb3" data-code-line-numbers="7"><pre class="sourceCode numberSource powershell ps1 number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb3-1"><a href=""></a><span class="kw">function</span> Get-Files <span class="op">{</span></span>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src\DemoWebApi\PwshScripts\DuplicateFilesFinder.psm1</strong></pre>
+</div>
+<div class="sourceCode" id="cb3" data-filename="src\DemoWebApi\PwshScripts\DuplicateFilesFinder.psm1" data-code-line-numbers="7"><pre class="sourceCode numberSource powershell ps1 number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb3-1"><a href=""></a><span class="kw">function</span> Get-Files <span class="op">{</span></span>
 <span id="cb3-2"><a href=""></a>    <span class="op">[</span>SuppressMessage<span class="op">(</span><span class="st">'PSUseSingularNouns'</span><span class="op">,</span> <span class="st">''</span><span class="op">)]</span></span>
 <span id="cb3-3"><a href=""></a>    <span class="kw">param</span> <span class="op">(</span></span>
 <span id="cb3-4"><a href=""></a>        <span class="op">[</span><span class="dt">string</span><span class="op">]</span><span class="va">$Path</span><span class="op">,</span></span>
@@ -530,8 +534,13 @@
 <span id="cb3-6"><a href=""></a>    <span class="op">)</span></span>
 <span id="cb3-7"><a href=""></a>    <span class="cf">return</span> <span class="fu">Get-ChildItem</span> <span class="op">-</span>Path <span class="va">$Path</span> <span class="op">-</span>Recurse <span class="op">-</span>File <span class="op">-</span>Filter <span class="st">"*.</span><span class="va">$Extension</span><span class="st">"</span></span>
 <span id="cb3-8"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>也可以使用PowerShell 己提供的 <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.utility/get-filehash"><code>Get-FileHash</code> Cmdlet</a> 取得檔案的 Hash 值來快速判斷檔案是否相同:</p>
-<div class="sourceCode" id="cb4" data-code-line-numbers="8"><pre class="sourceCode numberSource powershell ps1 number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb4-1"><a href=""></a><span class="kw">function</span> Get-FileContentHash <span class="op">{</span></span>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src\DemoWebApi\PwshScripts\DuplicateFilesFinder.psm1</strong></pre>
+</div>
+<div class="sourceCode" id="cb4" data-filename="src\DemoWebApi\PwshScripts\DuplicateFilesFinder.psm1" data-code-line-numbers="8"><pre class="sourceCode numberSource powershell ps1 number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb4-1"><a href=""></a><span class="kw">function</span> Get-FileContentHash <span class="op">{</span></span>
 <span id="cb4-2"><a href=""></a>    <span class="op">[</span>SuppressMessage<span class="op">(</span><span class="st">'PSAvoidUsingBrokenHashAlgorithms'</span><span class="op">,</span> <span class="st">''</span><span class="op">,</span> </span>
 <span id="cb4-3"><a href=""></a>        Justification <span class="op">=</span> <span class="st">'MD5 is just used for file hash comparison'</span><span class="op">)]</span></span>
 <span id="cb4-4"><a href=""></a>    <span class="kw">param</span> <span class="op">(</span></span>
@@ -540,26 +549,43 @@
 <span id="cb4-7"><a href=""></a>    <span class="op">)</span></span>
 <span id="cb4-8"><a href=""></a>    <span class="cf">return</span> Get-FileHash <span class="op">-</span>Algorithm MD5 <span class="op">-</span>Path <span class="va">$FilePath</span> <span class="co"># -SilentlyContinue</span></span>
 <span id="cb4-9"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="section" class="slide level2 scrollable">
+<section id="section" class="slide level2 small scrollable">
 <h2></h2>
-<p>由於原本在 PowrShell script 裡使用的是 PowerShell 定義的自訂 Class 類別，因此在執行完之後的 PowerShell 物件直接使用 <a href="https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic"><strong><code>dynamic</code></strong> keyword</a> 寫法簡化取得 FilePath1 &amp; FilePath2 屬性值的 C# 程式碼。</p>
-<div class="sourceCode" id="cb5" data-code-line-numbers="6,10-11"><pre class="sourceCode numberSource csharp cs number-lines code-with-copy"><code class="sourceCode cs"><span id="cb5-1"><a href=""></a><span class="dt">var</span> result <span class="op">=</span></span>
-<span id="cb5-2"><a href=""></a>    ps<span class="op">.</span><span class="fu">Invoke</span><span class="op">(</span>input<span class="op">:</span> <span class="kw">null</span><span class="op">,</span> settings<span class="op">:</span> psInvocationSettings<span class="op">).</span><span class="fu">FirstOrDefault</span><span class="op">()?.</span><span class="fu">BaseObject</span> <span class="kw">as</span> <span class="dt">object</span><span class="op">[];</span></span>
-<span id="cb5-3"><a href=""></a></span>
-<span id="cb5-4"><a href=""></a><span class="dt">var</span> duplicateFileResults <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span>DuplicateFileResult<span class="op">&gt;(</span>result<span class="op">.</span><span class="fu">Length</span><span class="op">);</span></span>
-<span id="cb5-5"><a href=""></a><span class="co">// use dynamic to make simpler coding style to avoid reflection</span></span>
-<span id="cb5-6"><a href=""></a><span class="kw">foreach</span> <span class="op">(</span>dynamic duplicateFileInfo <span class="kw">in</span> result<span class="op">)</span></span>
-<span id="cb5-7"><a href=""></a><span class="op">{</span></span>
-<span id="cb5-8"><a href=""></a>    <span class="dt">var</span> duplicateFileResult <span class="op">=</span> <span class="kw">new</span> DuplicateFileResult</span>
-<span id="cb5-9"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb5-10"><a href=""></a>        SourceFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath1</span><span class="op">.</span><span class="fu">ToString</span><span class="op">(),</span></span>
-<span id="cb5-11"><a href=""></a>        CompareFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath2</span><span class="op">.</span><span class="fu">ToString</span><span class="op">()</span></span>
-<span id="cb5-12"><a href=""></a>    <span class="op">};</span></span>
-<span id="cb5-13"><a href=""></a>    duplicateFileResults<span class="op">.</span><span class="fu">Add</span><span class="op">(</span>duplicateFileResult<span class="op">);</span></span>
-<span id="cb5-14"><a href=""></a><span class="op">}</span></span>
-<span id="cb5-15"><a href=""></a></span>
-<span id="cb5-16"><a href=""></a><span class="kw">return</span> duplicateFileResults<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>原本在 PowrShell script 裡使用的是 PowerShell 定義的自訂 Class 類別，因此在執行完畢回傳 PowerShell 物件直接使用 <a href="https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic"><strong><code>dynamic</code></strong> keyword</a> 寫法簡化取得 FilePath1 &amp; FilePath2 屬性值程式碼。</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs</strong></pre>
+</div>
+<div class="sourceCode" id="annotated-cell-6" data-filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs"><pre class="sourceCode numberSource csharp cs code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1"></a><span class="dt">var</span> result <span class="op">=</span></span>
+<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2"></a>    ps<span class="op">.</span><span class="fu">Invoke</span><span class="op">(</span>input<span class="op">:</span> <span class="kw">null</span><span class="op">,</span> settings<span class="op">:</span> psInvocationSettings<span class="op">)</span></span>
+<span id="annotated-cell-6-3"><a href="#annotated-cell-6-3"></a>        <span class="op">.</span><span class="fu">FirstOrDefault</span><span class="op">()?.</span><span class="fu">BaseObject</span> <span class="kw">as</span> <span class="dt">object</span><span class="op">[];</span></span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4"></a></span>
+<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5"></a><span class="dt">var</span> duplicateFileResults <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span>DuplicateFileResult<span class="op">&gt;(</span>result<span class="op">.</span><span class="fu">Length</span><span class="op">);</span></span>
+<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6"></a><span class="co">// use dynamic to make simpler coding style to avoid reflection</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-6-7" class="code-annotation-target"><a href="#annotated-cell-6-7"></a><span class="kw">foreach</span> <span class="op">(</span>dynamic duplicateFileInfo <span class="kw">in</span> result<span class="op">)</span></span>
+<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8"></a><span class="op">{</span></span>
+<span id="annotated-cell-6-9"><a href="#annotated-cell-6-9"></a>    <span class="dt">var</span> duplicateFileResult <span class="op">=</span> <span class="kw">new</span> DuplicateFileResult</span>
+<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10"></a>    <span class="op">{</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-6-11" class="code-annotation-target"><a href="#annotated-cell-6-11"></a>        SourceFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath1</span><span class="op">.</span><span class="fu">ToString</span><span class="op">(),</span></span>
+<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12"></a>        CompareFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath2</span><span class="op">.</span><span class="fu">ToString</span><span class="op">()</span></span>
+<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13"></a>    <span class="op">};</span></span>
+<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14"></a>    duplicateFileResults<span class="op">.</span><span class="fu">Add</span><span class="op">(</span>duplicateFileResult<span class="op">);</span></span>
+<span id="annotated-cell-6-15"><a href="#annotated-cell-6-15"></a><span class="op">}</span></span>
+<span id="annotated-cell-6-16"><a href="#annotated-cell-6-16"></a></span>
+<span id="annotated-cell-6-17"><a href="#annotated-cell-6-17"></a><span class="kw">return</span> duplicateFileResults<span class="op">;</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="7" data-code-annotation="1">使用 <code>dynamic</code> 關鍵字來簡化原本 PowerShell 程式碼中定義的自訂 class 型別。</span>
+</dd>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="11,12" data-code-annotation="2">就可以直接使用物件的屬性值（C#編譯器不檢查，如果寫錯就會有 runtime exception）。</span>
+</dd>
+</dl>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./04_AspNetCore_Host/pics/pwsh_defined_class_return_object.png" class="quarto-figure quarto-figure-center" style="height:100.0%"></p>
