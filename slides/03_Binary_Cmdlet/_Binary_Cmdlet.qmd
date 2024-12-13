@@ -31,7 +31,7 @@ but... C# binary cmdlet 的測試案例撰寫相對較困難😵
     * 如何在 PowerShell 7+ 環境中執行。
     * 如何針對 PowerShell + C# 程式碼的專案撰寫 PowerShell 的 Pester 測試案例。
 
-## {.small .scrollable}
+## {.smaller .scrollable}
 
 ```csharp{.cs filename="Pwsh\GreeterCmdlet\WindowsPowerShellModuleInitializer.cs" code-line-numbers="false"}
 #if NETSTANDARD2_0
@@ -59,20 +59,20 @@ public class WindowsPowerShellModuleCleanup : IModuleAssemblyCleanup            
 internal static class DependencyResolution
 {
     private static readonly string ModulePath = 
-                                        Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+                                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
 
     public static Assembly ResoleAssembly(object? sender, ResolveEventArgs args)
     {
         var assemblyName = new AssemblyName(args.Name);
-        if (assemblyName.Name == "System.Buffers")                                                                  // <3>
-        {                                                                                                           // <3>
-            return Assembly.LoadFrom( Path.Combine(ModulePath, "System.Buffers.dll"));                              // <3>
-        }                                                                                                           // <3>
+        if (assemblyName.Name == "System.Buffers")                                                                 // <3>
+        {                                                                                                          // <3>
+            return Assembly.LoadFrom(Path.Combine(ModulePath, "System.Buffers.dll"));                              // <3>
+        }                                                                                                          // <3>
         
-        if (assemblyName.Name == "System.Runtime.CompilerServices.Unsafe")                                          // <4>
-        {                                                                                                           // <4>
-            return Assembly.LoadFrom( Path.Combine(ModulePath, "System.Runtime.CompilerServices.Unsafe.dll"));      // <4>
-        }                                                                                                           // <4>
+        if (assemblyName.Name == "System.Runtime.CompilerServices.Unsafe")                                         // <4>
+        {                                                                                                          // <4>
+            return Assembly.LoadFrom(Path.Combine(ModulePath, "System.Runtime.CompilerServices.Unsafe.dll"));      // <4>
+        }                                                                                                          // <4>
 
         return null!;
     }
