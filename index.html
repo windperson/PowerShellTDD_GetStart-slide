@@ -517,11 +517,18 @@
 <li>ASP.NET Core v3.1+ 的專案透過 <a href="http://www.nuget.org/packages/Microsoft.PowerShell.SDK"><code>Microsoft.PowerShell.SDK</code> nuget 套件</a>整合 <a href="http://learn.microsoft.com/powershell/scripting/dev-cross-plat/choosing-the-right-nuget-package#microsoftpowershellsdk">PowerShell Hosting runtime環境</a>，使 C# 應用以 <a href="https://learn.microsoft.com/powershell/scripting/developer/hosting/adding-and-invoking-commands">PowerShell C# API 執行 PowerShell script 或 PowerShell Cmdlet 指令</a>。</li>
 </ul>
 </section>
-<section id="asp.net-core-minimal-api-整合執行-powershell-script-範例" class="slide level2 smaller scrollable">
+<section id="asp.net-core-minimal-api-整合執行-powershell-script-範例" class="slide level2">
 <h2>ASP.NET Core Minimal API 整合執行 PowerShell Script 範例</h2>
 <h3 id="demo-3"><strong><em>Demo</em></strong></h3>
-<p><a href="http://github.com/windperson/BinaryPwshModuleDemo">範例程式碼 GitHub</a></p>
-<p>此範例程式為一個檢查執行環境中兩個目錄是否有同樣檔案的 Web API，透過一個 PowerShell script 來執行真正檔案比對的工作。</p>
+<p><a href="http://github.com/windperson/MinimalApiCallPwshDemo">範例程式碼 GitHub</a></p>
+<ul>
+<li>此範例程式為一個檢查執行環境中兩個目錄是否有同樣檔案的 Web API，透過 PowerShell script 來執行真正檔案比對的工作。</li>
+<li>如何在 .NET Core / .NET 5+ 專案使用 PowerShell Hosting Environment API 指派輸入參數給 PowerShell script 執行，並取得執行結果。</li>
+<li><a href="https://xunit.net/">xUnit</a> 測試專案 test method 間接執行用 Pester 撰寫的 PowerShell test case 驗證 script 行為。</li>
+</ul>
+</section>
+<section id="section-1" class="slide level2 smaller scrollable">
+<h2></h2>
 <p>此 PowerShell script 在先前的 <a href="https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production/ProductFeatures/SysAdminUtil/DuplicateFilesFinder.psm1">Pester test case 範例專案中提供</a>並且已有<a href="https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production_test/ProductFeatures/SysAdminUtil/DuplicateFilesFinder.Tests.ps1">驗證行為的測試案例</a>。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -558,7 +565,7 @@
 <span id="cb4-9"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="section-1" class="slide level2 smaller scrollable">
+<section id="section-2" class="slide level2 smaller scrollable">
 <h2></h2>
 <p>在 ASP.NET Core Minimal API 中使用 PowerShell Hosting Environment 來執行 PowerShell script/指令，需要先建立相關的 <a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell">PowerShell</a>, <a href="http://learn.microsoft.com/dotnet/api/system.management.automation.runspaces.runspace">Runspace</a> 等 API 物件，以及使用 <code>.AddScript()</code>/<code>.AddCommand()</code>/<code>.AddParameter()</code> 等 chainable fluent API 的方式來設定 PowerShell script 的執行環境:</p>
 <div class="code-with-filename">
@@ -617,11 +624,11 @@
 </dd>
 <dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="25,26,27,28,29,30,31,32,33" data-code-annotation="3"><a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addscript"><code>.AddScript()</code></a> 用來載入 PowerShell script 檔案，<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addstatement"><code>.AddStatement()</code></a>同等於在 PowerShell script 檔案換行，<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addcommand"><code>.AddCommand()</code></a> 用來表示執行 PowerShell function/Cmdlet，<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addcommand"><code>.AddParameter()</code></a>/<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addparameters"><code>.AddParameters()</code></a> 用來設定 PowerShell script function 的參數值。</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="25,26,27,28,29,30,31,32,33" data-code-annotation="3"><a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addscript"><code>.AddScript()</code></a> 用來載入 PowerShell script 檔案，<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addstatement"><code>.AddStatement()</code></a>同等於 PowerShell script 檔案裡換行，<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addcommand"><code>.AddCommand()</code></a> 表示執行 PowerShell function/Cmdlet，<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addcommand"><code>.AddParameter()</code></a>/<a href="http://learn.microsoft.com/dotnet/api/system.management.automation.powershell.addparameters"><code>.AddParameters()</code></a> 用來設定前面預計要執行的 PowerShell function/Cmdlet 的輸入參數值。</span>
 </dd>
 </dl>
 </section>
-<section id="section-2" class="slide level2 smaller scrollable">
+<section id="section-3" class="slide level2 smaller scrollable">
 <h2></h2>
 <p>原本在 PowrShell script 裡用的是 <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_classes">PowerShell 定義自訂 Class 類別</a>，因此在執行完畢回傳的結果值物件直接使用 <a href="https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic"><strong><code>dynamic</code></strong> keyword</a> 寫法簡化取得 FilePath1 &amp; FilePath2 屬性值程式碼。</p>
 <div class="code-with-filename">
