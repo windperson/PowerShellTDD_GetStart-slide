@@ -435,51 +435,57 @@
 </ul></li>
 </ul>
 </section>
-<section id="powershell-c-binary-cmdlet-call-grpc-api-1" class="slide level2 scrollable">
-<h2><strong><em>(PowerShell + C# binary cmdlet)</em></strong> call gRPC API</h2>
-<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode numberSource csharp code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1"></a><span class="kw">#if</span> NETSTANDARD2_0</span>
-<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Management</span><span class="op">.</span><span class="fu">Automation</span><span class="op">;</span></span>
-<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Reflection</span><span class="op">;</span></span>
-<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4"></a></span>
-<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5"></a><span class="kw">namespace</span> GreeterCmdlet<span class="op">;</span></span>
-<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-3-7" class="code-annotation-target"><a href="#annotated-cell-3-7"></a><span class="kw">public</span> <span class="kw">class</span> WindowsPowerShellModuleInitializer <span class="op">:</span> IModuleAssemblyInitializer</span>
-<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8"></a><span class="op">{</span></span>
-<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnImport</span><span class="op">()</span></span>
-<span id="annotated-cell-3-10"><a href="#annotated-cell-3-10"></a>    <span class="op">{</span></span>
-<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11"></a>        AppDomain<span class="op">.</span><span class="fu">CurrentDomain</span><span class="op">.</span><span class="fu">AssemblyResolve</span> <span class="op">+=</span> DependencyResolution<span class="op">.</span><span class="fu">ResoleAssembly</span><span class="op">;</span></span>
-<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12"></a>    <span class="op">}</span></span>
-<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13"></a><span class="op">}</span></span>
-<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-3-15" class="code-annotation-target"><a href="#annotated-cell-3-15"></a><span class="kw">public</span> <span class="kw">class</span> WindowsPowerShellModuleCleanup <span class="op">:</span> IModuleAssemblyCleanup</span>
-<span id="annotated-cell-3-16"><a href="#annotated-cell-3-16"></a><span class="op">{</span></span>
-<span id="annotated-cell-3-17"><a href="#annotated-cell-3-17"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnRemove</span><span class="op">(</span>PSModuleInfo psModuleInfo<span class="op">)</span></span>
-<span id="annotated-cell-3-18"><a href="#annotated-cell-3-18"></a>    <span class="op">{</span></span>
-<span id="annotated-cell-3-19"><a href="#annotated-cell-3-19"></a>        AppDomain<span class="op">.</span><span class="fu">CurrentDomain</span><span class="op">.</span><span class="fu">AssemblyResolve</span> <span class="op">-=</span> DependencyResolution<span class="op">.</span><span class="fu">ResoleAssembly</span><span class="op">;</span></span>
-<span id="annotated-cell-3-20"><a href="#annotated-cell-3-20"></a>    <span class="op">}</span></span>
-<span id="annotated-cell-3-21"><a href="#annotated-cell-3-21"></a><span class="op">}</span></span>
-<span id="annotated-cell-3-22"><a href="#annotated-cell-3-22"></a></span>
-<span id="annotated-cell-3-23"><a href="#annotated-cell-3-23"></a><span class="kw">internal</span> <span class="kw">static</span> <span class="kw">class</span> DependencyResolution</span>
-<span id="annotated-cell-3-24"><a href="#annotated-cell-3-24"></a><span class="op">{</span></span>
-<span id="annotated-cell-3-25"><a href="#annotated-cell-3-25"></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="kw">readonly</span> <span class="dt">string</span> ModulePath <span class="op">=</span> Path<span class="op">.</span><span class="fu">GetDirectoryName</span><span class="op">(</span>Assembly<span class="op">.</span><span class="fu">GetExecutingAssembly</span><span class="op">().</span><span class="fu">Location</span><span class="op">)!;</span></span>
-<span id="annotated-cell-3-26"><a href="#annotated-cell-3-26"></a></span>
-<span id="annotated-cell-3-27"><a href="#annotated-cell-3-27"></a>    <span class="kw">public</span> <span class="kw">static</span> Assembly <span class="fu">ResoleAssembly</span><span class="op">(</span><span class="dt">object</span><span class="op">?</span> sender<span class="op">,</span> ResolveEventArgs args<span class="op">)</span></span>
-<span id="annotated-cell-3-28"><a href="#annotated-cell-3-28"></a>    <span class="op">{</span></span>
-<span id="annotated-cell-3-29"><a href="#annotated-cell-3-29"></a>        <span class="dt">var</span> assemblyName <span class="op">=</span> <span class="kw">new</span> <span class="fu">AssemblyName</span><span class="op">(</span>args<span class="op">.</span><span class="fu">Name</span><span class="op">);</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-3-30" class="code-annotation-target"><a href="#annotated-cell-3-30"></a>        <span class="kw">if</span> <span class="op">(</span>assemblyName<span class="op">.</span><span class="fu">Name</span> <span class="op">==</span> <span class="st">"System.Buffers"</span><span class="op">)</span></span>
-<span id="annotated-cell-3-31"><a href="#annotated-cell-3-31"></a>        <span class="op">{</span></span>
-<span id="annotated-cell-3-32"><a href="#annotated-cell-3-32"></a>            <span class="kw">return</span> Assembly<span class="op">.</span><span class="fu">LoadFrom</span><span class="op">(</span> Path<span class="op">.</span><span class="fu">Combine</span><span class="op">(</span>ModulePath<span class="op">,</span> <span class="st">"System.Buffers.dll"</span><span class="op">));</span></span>
-<span id="annotated-cell-3-33"><a href="#annotated-cell-3-33"></a>        <span class="op">}</span></span>
-<span id="annotated-cell-3-34"><a href="#annotated-cell-3-34"></a>        </span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-3-35" class="code-annotation-target"><a href="#annotated-cell-3-35"></a>        <span class="kw">if</span> <span class="op">(</span>assemblyName<span class="op">.</span><span class="fu">Name</span> <span class="op">==</span> <span class="st">"System.Runtime.CompilerServices.Unsafe"</span><span class="op">)</span></span>
-<span id="annotated-cell-3-36"><a href="#annotated-cell-3-36"></a>        <span class="op">{</span></span>
-<span id="annotated-cell-3-37"><a href="#annotated-cell-3-37"></a>            <span class="kw">return</span> Assembly<span class="op">.</span><span class="fu">LoadFrom</span><span class="op">(</span> Path<span class="op">.</span><span class="fu">Combine</span><span class="op">(</span>ModulePath<span class="op">,</span> <span class="st">"System.Runtime.CompilerServices.Unsafe.dll"</span><span class="op">));</span></span>
-<span id="annotated-cell-3-38"><a href="#annotated-cell-3-38"></a>        <span class="op">}</span></span>
-<span id="annotated-cell-3-39"><a href="#annotated-cell-3-39"></a></span>
-<span id="annotated-cell-3-40"><a href="#annotated-cell-3-40"></a>        <span class="kw">return</span> <span class="kw">null</span><span class="op">!;</span></span>
-<span id="annotated-cell-3-41"><a href="#annotated-cell-3-41"></a>    <span class="op">}</span></span>
-<span id="annotated-cell-3-42"><a href="#annotated-cell-3-42"></a><span class="op">}</span></span>
-<span id="annotated-cell-3-43"><a href="#annotated-cell-3-43"></a><span class="kw">#endif</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="section" class="slide level2 small scrollable">
+<h2></h2>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Pwsh\GreeterCmdlet\WindowsPowerShellModuleInitializer.cs</strong></pre>
+</div>
+<div class="sourceCode" id="annotated-cell-3" data-filename="Pwsh\GreeterCmdlet\WindowsPowerShellModuleInitializer.cs"><pre class="sourceCode csharp cs code-annotation-code code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">#if</span> NETSTANDARD2_0</span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Management</span><span class="op">.</span><span class="fu">Automation</span><span class="op">;</span></span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Reflection</span><span class="op">;</span></span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">namespace</span> GreeterCmdlet<span class="op">;</span></span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-3-7" class="code-annotation-target"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> WindowsPowerShellModuleInitializer <span class="op">:</span> IModuleAssemblyInitializer</span>
+<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnImport</span><span class="op">()</span></span>
+<span id="annotated-cell-3-10"><a href="#annotated-cell-3-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11" aria-hidden="true" tabindex="-1"></a>        AppDomain<span class="op">.</span><span class="fu">CurrentDomain</span><span class="op">.</span><span class="fu">AssemblyResolve</span> <span class="op">+=</span> DependencyResolution<span class="op">.</span><span class="fu">ResoleAssembly</span><span class="op">;</span></span>
+<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-3-15" class="code-annotation-target"><a href="#annotated-cell-3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> WindowsPowerShellModuleCleanup <span class="op">:</span> IModuleAssemblyCleanup</span>
+<span id="annotated-cell-3-16"><a href="#annotated-cell-3-16" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-3-17"><a href="#annotated-cell-3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnRemove</span><span class="op">(</span>PSModuleInfo psModuleInfo<span class="op">)</span></span>
+<span id="annotated-cell-3-18"><a href="#annotated-cell-3-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="annotated-cell-3-19"><a href="#annotated-cell-3-19" aria-hidden="true" tabindex="-1"></a>        AppDomain<span class="op">.</span><span class="fu">CurrentDomain</span><span class="op">.</span><span class="fu">AssemblyResolve</span> <span class="op">-=</span> DependencyResolution<span class="op">.</span><span class="fu">ResoleAssembly</span><span class="op">;</span></span>
+<span id="annotated-cell-3-20"><a href="#annotated-cell-3-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="annotated-cell-3-21"><a href="#annotated-cell-3-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="annotated-cell-3-22"><a href="#annotated-cell-3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-23"><a href="#annotated-cell-3-23" aria-hidden="true" tabindex="-1"></a><span class="kw">internal</span> <span class="kw">static</span> <span class="kw">class</span> DependencyResolution</span>
+<span id="annotated-cell-3-24"><a href="#annotated-cell-3-24" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-3-25"><a href="#annotated-cell-3-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="kw">readonly</span> <span class="dt">string</span> ModulePath <span class="op">=</span> </span>
+<span id="annotated-cell-3-26"><a href="#annotated-cell-3-26" aria-hidden="true" tabindex="-1"></a>                                        Path<span class="op">.</span><span class="fu">GetDirectoryName</span><span class="op">(</span>Assembly<span class="op">.</span><span class="fu">GetExecutingAssembly</span><span class="op">().</span><span class="fu">Location</span><span class="op">)!;</span></span>
+<span id="annotated-cell-3-27"><a href="#annotated-cell-3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-28"><a href="#annotated-cell-3-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">static</span> Assembly <span class="fu">ResoleAssembly</span><span class="op">(</span><span class="dt">object</span><span class="op">?</span> sender<span class="op">,</span> ResolveEventArgs args<span class="op">)</span></span>
+<span id="annotated-cell-3-29"><a href="#annotated-cell-3-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="annotated-cell-3-30"><a href="#annotated-cell-3-30" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> assemblyName <span class="op">=</span> <span class="kw">new</span> <span class="fu">AssemblyName</span><span class="op">(</span>args<span class="op">.</span><span class="fu">Name</span><span class="op">);</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-3-31" class="code-annotation-target"><a href="#annotated-cell-3-31" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>assemblyName<span class="op">.</span><span class="fu">Name</span> <span class="op">==</span> <span class="st">"System.Buffers"</span><span class="op">)</span></span>
+<span id="annotated-cell-3-32"><a href="#annotated-cell-3-32" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="annotated-cell-3-33"><a href="#annotated-cell-3-33" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> Assembly<span class="op">.</span><span class="fu">LoadFrom</span><span class="op">(</span> Path<span class="op">.</span><span class="fu">Combine</span><span class="op">(</span>ModulePath<span class="op">,</span> <span class="st">"System.Buffers.dll"</span><span class="op">));</span></span>
+<span id="annotated-cell-3-34"><a href="#annotated-cell-3-34" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="annotated-cell-3-35"><a href="#annotated-cell-3-35" aria-hidden="true" tabindex="-1"></a>        </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-3-36" class="code-annotation-target"><a href="#annotated-cell-3-36" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>assemblyName<span class="op">.</span><span class="fu">Name</span> <span class="op">==</span> <span class="st">"System.Runtime.CompilerServices.Unsafe"</span><span class="op">)</span></span>
+<span id="annotated-cell-3-37"><a href="#annotated-cell-3-37" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="annotated-cell-3-38"><a href="#annotated-cell-3-38" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> Assembly<span class="op">.</span><span class="fu">LoadFrom</span><span class="op">(</span> Path<span class="op">.</span><span class="fu">Combine</span><span class="op">(</span>ModulePath<span class="op">,</span> <span class="st">"System.Runtime.CompilerServices.Unsafe.dll"</span><span class="op">));</span></span>
+<span id="annotated-cell-3-39"><a href="#annotated-cell-3-39" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="annotated-cell-3-40"><a href="#annotated-cell-3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-41"><a href="#annotated-cell-3-41" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="kw">null</span><span class="op">!;</span></span>
+<span id="annotated-cell-3-42"><a href="#annotated-cell-3-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="annotated-cell-3-43"><a href="#annotated-cell-3-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="annotated-cell-3-44"><a href="#annotated-cell-3-44" aria-hidden="true" tabindex="-1"></a><span class="kw">#endif</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
@@ -491,11 +497,11 @@
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="30,31,32,33" data-code-annotation="3">針對 gRPC-Web client nuget 相依的 <code>Systems.Buffers</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="31,32,33,34" data-code-annotation="3">針對 gRPC-Web client nuget 相依的 <code>Systems.Buffers</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="35,36,37,38" data-code-annotation="4">針對 <code>Systems.Buffers</code> 相依的 <code>System.Runtime.CompilerServices.Unsafe.dll</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="36,37,38,39" data-code-annotation="4">針對 <code>Systems.Buffers</code> 相依的 <code>System.Runtime.CompilerServices.Unsafe.dll</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
 </dd>
 </dl>
 </section></section>
@@ -551,39 +557,43 @@
 <span id="cb4-9"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="section" class="slide level2 small scrollable">
+<section id="section-1" class="slide level2 small scrollable">
 <h2></h2>
 <p>原本在 PowrShell script 裡使用的是 PowerShell 定義的自訂 Class 類別，因此在執行完畢回傳 PowerShell 物件直接使用 <a href="https://learn.microsoft.com/dotnet/csharp/advanced-topics/interop/using-type-dynamic"><strong><code>dynamic</code></strong> keyword</a> 寫法簡化取得 FilePath1 &amp; FilePath2 屬性值程式碼。</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs</strong></pre>
 </div>
-<div class="sourceCode" id="annotated-cell-6" data-filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs"><pre class="sourceCode numberSource csharp cs code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1"></a><span class="dt">var</span> result <span class="op">=</span></span>
-<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2"></a>    ps<span class="op">.</span><span class="fu">Invoke</span><span class="op">(</span>input<span class="op">:</span> <span class="kw">null</span><span class="op">,</span> settings<span class="op">:</span> psInvocationSettings<span class="op">)</span></span>
-<span id="annotated-cell-6-3"><a href="#annotated-cell-6-3"></a>        <span class="op">.</span><span class="fu">FirstOrDefault</span><span class="op">()?.</span><span class="fu">BaseObject</span> <span class="kw">as</span> <span class="dt">object</span><span class="op">[];</span></span>
-<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4"></a></span>
-<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5"></a><span class="dt">var</span> duplicateFileResults <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span>DuplicateFileResult<span class="op">&gt;(</span>result<span class="op">.</span><span class="fu">Length</span><span class="op">);</span></span>
-<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6"></a><span class="co">// use dynamic to make simpler coding style to avoid reflection</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-6-7" class="code-annotation-target"><a href="#annotated-cell-6-7"></a><span class="kw">foreach</span> <span class="op">(</span>dynamic duplicateFileInfo <span class="kw">in</span> result<span class="op">)</span></span>
-<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8"></a><span class="op">{</span></span>
-<span id="annotated-cell-6-9"><a href="#annotated-cell-6-9"></a>    <span class="dt">var</span> duplicateFileResult <span class="op">=</span> <span class="kw">new</span> DuplicateFileResult</span>
-<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10"></a>    <span class="op">{</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-6-11" class="code-annotation-target"><a href="#annotated-cell-6-11"></a>        SourceFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath1</span><span class="op">.</span><span class="fu">ToString</span><span class="op">(),</span></span>
-<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12"></a>        CompareFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath2</span><span class="op">.</span><span class="fu">ToString</span><span class="op">()</span></span>
-<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13"></a>    <span class="op">};</span></span>
-<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14"></a>    duplicateFileResults<span class="op">.</span><span class="fu">Add</span><span class="op">(</span>duplicateFileResult<span class="op">);</span></span>
-<span id="annotated-cell-6-15"><a href="#annotated-cell-6-15"></a><span class="op">}</span></span>
-<span id="annotated-cell-6-16"><a href="#annotated-cell-6-16"></a></span>
-<span id="annotated-cell-6-17"><a href="#annotated-cell-6-17"></a><span class="kw">return</span> duplicateFileResults<span class="op">;</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-6" data-filename="src\DemoWebApi\Services\DuplicateFileFinderInvokeService.cs"><pre class="sourceCode csharp cs code-annotation-code code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> result <span class="op">=</span></span>
+<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a>    ps<span class="op">.</span><span class="fu">Invoke</span><span class="op">(</span>input<span class="op">:</span> <span class="kw">null</span><span class="op">,</span> settings<span class="op">:</span> psInvocationSettings<span class="op">)</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">FirstOrDefault</span><span class="op">()?.</span><span class="fu">BaseObject</span> <span class="kw">as</span> <span class="dt">object</span><span class="op">[];</span></span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> duplicateFileResults <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span>DuplicateFileResult<span class="op">&gt;(</span>result<span class="op">.</span><span class="fu">Length</span><span class="op">);</span></span>
+<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a><span class="co">// use dynamic to make simpler coding style to avoid reflection</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-6-7" class="code-annotation-target"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> <span class="op">(</span>dynamic duplicateFileInfo <span class="kw">in</span> result<span class="op">)</span></span>
+<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-6-9"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> duplicateFileResult <span class="op">=</span> <span class="kw">new</span> DuplicateFileResult</span>
+<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-6-11" class="code-annotation-target"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a>        SourceFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath1</span><span class="op">.</span><span class="fu">ToString</span><span class="op">(),</span></span>
+<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a>        CompareFilePath <span class="op">=</span> duplicateFileInfo<span class="op">.</span><span class="fu">FilePath2</span><span class="op">.</span><span class="fu">ToString</span><span class="op">()</span></span>
+<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a>    duplicateFileResults<span class="op">.</span><span class="fu">Add</span><span class="op">(</span>duplicateFileResult<span class="op">);</span></span>
+<span id="annotated-cell-6-15"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="annotated-cell-6-16"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-6-17"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a><span class="kw">return</span> duplicateFileResults<span class="op">;</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="7" data-code-annotation="1">使用 <code>dynamic</code> 關鍵字來簡化原本 PowerShell 程式碼中定義的自訂 class 型別。</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="3" data-code-annotation="1">由於原本 PowerShell script function 定義的回傳值是單個物件陣列，所以取得回傳值順便先轉型成 <code>object[]</code> 陣列。</span>
 </dd>
 <dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="11,12" data-code-annotation="2">就可以直接使用物件的屬性值（C#編譯器不檢查，如果寫錯就會有 runtime exception）。</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="7" data-code-annotation="2">使用 <code>dynamic</code> 關鍵字來簡化原本 PowerShell 程式碼中定義的自訂 class 型別。</span>
+</dd>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="11,12" data-code-annotation="3">就可以直接使用物件的屬性值（C#編譯器不檢查，如果寫錯就會有 runtime exception）。</span>
 </dd>
 </dl>
 <div class="quarto-figure quarto-figure-center">
