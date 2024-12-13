@@ -28,10 +28,12 @@ but... C# binary cmdlet 的測試案例撰寫相對較困難😵
    * 如何為 Windows PowerShell 的 C# binary cmdlet 撰寫 Assembly Resolver 以便成功載入 gRPC-Web client Library。
 * 繼承 `PSCmdlet` 類別所撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 如何使用 xUnit 測試框架來撰寫測試案例。
 * 使用混合 PowerShell .psd1 設定檔 + C# binary cmdlet 的方式來撰寫混合型 PowerShell Module 專案。
-    * 如何在 PowerShell 7+ 環境中執行。
+    * 如何在 Windows PowerShell v5.1 & PowerShell v7+ 環境中執行。
     * 如何針對 PowerShell + C# 程式碼的專案撰寫 PowerShell 的 Pester 測試案例。
 
 ## {.smaller .scrollable}
+
+gRPC-Web 的相依 Assembly dll 版本比原本 Windows PowerShell v5.1 所使用的版本新，需要寫額外的 Assembly Resolver 程式碼控制 .NET Framework CLR 載入 dll 機制。
 
 ```csharp{.cs filename="Pwsh\GreeterCmdlet\WindowsPowerShellModuleInitializer.cs" code-line-numbers="false"}
 #if NETSTANDARD2_0
@@ -81,5 +83,5 @@ internal static class DependencyResolution
 ```
 1. 實作 `IModuleAssemblyInitializer` 介面註冊 Assembly Resolver 事件處理函式。
 2. 實作 `IModuleAssemblyCleanup` 介面移除 Assembly Resolver 事件處理函式。
-3. 針對 gRPC-Web client nuget 相依的 `Systems.Buffers` 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。
-4. 針對 `Systems.Buffers` 相依的 `System.Runtime.CompilerServices.Unsafe.dll` 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。
+3. 針對 gRPC-Web client 套件相依 `Systems.Buffers.dll` 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。
+4. 針對 `Systems.Buffers` 相依 `System.Runtime.CompilerServices.Unsafe.dll` 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。
