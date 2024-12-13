@@ -351,7 +351,7 @@
 <ul>
 <li><a href="http://pester.dev">Pester</a> 是一個 PowerShell 的全家桶測試框架，可以用來撰寫測試案例、執行測試案例、產生測試報告。</li>
 <li>提供 <a href="http://pester.dev/docs/assertions/">Assertion Syntax</a> / <a href="http://pester.dev/docs/usage/mocking">Mock</a> / <a href="http://pester.dev/docs/commands/Invoke-Pester">Test Runner</a> / <a href="http://pester.dev/docs/usage/code-coverage">Code Coverage</a> 等進行測試驅動開發時需要的功能。</li>
-<li>提供測試用虛擬磁碟 <a href="http://pester.dev/docs/usage/testdrive"><code>TestDrive:</code></a> / 虛擬 Windows Registry <a href="http://pester.dev/docs/usage/testregistry"><code>TestRegistry:</code></a> 的執行環境隔離功能，方便進行測試程式碼撰寫。</li>
+<li>提供測試用虛擬磁碟 <a href="http://pester.dev/docs/usage/testdrive"><code>TestDrive:</code></a> /<br>虛擬 Windows Registry <a href="http://pester.dev/docs/usage/testregistry"><code>TestRegistry:</code></a> 的執行環境隔離功能，方便進行測試程式碼撰寫。</li>
 <li>跟 VSCode PowerShell Extension 整合，可在 <a href="http://pester.dev/docs/usage/vscode">VSCode 的 Code Lens中直接執行/除錯特定的單一 Pester 測試案例</a>。</li>
 <li>PowerShell 官方也使用此測試框架來寫測試案例。<br><a href="https://github.com/PowerShell/PowerShell/blob/master/docs/testing-guidelines/WritingPesterTests.md" class="uri">https://github.com/PowerShell/PowerShell/blob/master/docs/testing-guidelines/WritingPesterTests.md</a></li>
 </ul>
@@ -411,8 +411,8 @@
 <h3 id="demo-1"><strong><em>Demo</em></strong></h3>
 <p><a href="http://github.com/windperson/BinaryPwshModuleDemo">範例程式碼 GitHub</a></p>
 <ul>
-<li>使用 <a href="http://www.nuget.org/packages/PowerShellStandard.Library/"><code>PowerShell.Standard.Library</code> Nuget 套件</a>的 binary cmdlet 可在 Windows PowerShell 5.1+ &amp; PowerShell 7+ 環境中執行。</li>
-<li>使用 <a href="http://www.nuget.org/packages/System.Management.Automation/"><code>System.Management.Automation</code> Nuget 套件</a>的 binary cmdlet 僅能在 PowerShell Core/7+ 環境中執行。</li>
+<li>使用 <a href="http://www.nuget.org/packages/PowerShellStandard.Library/"><code>PowerShell.Standard.Library</code> Nuget 套件</a>的 binary cmdlet 可在 Windows PowerShell v5.1+ &amp; PowerShell v7+ 環境中執行。</li>
+<li>使用 <a href="http://www.nuget.org/packages/System.Management.Automation/"><code>System.Management.Automation</code> Nuget 套件</a>的 binary cmdlet 僅能在 PowerShell Core/v7+ 環境中執行。</li>
 <li>繼承 <code>Cmdlet</code> 類別來撰寫 PowerShell Simple function 的 binary cmdlet 實作。</li>
 <li>繼承 <code>PSCmdlet</code> 類別來撰寫 <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced">PowerShell Advanced function</a> 的 binary cmdlet 實作。</li>
 <li>使用 C# xUnit測試框架來撰寫繼承 <code>Cmdlet</code> 的測試案例。</li>
