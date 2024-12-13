@@ -430,13 +430,14 @@
 <li>繼承 <code>PSCmdlet</code> 類別所撰寫 <a href="http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced">PowerShell Advanced function</a> 的 binary cmdlet 如何使用 xUnit 測試框架來撰寫測試案例。</li>
 <li>使用混合 PowerShell .psd1 設定檔 + C# binary cmdlet 的方式來撰寫混合型 PowerShell Module 專案。
 <ul>
-<li>如何在 PowerShell 7+ 環境中執行。</li>
+<li>如何在 Windows PowerShell v5.1 &amp; PowerShell v7+ 環境中執行。</li>
 <li>如何針對 PowerShell + C# 程式碼的專案撰寫 PowerShell 的 Pester 測試案例。</li>
 </ul></li>
 </ul>
 </section>
 <section id="section" class="slide level2 smaller scrollable">
 <h2></h2>
+<p>gRPC-Web 的相依 Assembly dll 版本比原本 Windows PowerShell v5.1 所使用的版本新，需要寫額外的 Assembly Resolver 程式碼控制 .NET Framework CLR 載入 dll 機制。</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Pwsh\GreeterCmdlet\WindowsPowerShellModuleInitializer.cs</strong></pre>
@@ -497,11 +498,11 @@
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="31,32,33,34" data-code-annotation="3">針對 gRPC-Web client nuget 相依的 <code>Systems.Buffers</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="31,32,33,34" data-code-annotation="3">針對 gRPC-Web client 套件相依 <code>Systems.Buffers.dll</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="36,37,38,39" data-code-annotation="4">針對 <code>Systems.Buffers</code> 相依的 <code>System.Runtime.CompilerServices.Unsafe.dll</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="36,37,38,39" data-code-annotation="4">針對 <code>Systems.Buffers</code> 相依 <code>System.Runtime.CompilerServices.Unsafe.dll</code> 的 Assembly Resolver 實作，直接載入同目錄由 MSBuild 一起 copy 過來的 dll 版本。</span>
 </dd>
 </dl>
 </section></section>
