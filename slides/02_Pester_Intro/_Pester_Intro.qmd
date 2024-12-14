@@ -6,7 +6,7 @@
 * 跟 VSCode PowerShell Extension 整合，可在 [VSCode 的 Code Lens中直接執行/除錯特定的單一 Pester 測試案例](http://pester.dev/docs/usage/vscode)。
 * PowerShell 官方也使用此測試框架來寫測試案例。<br/><https://github.com/PowerShell/PowerShell/blob/master/docs/testing-guidelines/WritingPesterTests.md>
 
-## Pester 撰寫測試案例程式碼時的重點 {.scrollable}
+## Pester 撰寫測試案例程式碼重點 {.scrollable}
 
 * 以 `Describe` 來描述測試案例的主題，以 `Context` 來描述測試案例的子主題，以 `It` 來描述測試案例的斷言(Test Case)。
 * 雖然 Pester 自己預設行為是去搜尋執行目錄下以 `.Tests.ps1` 檔案名結尾的 PowerShell Script 檔案作為測試案例程式碼執行，但是得自行處理待測試 PowerShell Script 檔案( .ps1/.psm1 )的模組載入問題。
@@ -29,14 +29,15 @@
 [範例程式碼 GitHub](http://github.com/windperson/DemoPester)
 
 * 系統性的制式 Data-Driven 測試案例架構來驗證各模組函式的輸入參數名稱、型別、回傳值。
-* 由於 PowerShell 對於 .ps1 & .psm1 模組載入機制的不同，會造成某些待測模組的程式碼寫法，會不好撰寫測試程式碼。
+* 由於 PowerShell 對於 .ps1 & .psm1 模組載入機制的不同，會造成某些待測模組的程式碼寫法，很不容易撰寫測試程式碼。
   * `InModuleScope` 以便在待測模組載入時的環境變數設定自定義邏輯(塞入固定參數/Mock/Assertion程式碼)。
   * 藉由先宣告一些 Dummy function 來『先佔位』以便順利進行宣告 MOck 語法，然後再載入模組以便進行測試。
 * Pester Custom Assertion 的撰寫及註冊使用。
 
-## 系統性制式 Data-Driven 測試案例架構驗證各模組函式輸入參數名稱、型別、回傳值。{.smaller .scrollable}
+## 系統性制式 Data-Driven 測試案例架構驗證<br/>模組函式<br/>輸入參數名稱/型別/回傳型別{.smaller .scrollable}
 
-雖然 PowerShell 是 Strongly Typed Language，但是在專案寫大寫複雜時，仍然需要一些驗證機制來確定層層呼叫函式的輸入參數名稱、型別、回傳值型別是否正確。
+雖然 PowerShell 是 Strongly Typed Language，但是在專案寫大寫複雜時，仍然需要一些驗證機制來確定層層呼叫函式的輸入參數名稱、型別、回傳值型別是否正確。<br/>
+（ 避免跑script時被一堆 **Command/Parameter Not Found** 搞死）
 
 先說結論： 
 
@@ -150,6 +151,74 @@ function VerifyApiInputParameters {
 }
 ```
 
+## Pester Mock 功能在 InModuleScope 的***敏捷***使用 {.smaller .scrollable}
+
+在撰寫測試案例程式碼時，有時候會遇到待測試的 PowerShell Script 檔案中的函式呼叫，會依賴於其他函式的回傳值，這時候就需要使用 Pester 的 Mock 功能來模擬外部函式的回傳值。
+而定義在模組內但沒有 export 的函式，外界摸不到，這時候就需要使用 `InModuleScope` 區塊功能來正確定義要操作的內部函式 Mock。
+
+例如以下待測 PowerShell Script 檔案：
+
+```powershell {.ps1 filename="DemoScope\DemoUseAndRemoveMock\MyScript.psm1" code-line-numbers="1-6,14" }
+function Get-CurrentTime {
+    param()
+    $output = (Get-Date).ToString()
+    Write-Information -MessageData "In Real Get-CurrentTime() function, `$output=$output" -InformationAction Continue
+    return $output
+}
+
+function MyDateTime {
+    param()
+    $time = Get-CurrentTime
+    return "The current time is $time"
+}
+
+Export-ModuleMember MyDateTime
+```
+
+::: {.callout-tip}
+由於 `Get-CurrentTime` 函式沒有 export，所以外部無法直接對其 Mock 以避免測試結果會每次執行時都不同<br/>(`Get-CurrentTime` 內部有呼叫 [`Get-Date`](https://learn.microsoft.com/powershell/module/microsoft.powershell.utility/get-date) 取得實際時間），<br/>需使用 [`InModuleScope`](https://pester.dev/docs/commands/InModuleScope) 區塊在正確的PowerShell module 作用域內部定義 Mock。
+:::
+
+測試程式碼：
+
+```powershell {.ps1 filename="DemoScope\DemoUseAndRemoveMock\MyScript.Tests.ps1" code-line-numbers="true" }
+Describe "MyFunction" {
+    BeforeAll {
+        Import-Module "$PSScriptRoot/MyScript.psm1" -Verbose -Force
+    }
+    It "should return the mocked time" {
+        InModuleScope MyScript {                                            # <1>
+            Mock -CommandName Get-CurrentTime -MockWith {                   # <1>
+                $output = "2024-11-14 08:00:00"                             # <1>
+                Write-Information -MessageData `                            # <1>
+                    "In Mocked Get-CurrentTime(), output=$output" `         # <1>
+                    -InformationAction Continue                             # <1>
+                return $output                                              # <1>                                   
+            }                                                               # <1>
+
+            $result = MyDateTime                                            # <2>
+            $result | Should -Be "The current time is 2024-11-14 08:00:00"  # <2>
+
+            # Remove mocked Get-CurrentTime Function
+            Remove-Alias Get-CurrentTime                                    # <3> 
+        }
+
+        # Call the function again and check the result without the mock
+        $result = MyDateTime                                                # <4> 
+        $result | Should -Not -Be "The current time is 2024-11-14 08:00:00" # <4>
+    }
+}
+```
+1. 使用 `InModuleScope` 區塊來定義 Mock 的函式，這樣就可以在正確的 PowerShell module 作用域內部定義 Mock。
+2. 在 `InModuleScope` 區塊內部執行待測試的函式，並驗證其回傳值是否為前一步驟 Mock 的回傳值。
+3. 移除 Mock 的方法就是呼叫 [‵Remove-Alias‵](http://learn.microsoft.com/powershell/module/microsoft.powershell.utility/remove-alias) Cmdlet。
+4. 移除 Mock 後再次執行待測試的函式，並驗證其回傳值是否正確。
+
+所以在更為複雜的實際PowerShell Script專案架構中，可以使用此技巧撰寫測試案例程式碼提高 code coverage rate。
+
+::: {.callout-note}
+更複雜的如：<br>***載入 .ps1 script檔時會立刻執行的函式如何 Mock ？***<br/>參閱此範例專案的<br/>[`Demo1to1MappingTestModule/Production_test/ProductFeatures/StringFeatureModule/FormatDateTime.Tests.ps1`](https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production_test/ProductFeatures/StringFeatureModule/FormatDateTime.Tests.ps1#L28)</br>測試案例程式碼
+:::
 
 ## Pester Custom Assertion {.small .scrollable}
 
