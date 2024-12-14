@@ -6,7 +6,7 @@
 * 跟 VSCode PowerShell Extension 整合，可在 [VSCode 的 Code Lens中直接執行/除錯特定的單一 Pester 測試案例](http://pester.dev/docs/usage/vscode)。
 * PowerShell 官方也使用此測試框架來寫測試案例。<br/><https://github.com/PowerShell/PowerShell/blob/master/docs/testing-guidelines/WritingPesterTests.md>
 
-## Pester 撰寫測試案例程式碼重點 {.scrollable}
+## Pester 撰寫測試案例程式碼重點 {.small .scrollable}
 
 * 以 `Describe` 來描述測試案例的主題，以 `Context` 來描述測試案例的子主題，以 `It` 來描述測試案例的斷言(Test Case)。
 * 雖然 Pester 自己預設行為是去搜尋執行目錄下以 `.Tests.ps1` 檔案名結尾的 PowerShell Script 檔案作為測試案例程式碼執行，但是得自行處理待測試 PowerShell Script 檔案( .ps1/.psm1 )的模組載入問題。
