@@ -43,7 +43,7 @@
 
 > 藉由自行定義儲存 key-value 物件的 PowerShell 陣列，<br/>描述函式的名稱、輸入參數、回傳值，透過 Pester 的測試案例來驗證載入之模組有這些函式。
 
-```powershell {.ps1 filename="Demo1to1MappingTestModule\Production_test\ProductFeatures\MathFeatureModule\MathFeature.Tests.ps1" code-line-numbers="4-42" }
+```powershell{.ps1 filename="Demo1to1MappingTestModule\Production_test\ProductFeatures\MathFeatureModule\MathFeature.Tests.ps1" code-line-numbers="4-42" }
 Describe "Math function API declaration" -Tag "MathFeature", "FunctionDeclaration" {
     BeforeDiscovery {
         #region API definitions
@@ -220,11 +220,11 @@ Describe "MyFunction" {
 更複雜的如：<br>***載入 .ps1 script檔時會立刻執行的函式如何 Mock ？***<br/>參閱此範例專案的<br/>[`Demo1to1MappingTestModule/Production_test/ProductFeatures/StringFeatureModule/FormatDateTime.Tests.ps1`](https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production_test/ProductFeatures/StringFeatureModule/FormatDateTime.Tests.ps1#L28)</br>測試案例程式碼
 :::
 
-## Pester Custom Assertion {.small .scrollable}
+## Pester Custom Assertion {.smaller .scrollable}
 
 Pester 沒有提供浮點數值精確度比較的 Assertion Cmdlet, 所以就自己動手寫一個：
 
-```powershell {.ps1 filename="Demo1to1MappingTestModule\Production_test\ProductFeatures\MathFeatureModule\MathFeature.Tests.ps1" code-line-numbers="false" }
+```powershell{.ps1 filename="Demo1to1MappingTestModule\Production_test\ProductFeatures\MathFeatureModule\MathFeature.Tests.ps1" code-line-numbers="false" }
 function Should-BeEqualWithPrecision(                                                                          # <1>
   [double] $ActualValue, [double] $ExpectValue,                                                                # <2>
   [uint] $Precision,                                                                                           # <2>
