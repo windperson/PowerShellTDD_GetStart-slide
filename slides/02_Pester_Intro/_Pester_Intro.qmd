@@ -34,26 +34,118 @@
   * 藉由先宣告一些 Dummy function 來『先佔位』以便順利進行宣告 MOck 語法，然後再載入模組以便進行測試。
 * Pester Custom Assertion 的撰寫及註冊使用。
 
-## 系統性的制式 Data-Driven 測試案例架構來驗證各模組函式的輸入參數名稱、型別、回傳值。 {.small .scrollable}
+## 系統性制式 Data-Driven 測試案例架構驗證各模組函式輸入參數名稱、型別、回傳值。{.smaller .scrollable}
 
-雖然 PowerShell 是 Strongly Typed Language，但是在專案寫大寫複雜時，仍然需要一些驗證機制來確定呼叫的函式的輸入參數名稱、型別、回傳值型別是否正確。
+雖然 PowerShell 是 Strongly Typed Language，但是在專案寫大寫複雜時，仍然需要一些驗證機制來確定層層呼叫函式的輸入參數名稱、型別、回傳值型別是否正確。
 
-於是使用 [`Get-Command`](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/get-command) Cmdlet 來取得函式的參數資訊，然後透過 Pester 的測試案例來驗證之：
+先說結論： 
+
+> 藉由自行定義儲存 key-value 物件的 PowerShell 陣列，<br/>描述函式的名稱、輸入參數、回傳值，透過 Pester 的測試案例來驗證載入之模組有這些函式。
+
+```powershell {.ps1 filename="Demo1to1MappingTestModule\Production_test\ProductFeatures\MathFeatureModule\MathFeature.Tests.ps1" code-line-numbers="4-42" }
+Describe "Math function API declaration" -Tag "MathFeature", "FunctionDeclaration" {
+    BeforeDiscovery {
+        #region API definitions
+        $ApiDefinition = @(
+            @{
+                Name        = 'Invoke-Add'
+                CommandType = [System.Management.Automation.CommandTypes]::Function;
+                Inputs      = @{
+                    a = [int]
+                    b = [int]
+                }
+                Outputs     = @([int])
+            }
+            @{
+                Name        = 'Invoke-Sub'
+                CommandType = [System.Management.Automation.CommandTypes]::Function;
+                Inputs      = @{
+                    a = [int]
+                    b = [int]
+                }
+                Outputs     = @([int])
+            }
+            @{
+                Name        = 'Invoke-Mul'
+                CommandType = [System.Management.Automation.CommandTypes]::Function;
+                Inputs      = @{
+                    a = [int]
+                    b = [int]
+                }
+                Outputs     = @([int])
+            }
+            @{
+                Name        = 'Invoke-Div'
+                CommandType = [System.Management.Automation.CommandTypes]::Function;
+                Inputs      = @{
+                    a = [int]
+                    b = [int]
+                }
+                Outputs     = @([int])
+            }
+        )
+        #endregion
+    }
+    BeforeAll {
+        . (Resolve-Path $UtiltiyModulePath\VerifyPsDefApi.ps1)
+    }
+
+    It "Should have API `'<Name>`' defined in ApiDefinition" -ForEach $ApiDefinition {
+        VerifyApiDefinition -Name $Name -CommandType $CommandType
+    }
+}
+```
+
+原理是使用 [`Get-Command`](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/get-command) Cmdlet 來取得函式的 [CommandInfo](http://learn.microsoft.com/dotnet/api/system.management.automation.commandinfo) 物件，再透過 Pester 的各項屬性之測試案例來驗證各項資訊：
+
+*Step 1*: 驗證此函式是否存在於目前可使用的PowerShell模組之中。
 ```powershell {.ps1 filename="Demo1to1MappingTestModule\Production_test\VerifyPsDefApi.ps1" code-line-numbers="false" }
 function VerifyApiType() {
-    <#
-    .SYNOPSIS
-    Verify if the PowerShell executable command exists in the current session and is correct type.
-    #>
     param(
         [string] $Name,
         [System.Management.Automation.CommandTypes] $CommandType = [System.Management.Automation.CommandTypes]::Function
     )
 
     Process {
-        $targetExists = Get-Command -Name $Name -CommandType $CommandType -ErrorAction SilentlyContinue
-        $targetExists | Should -Not -BeNullOrEmpty
+        $targetExists = Get-Command -Name $Name -CommandType $CommandType -ErrorAction SilentlyContinue                   # <1>
+        $targetExists | Should -Not -BeNullOrEmpty                                                                        # <1> 
         return $targetExists
+    }
+}
+```
+1. 使用 `Get-Command` Cmdlet 來取得函式的參數資訊 CommandInfo 物件，然後透過 Pester 的測試案例確認物件存在，否則 test failed。
+
+*Step 2*: 驗證此函式的輸入參數名稱、型別是否正確。
+
+```powershell {.ps1 filename="Demo1to1MappingTestModule\Production_test\VerifyPsDefApi.ps1" code-line-numbers="18,23,27,28" }
+function VerifyApiInputParameters {
+    param(
+        [ValidateNotNull()]
+        [System.Management.Automation.CommandInfo]
+        $commandInfo,
+        [System.Collections.Hashtable]$designedParameters
+    )
+    # Note: since PowerShell's built-in Hashtable is case insensitive, we can't use it to exactly check function parameters
+    $parameterTable = New-Object 'System.Collections.Hashtable'
+    foreach ($key in $designedParameters.Keys) {
+        $parameterTable.Add($key, $designedParameters[$key])
+    }
+
+    $cmdletBuiltInParameters =
+    @('Verbose', 'Debug', 'ErrorAction', 'ErrorVariable', 'InformationAction', 'InformationVariable', 'WarningAction', 'WarningVariable', 'OutBuffer', 'OutVariable', 'PipelineVariable', 'ProgressAction',
+        'WhatIf', 'Confirm')
+
+    foreach ($parameter in $commandInfo.Parameters.Values.GetEnumerator()) {
+        $parameterName = $parameter.Name
+        if ( $commandInfo.CmdletBinding -and $cmdletBuiltInParameters -contains $parameterName) {
+            continue
+        }
+        $parameterTable.ContainsKey($parameterName) | Should -Be $true -Because "Parameter '$parameterName' should be exist"
+        $expectedType = $parameterTable[$parameterName]
+        # We compare type by its full name string, not rely on Pester's -BeOfType assertion
+        # see https://github.com/pester/Pester/issues/1315#issuecomment-756700291
+        $parameterTypeName = $parameter.ParameterType.FullName
+        $parameterTypeName | Should -Be $expectedType.ToString() -Because "Parameter '`$$parameterName' should be of type '$expectedType'"
     }
 }
 ```

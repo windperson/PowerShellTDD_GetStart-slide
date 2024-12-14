@@ -22,6 +22,9 @@ format:
                 -ms-transform: translateY(-50%), translateX(-50%);
                 transform: translateY(-50%), translateX(-50%);
                 }
+                .text-center {
+                text-align: center;
+                }
                 </style>
 from: markdown+emoji
 code-annotations: below
@@ -39,12 +42,11 @@ code-annotations: below
 :::
 ::: {.column width="20%"}
 
-<div style="text-align: center">
-
 {{< qrcode https://windperson.github.io/PowerShellTDD_GetStart-slide/#/title-slide width=220 height=220 >}}
 
-Slide URL
-</div>
+::::{.text-center .smaller}
+**Slide URL**
+::::
 
 :::
 ::::
