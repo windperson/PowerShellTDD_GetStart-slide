@@ -21,7 +21,7 @@
 
 * [Windows 10 & 11 (x64)](https://github.com/windperson/vscode_win32x64_pwsh)
 * [Windows 11 (ARM64)](https://github.com/windperson/vscode_win32Arm64_pwsh)
-* [macOS (ARM 64)]()
+* [macOS (ARM 64)](https://github.com/windperson/vscode_macOSARM64_pwsh)
 
 ## Example VSCode Environment - Windows(x64){.smaller .scrollable}
 

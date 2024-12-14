@@ -4,8 +4,8 @@ title: PowerShell TDD 起步走
 author: 老鮑伯
 format:
     revealjs:
-        width: 1200
-        height: 900
+        width: 1300
+        height: 1000
         slide-tone: false
         theme: simple
         menu:
@@ -41,7 +41,7 @@ code-annotations: below
 
 <div style="text-align: center">
 
-{{< qrcode https://windperson.github.io/PowerShellTDD_GetStart-slide/#/title-slide width=250 height=250 >}}
+{{< qrcode https://windperson.github.io/PowerShellTDD_GetStart-slide/#/title-slide width=220 height=220 >}}
 
 Slide URL
 </div>

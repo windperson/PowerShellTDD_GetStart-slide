@@ -33,3 +33,77 @@
   * `InModuleScope` 以便在待測模組載入時的環境變數設定自定義邏輯(塞入固定參數/Mock/Assertion程式碼)。
   * 藉由先宣告一些 Dummy function 來『先佔位』以便順利進行宣告 MOck 語法，然後再載入模組以便進行測試。
 * Pester Custom Assertion 的撰寫及註冊使用。
+
+## 系統性的制式 Data-Driven 測試案例架構來驗證各模組函式的輸入參數名稱、型別、回傳值。 {.small .scrollable}
+
+雖然 PowerShell 是 Strongly Typed Language，但是在專案寫大寫複雜時，仍然需要一些驗證機制來確定呼叫的函式的輸入參數名稱、型別、回傳值型別是否正確。
+
+於是使用 [`Get-Command`](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/get-command) Cmdlet 來取得函式的參數資訊，然後透過 Pester 的測試案例來驗證之：
+```powershell {.ps1 filename="Demo1to1MappingTestModule\Production_test\VerifyPsDefApi.ps1" code-line-numbers="false" }
+function VerifyApiType() {
+    <#
+    .SYNOPSIS
+    Verify if the PowerShell executable command exists in the current session and is correct type.
+    #>
+    param(
+        [string] $Name,
+        [System.Management.Automation.CommandTypes] $CommandType = [System.Management.Automation.CommandTypes]::Function
+    )
+
+    Process {
+        $targetExists = Get-Command -Name $Name -CommandType $CommandType -ErrorAction SilentlyContinue
+        $targetExists | Should -Not -BeNullOrEmpty
+        return $targetExists
+    }
+}
+```
+
+
+## Pester Custom Assertion {.small .scrollable}
+
+Pester 沒有提供浮點數值精確度比較的 Assertion Cmdlet, 所以就自己動手寫一個：
+
+```powershell {.ps1 filename="Demo1to1MappingTestModule\Production_test\ProductFeatures\MathFeatureModule\MathFeature.Tests.ps1" code-line-numbers="false" }
+function Should-BeEqualWithPrecision(                                                                          # <1>
+  [double] $ActualValue, [double] $ExpectValue,                                                                # <2>
+  [uint] $Precision,                                                                                           # <2>
+  [switch] $Negate,                                                                                            # <2>
+  [string] $Because                                                                                            # <2>
+) {
+    $pass = [math]::Round($ActualValue, $Precision) -eq [math]::Round($ExpectValue, $Precision)                # <3>
+    if ($Negate) {                                                                                             # <4>
+        $pass = -not $pass                                                                                     # <4>
+    }                                                                                                          # <4>
+
+    if (-not $pass) {                                                                                          # <5>
+        if ($Negate) {                                                                                         # <5> 
+            $failureMessage =                                                                                  # <5>
+              "Expected '$ActualValue' to not be equal to $ExpectValue$(if($Because) { " because $Because"})." # <5>
+        }                                                                                                      # <5>
+        else {                                                                                                 # <5> 
+            $failureMessage =                                                                                  # <5>
+              "Expected '$ActualValue' to be equal to $ExpectValue$(if($Because) { " because $Because"})."     # <5>
+        }                                                                                                      # <5>
+    }                                                                                                          # <5>
+
+    return [pscustomobject]@{                                                                                  # <6>
+        Succeeded      = $pass                                                                                 # <6>
+        FailureMessage = $failureMessage                                                                       # <6>
+    }                                                                                                          # <6>
+}
+```
+1. Pester Custom Assertion 就是一個自己寫的 [PowerShell Simple Function](http://learn.microsoft.com/powershell/scripting/learn/ps101/09-functions#a-simple-function)，`Verb-Noun` 的命名風格是 **Verb** 為 `Should` 不可改動，**Noun** `BeEqualWithPrecision` 為我們自己定義的名稱。
+2. 輸入和輸出的格式區符合 Pester 的規範：`$ActualValue` 是實際值，`$Negate` 是設定是否反轉布林邏輯，`$Because` 是 Assertion 失敗時的訊息，這三個輸入參數名稱一定要正確；而`$ExpectValue` 預期值和設定浮點數值精確度的 `$Precision` 是我們自己定義的額外輸入參數，可於撰寫測試程式碼的 Assertion statements 時多指定在程式碼中。
+3. 這個 Custom Assertion 的實作是透過將兩個浮點數值四捨五入到指定精確度後再比較是否相等，以達到比較浮點數值的精確度比較。
+4. 假如有指定 `$Negate` 參數，則反轉判斷結果的布林值。
+5. 為不同的 Assertion 結果設定不同的錯誤訊息。
+6. 最後回傳一個 [PSCustomObject](http://learn.microsoft.com/powershell/scripting/learn/deep-dives/everything-about-pscustomobject) 物件，其中包含了 Assertion 的結果布林值(`Succeeded`)和錯誤訊息(`FailureMessage`)。
+
+然後在測試案例程式碼中先呼叫 [`Add-ShouldOperator`](https://pester.dev/docs/commands/Add-ShouldOperator)註冊:
+```powershell {.ps1 filename="Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1" }
+Add-ShouldOperator -Name BeEqualWithPrecision -Test ${Function:Should-BeEqualWithPrecision}
+```
+就可以在撰寫測試案例程式碼時使用 `Should -BeEqualWithPrecision` 這個 Custom Assertion 了：
+```powershell {.ps1 filename="Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1" }
+$actual | Should -BeEqualWithPrecision -ExpectValue $expect -Precision 2
+```
