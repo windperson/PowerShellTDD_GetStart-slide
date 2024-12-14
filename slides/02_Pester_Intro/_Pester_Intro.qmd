@@ -34,7 +34,7 @@
   * 藉由先宣告一些 Dummy function 來『先佔位』以便順利進行宣告 MOck 語法，然後再載入模組以便進行測試。
 * Pester Custom Assertion 的撰寫及註冊使用。
 
-## 系統性制式 Data-Driven 測試案例架構驗證<br/>模組函式<br/>輸入參數名稱/型別/回傳型別{.smaller .scrollable}
+## 系統性制式 Data-Driven 測試案例架構驗證<br/>模組函式 輸入參數名稱/型別/回傳型別{.smaller .scrollable}
 
 雖然 PowerShell 是 Strongly Typed Language，但是在專案寫大寫複雜時，仍然需要一些驗證機制來確定層層呼叫函式的輸入參數名稱、型別、回傳值型別是否正確。<br/>
 （ 避免跑script時被一堆 **Command/Parameter Not Found** 搞死）
@@ -211,7 +211,7 @@ Describe "MyFunction" {
 ```
 1. 使用 `InModuleScope` 區塊來定義 Mock 的函式，這樣就可以在正確的 PowerShell module 作用域內部定義 Mock。
 2. 在 `InModuleScope` 區塊內部執行待測試的函式，並驗證其回傳值是否為前一步驟 Mock 的回傳值。
-3. 移除 Mock 的方法就是呼叫 [‵Remove-Alias‵](http://learn.microsoft.com/powershell/module/microsoft.powershell.utility/remove-alias) Cmdlet。
+3. 移除 Mock 的方法就是呼叫 [Remove-Alias](http://learn.microsoft.com/powershell/module/microsoft.powershell.utility/remove-alias) Cmdlet。
 4. 移除 Mock 後再次執行待測試的函式，並驗證其回傳值是否正確。
 
 所以在更為複雜的實際PowerShell Script專案架構中，可以使用此技巧撰寫測試案例程式碼提高 code coverage rate。
