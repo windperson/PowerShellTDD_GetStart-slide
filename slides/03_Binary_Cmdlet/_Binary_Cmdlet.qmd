@@ -63,11 +63,13 @@ but... C# binary cmdlet 的測試案例撰寫相對較困難😵
 ```
 
 
-## **(PowerShell + C# binary cmdlet)** call gRPC API {.scrollable}
+## **(PowerShell + C# binary cmdlet)** call gRPC API {.small .scrollable}
 
 ### ***Demo***
 
 [範例程式碼 GitHub](http://github.com/windperson/MultiPlatformPwshCmdletDemo)
+
+![]({{< meta part3_img_prefix >}}/pics/demo_grpc_cmdlet_screenshot.png){height=100% fig-align="center"}
 
 * 使用 [gRPC-web](https://devblogs.microsoft.com/dotnet/grpc-web-experiment/) 的 C# Client Nuget 套件以便在不支援 HTTP/2 的 Windows PowerShell 環境中呼叫 gRPC 服務。
    * 如何為 Windows PowerShell 的 C# binary cmdlet 撰寫 Assembly Resolver 以便成功載入 gRPC-Web client Library。
