@@ -94,6 +94,21 @@ code-annotations: below
 * [Mastering PowerShell ValidateScript for Better Input](https://adamtheautomator.com/powershell-validatescript/)
 * [Simplifying Parameter Validation in PowerShell with Private Functions](https://mikefrobbins.com/2018/04/26/simplifying-parameter-validation-in-powershell-with-private-functions/)
 
-# Q & A {.center-xy}
+# Q & A
 
+:::: {.columns}
+::: {.column width="30%"}
+
+:::: {.text-center}
 Any Questions?🙋‍♂️🙋‍♀️
+::::
+
+:::
+::: {.column width="70%"}
+
+![](./pics/shell_knights.jpg){fig-align="center"}
+
+:::
+::::
+
+# {visibility="uncounted" background-image="./pics/special_thanks.png" background-position="center" background-repeat="no-repeat" background-size="100%"}

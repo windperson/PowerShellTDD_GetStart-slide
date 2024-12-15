@@ -17,7 +17,7 @@
 
 此 PowerShell script 在先前的 [Pester test case 範例專案中提供](https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production/ProductFeatures/SysAdminUtil/DuplicateFilesFinder.psm1)並且已有[驗證行為的測試案例](https://github.com/windperson/DemoPester/blob/main/Demo1to1MappingTestModule/Production_test/ProductFeatures/SysAdminUtil/DuplicateFilesFinder.Tests.ps1)。
 
-![]({{< meta part4_img_prefix >}}pics/cli_run_Duplicate_File_Finder.png){height=100% fig-align="center"}
+![]({{< meta part4_img_prefix >}}pics/cli_run_Duplicate_File_Finder.png){ height="100%" fig-align="center"}
 
 使用 PowerShell 來撰寫取得所有有特定副檔名的檔案邏輯，比單純使用 C# 簡單:
 

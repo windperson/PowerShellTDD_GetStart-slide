@@ -63,7 +63,7 @@ but... C# binary cmdlet 的測試案例撰寫相對較困難😵
 ```
 
 
-## **(PowerShell + C# binary cmdlet)** call gRPC API
+## **(PowerShell + C# binary cmdlet)** call gRPC API {.scrollable}
 
 ### ***Demo***
 
@@ -72,9 +72,30 @@ but... C# binary cmdlet 的測試案例撰寫相對較困難😵
 * 使用 [gRPC-web](https://devblogs.microsoft.com/dotnet/grpc-web-experiment/) 的 C# Client Nuget 套件以便在不支援 HTTP/2 的 Windows PowerShell 環境中呼叫 gRPC 服務。
    * 如何為 Windows PowerShell 的 C# binary cmdlet 撰寫 Assembly Resolver 以便成功載入 gRPC-Web client Library。
 * 繼承 [`PSCmdlet`](http://learn.microsoft.com/dotnet/api/system.management.automation.pscmdlet) 類別所撰寫 [PowerShell Advanced function](http://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_advanced) 的 binary cmdlet 如何使用 xUnit 測試框架來撰寫測試案例。
-* 使用混合 PowerShell .psd1 設定檔 + C# binary cmdlet 的方式來撰寫混合型 PowerShell Module 專案。
+* 使用混合 PowerShell module (.psd1 & .psm1) + C# binary cmdlet 的方式來撰寫混合型 PowerShell Module 專案。
     * 如何於 Windows PowerShell v5.1 & PowerShell v7+ 跑偵錯。
     * 如何針對 PowerShell + C# 程式碼的專案撰寫 PowerShell 的 Pester 測試案例。
+
+---
+
+PowerShell extension for Visual Studio Code 提供可從 PowerShell script 偵錯到 C# binary cmdlet 的功能：
+
+```json{.json filename=".vscode/launch.json" code-line-numbers="10,11"}
+{
+    "configurations": [
+        // other configurations
+        {
+            "name": "(Pwsh v7)Debug both Pwsh & C#",
+            "type": "PowerShell",
+            "request": "launch",
+            "preLaunchTask": "build PowerShell Cmdlet",
+            "script": "${workspaceFolder}/Pwsh/debug_scripts/debug-pwsh.ps1",
+            "createTemporaryIntegratedConsole": true,
+            "attachDotnetDebugger": true
+        }
+    ]
+}
+```
 
 ## {.smaller .scrollable}
 
