@@ -9,7 +9,8 @@
 
 ## VSCode as PowerShell TDD IDE{.scrollable}
 
-* 為了有一個乾淨＆快速的TDD開發環境，建議使用[ Portable 版本的 VSCode](http://code.visualstudio.com/docs/editor/portable)，以免同時安裝太多擴充套件消耗資源。
+* 為了有一個乾淨＆快速的TDD開發環境，建議使用[ Portable 版本的 VSCode](http://code.visualstudio.com/docs/editor/portable)，以免同時安裝太多擴充套件消耗資源。  
+  <https://code.visualstudio.com/download>  
   ![]({{< meta part1_img_prefix >}}pics/vscode_zip_version.png){height=100% fig-align="center"}
 * 一定要安裝的套件其實只有三個(去掉 Vim 😆)：<br/>
 ([C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)套件非免費且無法在封閉內網環境使用)
