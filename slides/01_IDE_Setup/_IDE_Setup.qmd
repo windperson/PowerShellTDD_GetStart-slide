@@ -60,6 +60,13 @@ $AnyObject | Out-Dump
 
 ![]({{< meta part1_img_prefix >}}pics/demo_PowerShell.dumPS.png){fig-align="center"}
 
+### Reset 專案開發環境
+
+如果當此 VSCode 開發環境因為一些手誤使得開啟某些專案時工作區(worksapce) UI 配置跑掉，或是有不正常的 debug 選項在 Run and Debug 頁籤出現，需要重置時，只需要將 `vscode_data\user-data\User\workspaceStorage` 中，**workspace.json** 檔案指到原本專案項目的整個子目錄刪除即可：
+
+![]({{< meta part1_img_prefix >}}pics/vscode_project_workspace_hidden_setting_storage.png){height=100% fig-align="center"}
+
+
 ## Example VSCode Environment - Windows(x64) {.smaller .scrollable}
 
 在 pwsh-scripts 目錄的開發環境設定用 script 檔案：
