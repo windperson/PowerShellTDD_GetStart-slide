@@ -260,11 +260,11 @@ function Should-BeEqualWithPrecision(                                           
 5. 為不同的 Assertion 結果設定不同的錯誤訊息。
 6. 最後回傳一個 [PSCustomObject](http://learn.microsoft.com/powershell/scripting/learn/deep-dives/everything-about-pscustomobject) 物件，其中包含了 Assertion 的結果布林值(`Succeeded`)和錯誤訊息(`FailureMessage`)。
 
-然後在測試案例程式碼中先呼叫 [`Add-ShouldOperator`](https://pester.dev/docs/commands/Add-ShouldOperator)註冊:
-```powershell {.ps1 filename="Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1" }
+然後在測試案例程式碼中先呼叫 [`Add-ShouldOperator`](https://pester.dev/docs/commands/Add-ShouldOperator)註冊該 Custom Assertion:
+```powershell {.ps1 filename="Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1" code-line-numbers="false"}
 Add-ShouldOperator -Name BeEqualWithPrecision -Test ${Function:Should-BeEqualWithPrecision}
 ```
 就可以在撰寫測試案例程式碼時使用 `Should -BeEqualWithPrecision` 這個 Custom Assertion 了：
-```powershell {.ps1 filename="Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1" }
+```powershell {.ps1 filename="Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1" code-line-numbers="false"}
 $actual | Should -BeEqualWithPrecision -ExpectValue $expect -Precision 2
 ```
