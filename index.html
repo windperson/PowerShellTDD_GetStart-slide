@@ -691,19 +691,19 @@
 <span data-code-cell="annotated-cell-8" data-code-lines="23,24,25,26" data-code-annotation="6">最後回傳一個 <a href="http://learn.microsoft.com/powershell/scripting/learn/deep-dives/everything-about-pscustomobject">PSCustomObject</a> 物件，其中包含了 Assertion 的結果布林值(<code>Succeeded</code>)和錯誤訊息(<code>FailureMessage</code>)。</span>
 </dd>
 </dl>
-<p>然後在測試案例程式碼中先呼叫 <a href="https://pester.dev/docs/commands/Add-ShouldOperator"><code>Add-ShouldOperator</code></a>註冊:</p>
+<p>然後在測試案例程式碼中先呼叫 <a href="https://pester.dev/docs/commands/Add-ShouldOperator"><code>Add-ShouldOperator</code></a>註冊該 Custom Assertion:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1</strong></pre>
 </div>
-<div class="sourceCode" id="cb6" data-filename="Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1"><pre class="sourceCode numberSource powershell ps1 number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb6-1"><a href=""></a>Add-ShouldOperator <span class="op">-</span>Name BeEqualWithPrecision <span class="op">-</span>Test <span class="pp">${</span><span class="va">Function:Should-BeEqualWithPrecision</span><span class="pp">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6" data-filename="Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1"><pre class="sourceCode powershell ps1 code-with-copy"><code class="sourceCode powershell"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a>Add-ShouldOperator <span class="op">-</span>Name BeEqualWithPrecision <span class="op">-</span>Test <span class="pp">${</span><span class="va">Function:Should-BeEqualWithPrecision</span><span class="pp">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>就可以在撰寫測試案例程式碼時使用 <code>Should -BeEqualWithPrecision</code> 這個 Custom Assertion 了：</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1</strong></pre>
 </div>
-<div class="sourceCode" id="cb7" data-filename="Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1"><pre class="sourceCode numberSource powershell ps1 number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb7-1"><a href=""></a><span class="va">$actual</span> <span class="op">|</span> Should <span class="op">-</span>BeEqualWithPrecision <span class="op">-</span>ExpectValue <span class="va">$expect</span> <span class="op">-</span>Precision <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7" data-filename="Demo1to1MappingTestModule/Production_test/ProductFeatures/MathFeatureModule/MathFeature.Tests.ps1"><pre class="sourceCode powershell ps1 code-with-copy"><code class="sourceCode powershell"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="va">$actual</span> <span class="op">|</span> Should <span class="op">-</span>BeEqualWithPrecision <span class="op">-</span>ExpectValue <span class="va">$expect</span> <span class="op">-</span>Precision <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
