@@ -67,7 +67,9 @@ code-annotations: below
 
 {{< include 04_AspNetCore_Host/_AspNetCore_Host.qmd >}}
 
-# 參考資料 {.smaller .scrollable}
+# 參考資料 {.smallest}
+
+::: {style="overflow-y: scroll; height: 860px;"}
 
 * [Differences between Windows PowerShell 5.1 and PowerShell 7.x](http://learn.microsoft.com/powershell/scripting/whats-new/differences-from-windows-powershell)
 * Udemy course [PowerShell for Sysadmins: Getting Started (v7+)](https://www.udemy.com/course/powershell-for-sysadmins-getting-started/)
@@ -93,6 +95,8 @@ code-annotations: below
 * [PowerShell TDD: Testing ShouldProcess](https://www.hans-eric.com/2022/07/12/powershell-tdd-testing-shouldprocess/)
 * [Mastering PowerShell ValidateScript for Better Input](https://adamtheautomator.com/powershell-validatescript/)
 * [Simplifying Parameter Validation in PowerShell with Private Functions](https://mikefrobbins.com/2018/04/26/simplifying-parameter-validation-in-powershell-with-private-functions/)
+
+:::
 
 # Q & A
 
