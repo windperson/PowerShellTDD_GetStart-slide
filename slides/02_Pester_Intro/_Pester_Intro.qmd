@@ -254,7 +254,7 @@ function Should-BeEqualWithPrecision(                                           
 }
 ```
 1. Pester Custom Assertion 就是一個自己寫的 [PowerShell Simple Function](http://learn.microsoft.com/powershell/scripting/learn/ps101/09-functions#a-simple-function)，`Verb-Noun` 的命名風格是 **Verb** 為 `Should` 不可改動，**Noun** `BeEqualWithPrecision` 為我們自己定義的名稱。
-2. 輸入和輸出的格式區符合 Pester 的規範：`$ActualValue` 是實際值，`$Negate` 是設定是否反轉布林邏輯，`$Because` 是 Assertion 失敗時的訊息，這三個輸入參數名稱一定要正確；而`$ExpectValue` 預期值和設定浮點數值精確度的 `$Precision` 是我們自己定義的額外輸入參數，可於撰寫測試程式碼的 Assertion statements 時多指定在程式碼中。
+2. 輸入和輸出的格式得配合 Pester 的規範：`$ActualValue` 是實際值，`$Negate` 是設定是否反轉布林邏輯，`$Because` 是 Assertion 失敗時印出的訊息，這三個輸入參數的名稱一定要正確；而`$ExpectValue` 預期值和設定浮點數值精確度的 `$Precision` 是我們自己定義的額外輸入參數，可於撰寫測試程式碼的 Assertion statements 時多指定在呼叫程式碼中。
 3. 這個 Custom Assertion 的實作是透過將兩個浮點數值四捨五入到指定精確度後再比較是否相等，以達到比較浮點數值的精確度比較。
 4. 假如有指定 `$Negate` 參數，則反轉判斷結果的布林值。
 5. 為不同的 Assertion 結果設定不同的錯誤訊息。
