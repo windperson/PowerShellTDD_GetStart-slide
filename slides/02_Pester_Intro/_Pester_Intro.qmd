@@ -31,7 +31,7 @@
 * 系統性的制式 Data-Driven 測試案例架構來驗證各模組函式的輸入參數名稱、型別、回傳值。
 * 由於 PowerShell 對於 .ps1 & .psm1 模組載入機制的不同，會造成某些待測模組的程式碼寫法，很不容易撰寫測試程式碼。
   * `InModuleScope` 以便在待測模組載入時的環境變數設定自定義邏輯(塞入固定參數/Mock/Assertion程式碼)。
-  * 藉由先宣告一些 Dummy function 來『先佔位』以便順利進行宣告 MOck 語法，然後再載入模組以便進行測試。
+  * 藉由先宣告一些 Dummy function 來『先佔位』以便順利進行宣告 Mock 語法，然後再載入 PowerShell 模組以便進行測試。
 * Pester Custom Assertion 的撰寫及註冊使用。
 
 ## 系統性制式 Data-Driven 測試案例架構驗證<br/>模組函式 輸入參數名稱/型別/回傳型別{.smaller .scrollable}
