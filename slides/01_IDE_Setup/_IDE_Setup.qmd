@@ -71,7 +71,7 @@ $AnyObject | Out-Dump
 
 在 pwsh-scripts 目錄的開發環境設定用 script 檔案：
 
-* **PSScriptAnalyzerSettings.psd1**<br/>用來控制 VSCode 官方 PowerShell Extension 內建的 [PSScriptAnalyzer(PowerShell Syntax Linter)](https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyze) 設定檔。 
+* **PSScriptAnalyzerSettings.psd1**<br/>用來控制 VSCode 官方 PowerShell Extension 內建的 [PSScriptAnalyzer(PowerShell Syntax Linter)](https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/using-scriptanalyzer) 設定檔。 
 * **Set-PwshTools.ps1**<br/>替代 PowerShell Profile 的設定檔，用來設定 VSCode 整合終端機中 PowerShell 命令列的自動完成功能相關設定以及添加一些類似 Unix 環境的檔案命令。
     
     ```json
