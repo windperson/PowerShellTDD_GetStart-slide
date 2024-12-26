@@ -67,7 +67,7 @@ code-annotations: below
 
 {{< include 04_AspNetCore_Host/_AspNetCore_Host.qmd >}}
 
-# 參考資料 {.smallest}
+# 參考資料🏫{.smallest}
 
 ::: {style="overflow-y: scroll; height: 860px;"}
 
@@ -104,15 +104,15 @@ code-annotations: below
 ::: {.column width="30%"}
 
 :::: {.text-center}
-Any Questions?🙋‍♂️🙋‍♀️
+Any Questions?<br/>🙋‍♂️🙋‍♀️🙋
 ::::
 
 :::
 ::: {.column width="70%"}
 
-![](./pics/shell_knights.jpg){fig-align="center"}
+![](./pics/shell_knights.png){width="78%" fig-align="center"}
 
 :::
 ::::
 
-# {visibility="uncounted" background-image="./pics/special_thanks.png" background-position="center" background-repeat="no-repeat" background-size="100%"}
+# Sponsors { style="visibility: hidden;" visibility="uncounted" background-image="./pics/dotnetConf-2024-STUDY4_sponsor.png" background-position="center" background-repeat="no-repeat" background-size="100%"}
