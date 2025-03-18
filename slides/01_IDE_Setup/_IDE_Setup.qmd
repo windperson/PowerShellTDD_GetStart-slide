@@ -66,6 +66,14 @@ $AnyObject | Out-Dump
 
 ![]({{< meta part1_img_prefix >}}pics/vscode_project_workspace_hidden_setting_storage.png){height=100% fig-align="center"}
 
+假如是正常安裝版本的 Visual Studio Code，則可在下列位置中找到相同檔案。
+
+| OS | 路徑 |
+|----|------|
+| Windows | `%APPDATA%\Code\User\workspaceStorage` |
+| macOS | `~/Library/Application Support/Code/User/workspaceStorage` |
+| Linux | `~/.config/Code/User/workspaceStorage` |
+
 
 ## Example VSCode Environment - Windows(x64) {.smaller .scrollable}
 
